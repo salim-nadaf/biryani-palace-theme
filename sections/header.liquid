@@ -34,7 +34,7 @@
           <li><a href="/pages/menu" class="{% if request.path contains '/menu' %}active{% endif %}">Menu</a></li>
           <li><a href="/collections/instant-delivery" class="nav-cta {% if request.path contains 'instant-delivery' %}active{% endif %}">Instant Delivery</a></li>
           <li><a href="/pages/family-feast" class="nav-cta {% if request.path contains 'family-feast' %}active{% endif %}">Family Orders</a></li>
-          <li><a href="/pages/about" class="{% if request.path contains '/about' %}active{% endif %}">About</a></li>
+          <li><a href="/pages/our-story" class="{% if request.path contains 'our-story' or request.path contains 'about' %}active{% endif %}">About</a></li>
           <li><a href="/pages/contact" class="{% if request.path contains '/contact' %}active{% endif %}">Contact</a></li>
         </ul>
       </nav>
