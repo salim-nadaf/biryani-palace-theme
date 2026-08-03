@@ -1,0 +1,112 @@
+<section class="family-orders-section animate-on-scroll" id="FamilyOrdersHomeSection" aria-label="Family and Group Orders">
+  <div class="container">
+
+    <div class="section-header section-header--center">
+      <span class="section-label">{{ section.settings.label | default: 'Family & Group Orders' }}</span>
+      <h2 class="section-title">{{ section.settings.heading | default: 'Feed the Whole Family' }}</h2>
+      <p class="section-sub">{{ section.settings.subheading | default: 'Generous portions cooked fresh for family gatherings, office lunches, and special occasions.' }}</p>
+    </div>
+
+    <!-- Notice Box -->
+    <div class="family-notice">
+      <div class="family-notice__icon">⏰</div>
+      <div class="family-notice__text">
+        <strong>Minimum 3 Hours Advance Notice Required</strong> — Every family meal is slow-cooked on dum specifically for your order. We confirm availability and send a payment link before preparation starts.
+      </div>
+    </div>
+
+    <!-- Sizes Grid -->
+    <div class="family-sizes-grid">
+
+      <!-- 1 KG -->
+      <div class="family-size-card">
+        <span class="family-size-card__emoji">🍲</span>
+        <h3 class="family-size-card__size">1 KG Dum Biryani</h3>
+        <div class="family-size-card__serves">Serves 4–5 People</div>
+        <div class="family-size-card__price">₹899 <span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;">onwards</span></div>
+        <p class="family-size-card__note">Includes 2 Complimentary Raitas & Salan</p>
+        <div class="family-size-card__cta">
+          <a href="/pages/family-feast" class="btn btn-outline btn-full btn-sm" id="FamilyOrder1Kg">Pre-order 1 KG</a>
+        </div>
+      </div>
+
+      <!-- 2 KG -->
+      <div class="family-size-card featured">
+        <span class="family-size-card__emoji">👑</span>
+        <h3 class="family-size-card__size">2 KG Dum Biryani</h3>
+        <div class="family-size-card__serves">Serves 8–10 People</div>
+        <div class="family-size-card__price">₹1,699 <span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;">onwards</span></div>
+        <p class="family-size-card__note">Includes Free Dessert + Raita & Salan</p>
+        <div class="family-size-card__cta">
+          <a href="/pages/family-feast" class="btn btn-primary btn-full btn-sm" id="FamilyOrder2Kg">Pre-order 2 KG</a>
+        </div>
+      </div>
+
+      <!-- 3 KG -->
+      <div class="family-size-card">
+        <span class="family-size-card__emoji">🏰</span>
+        <h3 class="family-size-card__size">3 KG Dum Biryani</h3>
+        <div class="family-size-card__serves">Serves 12–15 People</div>
+        <div class="family-size-card__price">₹2,499 <span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;">onwards</span></div>
+        <p class="family-size-card__note">Includes Starter + Dessert + Raita</p>
+        <div class="family-size-card__cta">
+          <a href="/pages/family-feast" class="btn btn-outline btn-full btn-sm" id="FamilyOrder3Kg">Pre-order 3 KG</a>
+        </div>
+      </div>
+
+      <!-- Bulk / Catering -->
+      <div class="family-size-card">
+        <span class="family-size-card__emoji">🎉</span>
+        <h3 class="family-size-card__size">5 KG+ Bulk Orders</h3>
+        <div class="family-size-card__serves">Serves 20+ People</div>
+        <div class="family-size-card__price">Custom Quote</div>
+        <p class="family-size-card__note">Weddings, Parties & Corporate Lunches</p>
+        <div class="family-size-card__cta">
+          <a href="https://wa.me/{{ settings.whatsapp_number }}?text=Hi,%20I%20would%20like%20a%20custom%20quote%20for%20a%20bulk%20biryani%20order." class="btn btn-outline btn-full btn-sm" target="_blank" rel="noopener" id="FamilyOrderBulk">WhatsApp Inquiry</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom link -->
+    <div style="text-align:center;">
+      <a href="/pages/family-feast" class="btn btn-primary btn-lg" id="FamilyFeastMainCta">
+        Reserve Your Family Feast →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Family Orders Home",
+  "tag": "section",
+  "class": "section-family-orders-home",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label",
+      "default": "Family & Group Orders"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Feed the Whole Family"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Generous portions cooked fresh for family gatherings, office lunches, and special occasions."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Family Orders Home"
+    }
+  ]
+}
+{% endschema %}

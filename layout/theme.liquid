@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="{{ settings.color_background }}">
+
+  <title>
+    {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}
+    {% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}
+    {% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% else %}
+
+  <!-- SEO: Canonical & OG -->
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:title" content="{{ page_title | escape }}">
+  <meta property="og:type" content="{% if template == 'product' %}product{% else %}website{% endif %}">
+  {% if page_image %}
+    <meta property="og:image" content="{{ page_image | image_url: width: 1200 }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ page_image | image_url: width: 1200 }}">
+  {% endif %}
+  {% if page_description %}
+    <meta property="og:description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shopify required tags -->
+  {{ content_for_header }}
+
+  <!-- Theme stylesheet -->
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <!-- Inline CSS custom properties from Shopify settings -->
+<style>
+  :root {
+    --color-bg: {{ settings.color_background }};
+    --color-surface: {{ settings.color_surface }};
+    --color-surface-elevated: {{ settings.color_surface_elevated }};
+    --color-primary: {{ settings.color_primary }};
+    --color-primary-dark: {{ settings.color_primary_dark }};
+    --color-accent: {{ settings.color_accent }};
+    --color-text-primary: {{ settings.color_text_primary }};
+    --color-text-secondary: {{ settings.color_text_secondary }};
+    --color-border: {{ settings.color_border }};
+    --color-veg: {{ settings.color_veg }};
+    --color-nonveg: {{ settings.color_nonveg }};
+    --font-size-base: {{ settings.font_size_base }}px;
+    --logo-width: {{ settings.logo_width }}px;
+  }
+</style>
+
+
+  <!-- Restaurant + Local Business Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": {{ settings.brand_name | default: shop.name | json }},
+    "description": "Premium Dum Biryani prepared fresh and delivered across Kalyan. Freshly prepared, 100% Halal.",
+    "url": {{ shop.url | json }},
+    "telephone": {{ settings.phone_number | json }},
+    "servesCuisine": ["Indian", "Biryani", "Mughlai"],
+    "priceRange": "₹₹",
+    "currenciesAccepted": "INR",
+    "paymentAccepted": "Cash, Credit Card, Debit Card, UPI",
+    "hasMenu": "{{ shop.url }}/pages/menu",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{ settings.address_line | json }},
+      "addressLocality": "Kalyan",
+      "addressRegion": "Maharashtra",
+      "postalCode": "421301",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "19.2403",
+      "longitude": "73.1305"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "{{ settings.kitchen_opens | default: '12:00' }}",
+        "closes": "{{ settings.kitchen_closes | default: '22:30' }}"
+      }
+    ],
+    "sameAs": [
+      {{ settings.social_instagram | json }},
+      {{ settings.social_facebook | json }}
+    ]
+  }
+  </script>
+
+  {% if template == 'index' %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Where do you deliver?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ settings.delivery_areas | default: 'Kalyan West, Kalyan East, Dombivli, Ambernath' | json }}
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does delivery take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Instant delivery orders are typically ready in 30–60 minutes. Family pre-orders require a minimum 3 hours advance notice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is your biryani Halal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all our products are 100% Halal certified."
+        }
+      }
+    ]
+  }
+  </script>
+  {% endif %}
+
+  <!-- Meta Pixel (Facebook/Instagram Ads) -->
+  {% if settings.facebook_pixel_id != blank %}
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '{{ settings.facebook_pixel_id }}');
+    fbq('track', 'PageView');
+    {% if template == 'product' %}
+    fbq('track', 'ViewContent', {
+      content_name: {{ product.title | json }},
+      content_ids: [{{ product.id | json }}],
+      content_type: 'product',
+      value: {{ product.price | times: 0.01 }},
+      currency: 'INR'
+    });
+    {% endif %}
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ settings.facebook_pixel_id }}&ev=PageView&noscript=1"/></noscript>
+  {% endif %}
+
+  <!-- Google Analytics 4 -->
+  {% if settings.ga4_measurement_id != blank %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.ga4_measurement_id }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ settings.ga4_measurement_id }}', {
+      page_title: {{ page_title | json }},
+      page_location: window.location.href
+    });
+    {% if template == 'product' %}
+    gtag('event', 'view_item', {
+      currency: 'INR',
+      value: {{ product.price | times: 0.01 }},
+      items: [{ item_id: {{ product.id | json }}, item_name: {{ product.title | json }}, price: {{ product.price | times: 0.01 }} }]
+    });
+    {% endif %}
+  </script>
+  {% endif %}
+</head>
+
+<body class="{% if settings.header_sticky %}has-sticky-header{% endif %}" id="MainBody">
+
+  <!-- Skip to content link for accessibility -->
+  <a class="skip-to-content" href="#MainContent">Skip to content</a>
+
+  <!-- Cart drawer overlay -->
+  <div class="cart-overlay" id="CartOverlay" aria-hidden="true"></div>
+
+  <!-- Cart drawer -->
+  {% section 'cart-drawer' %}
+
+  <!-- Header -->
+  {% section 'header' %}
+
+  <!-- Main Content -->
+  <main id="MainContent" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  <!-- Footer -->
+  {% section 'footer' %}
+
+
+  <!-- Mobile Sticky Order Bar (shows only on mobile) -->
+  <div class="sticky-order-bar" id="StickyOrderBar" aria-label="Quick order options">
+    <a
+      href="{{ settings.instant_delivery_url | default: '/pages/start-your-order' }}"
+      class="sticky-order-bar__btn sticky-order-bar__instant"
+      id="StickyInstantBtn"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Order Now
+    </a>
+    <a
+      href="{{ settings.family_orders_url | default: '/pages/family-feast' }}"
+      class="sticky-order-bar__btn sticky-order-bar__family"
+      id="StickyFamilyBtn"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Family Orders
+    </a>
+  </div>
+
+  <!-- Smart Add-on Modal -->
+  <div class="addon-modal" id="AddonModal" role="dialog" aria-modal="true" aria-label="Complete your meal" aria-hidden="true">
+    <div class="addon-modal__backdrop" id="AddonModalBackdrop"></div>
+    <div class="addon-modal__panel">
+      <button class="addon-modal__close" id="AddonModalClose" aria-label="Close">✕</button>
+      <div class="addon-modal__header">
+        <div class="addon-modal__check">✓</div>
+        <h3 class="addon-modal__title">Added to your order</h3>
+        <p class="addon-modal__subtitle" id="AddonProductName"></p>
+      </div>
+      <div class="addon-modal__divider">
+        <span>Complete your meal</span>
+      </div>
+      <div class="addon-modal__items" id="AddonItems">
+        <!-- Populated by JS -->
+      </div>
+      <div class="addon-modal__actions">
+        <button class="addon-modal__continue" id="AddonContinue">Continue Ordering</button>
+        <a href="/checkout" class="addon-modal__checkout" id="AddonCheckout">
+          Proceed to Checkout →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="ToastContainer" class="toast-container" role="live" aria-live="polite"></div>
+
+  <!-- Theme JavaScript config -->
+  <script>
+    window.BiryaniTheme = {
+      cartEnabled: {{ settings.enable_ajax_cart | json }},
+      freeItemThreshold: {{ settings.free_item_threshold }},
+      freeItemName: {{ settings.free_item_name | json }},
+      deliveryAreas: {{ settings.delivery_areas | split: ',' | json }},
+      deliveryMinOrder: {{ settings.delivery_min_order | json }},
+      deliveryFreeAbove: {{ settings.delivery_free_above | json }},
+      shopCurrency: {{ cart.currency.symbol | json }},
+      cartItemCount: {{ cart.item_count }},
+      cartTotal: {{ cart.total_price }},
+      kitchenStatus: {{ settings.kitchen_status | default: 'open' | json }},
+      kitchenPrepTime: {{ settings.kitchen_prep_time | default: '30–60' | json }},
+      kitchenCloseTime: {{ settings.kitchen_close_time | default: '10:30 PM' | json }},
+      whatsappNumber: {{ settings.whatsapp_number | json }},
+      pixelId: {{ settings.facebook_pixel_id | default: '' | json }},
+      ga4Id: {{ settings.ga4_measurement_id | default: '' | json }},
+      addonProducts: {{ settings.addon_product_handles | default: '' | json }},
+    };
+  </script>
+   {{ 'theme.js' | asset_url | script_tag }}
+
+{% endif %}
+</head>
+<body class="{% if settings.header_sticky %}has-sticky-header{% endif %}" id="MainBody">

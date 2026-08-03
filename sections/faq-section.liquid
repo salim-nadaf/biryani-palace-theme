@@ -1,0 +1,143 @@
+<section class="faq-section animate-on-scroll" id="FaqSection" aria-label="Frequently Asked Questions">
+  <div class="container">
+
+    <div class="section-header section-header--center">
+      <span class="section-label">{{ section.settings.label | default: 'Got Questions?' }}</span>
+      <h2 class="section-title">{{ section.settings.heading | default: 'Frequently Asked Questions' }}</h2>
+      <p class="section-sub">{{ section.settings.subheading | default: 'Everything you need to know about our preparation, delivery, payments, and family orders.' }}</p>
+    </div>
+
+    <div class="faq-grid" id="FaqAccordionContainer">
+
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-{{ block.id }}" id="faq-btn-{{ block.id }}">
+              <h4>{{ block.settings.question }}</h4>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-ans-{{ block.id }}" role="region" aria-labelledby="faq-btn-{{ block.id }}">
+              <p style="padding-top:12px;">{{ block.settings.answer }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% else %}
+        <!-- Default FAQs -->
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d1" id="faq-btn-d1">
+            <h4>Where do you deliver?</h4>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" id="faq-ans-d1">
+            <p style="padding-top:12px;">We currently deliver across Kalyan West, Kalyan East, Dombivli, Ambernath, Badlapur, Ulhasnagar, Thane, and Bhiwandi. You can check your area in the top delivery bar.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d2" id="faq-btn-d2">
+            <h4>How long does preparation and delivery take?</h4>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" id="faq-ans-d2">
+            <p style="padding-top:12px;">Instant delivery items are prepared fresh and delivered within 30–60 minutes depending on your location. Family & bulk orders require a minimum 3 hours advance notice.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d3" id="faq-btn-d3">
+            <h4>Is your food 100% Halal?</h4>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" id="faq-ans-d3">
+            <p style="padding-top:12px;">Yes, absolutely. All meat is sourced exclusively from certified 100% Halal suppliers and cooked according to strict hygienic standards.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d4" id="faq-btn-d4">
+            <h4>What payment methods do you accept?</h4>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" id="faq-ans-d4">
+            <p style="padding-top:12px;">We accept online payments via Google Pay, PhonePe, Paytm, All UPI apps, Credit Cards, Debit Cards, Net Banking, and Razorpay Secure. Cash on Delivery is available for instant orders.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d5" id="faq-btn-d5">
+            <h4>How do family pre-orders work?</h4>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" id="faq-ans-d5">
+            <p style="padding-top:12px;">Submit your pre-order request form specifying your date, occasion, and portion size. Our team confirms kitchen availability within 2 hours and sends you a secure WhatsApp payment link.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d6" id="faq-btn-d6">
+            <h4>Is there a minimum order or delivery charge?</h4>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" id="faq-ans-d6">
+            <p style="padding-top:12px;">Minimum order for delivery is ₹{{ settings.delivery_min_order | default: '299' }}. Delivery is FREE on all orders above ₹{{ settings.delivery_free_above | default: '499' }}.</p>
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "tag": "section",
+  "class": "section-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label",
+      "default": "Got Questions?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Everything you need to know about our preparation, delivery, payments, and family orders."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Your question goes here?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Detailed answer explaining the process clearly to the customer."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion"
+    }
+  ]
+}
+{% endschema %}

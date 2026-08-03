@@ -1,0 +1,118 @@
+{% comment %} Page: Start Your Order — Customer capture gate before entering the menu {% endcomment %}
+
+<section class="page-form-section" id="StartOrderPage" aria-label="Start your order">
+  <div class="container">
+    <div class="page-form-inner animate-on-scroll">
+
+      <!-- Header -->
+      <p class="section-label" style="margin-bottom:16px;">Biryani Palace by Niamat</p>
+      <h1>Let's Get Your Order Started</h1>
+      <p class="form-subtext">
+        We'll send your order updates on WhatsApp. Enter your details below to continue to the menu.
+      </p>
+
+      <!-- Divider -->
+      <div style="width:48px;height:2px;background:var(--color-primary);margin-bottom:32px;"></div>
+
+      <!-- Form -->
+      <form
+        id="StartOrderForm"
+        action="/contact"
+        method="POST"
+        novalidate
+      >
+        <input type="hidden" name="form_type" value="contact">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="contact[tags]" value="order-lead">
+
+        <div class="form-field">
+          <label for="so_name">Full Name <span style="color:var(--color-primary);">*</span></label>
+          <input
+            type="text"
+            id="so_name"
+            name="contact[name]"
+            placeholder="Your full name"
+            required
+            autocomplete="name"
+          >
+        </div>
+
+        <div class="form-field">
+          <label for="so_phone">Phone Number <span style="color:var(--color-primary);">*</span></label>
+          <input
+            type="tel"
+            id="so_phone"
+            name="contact[phone]"
+            placeholder="+91 98765 43210"
+            required
+            autocomplete="tel"
+            pattern="[+]?[0-9\s\-]{8,15}"
+          >
+        </div>
+
+        <div class="form-field">
+          <label for="so_email">Email Address <span style="color:var(--color-text-secondary);font-weight:400;text-transform:none;letter-spacing:0;">(Optional)</span></label>
+          <input
+            type="email"
+            id="so_email"
+            name="contact[email]"
+            placeholder="you@example.com"
+            autocomplete="email"
+          >
+        </div>
+
+        <label class="form-checkbox" for="so_whatsapp">
+          <input type="checkbox" id="so_whatsapp" name="contact[whatsapp_consent]" value="yes" checked>
+          <span>I agree to receive my order updates and offers on WhatsApp. You can opt out anytime.</span>
+        </label>
+
+        <button type="submit" class="form-submit-btn" id="StartOrderSubmit">
+          Continue to Menu →
+        </button>
+
+        <p style="font-size:0.75rem;color:var(--color-text-secondary);margin-top:16px;text-align:center;font-family:'Montserrat',sans-serif;line-height:1.6;">
+          By continuing, you agree to our <a href="/pages/privacy-policy" style="color:var(--color-primary);">Privacy Policy</a>. We never share your data.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('StartOrderForm')?.addEventListener('submit', function (e) {
+    var name = document.getElementById('so_name').value.trim();
+    var phone = document.getElementById('so_phone').value.trim();
+
+    if (!name) {
+      e.preventDefault();
+      document.getElementById('so_name').focus();
+      return;
+    }
+    if (!phone) {
+      e.preventDefault();
+      document.getElementById('so_phone').focus();
+      return;
+    }
+
+    // After Shopify /contact handles the form, redirect to menu
+    // Shopify redirects to /?customer_posted=true by default
+    // We intercept here and store in sessionStorage, then redirect
+    sessionStorage.setItem('bp_customer_name', name);
+    sessionStorage.setItem('bp_customer_phone', phone);
+
+    // Override form action redirect: submit then redirect
+    e.preventDefault();
+
+    var formData = new FormData(this);
+    fetch('/contact', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(function () {
+      window.location.href = '/collections/instant-delivery';
+    }).catch(function () {
+      // Even on error, proceed to menu
+      window.location.href = '/collections/instant-delivery';
+    });
+  });
+</script>

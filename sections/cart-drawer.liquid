@@ -1,0 +1,134 @@
+<div class="cart-drawer" id="CartDrawer" role="dialog" aria-label="Your Order" aria-hidden="true">
+
+  <!-- Header -->
+  <div class="cart-drawer__header">
+    <div>
+      <span class="cart-drawer__title">Your Order</span>
+      <span class="cart-drawer__count" id="CartDrawerCount">({{ cart.item_count }} items)</span>
+    </div>
+    <button class="cart-drawer__close" id="CartDrawerCloseBtn" aria-label="Close cart drawer">✕</button>
+  </div>
+
+  <!-- Free item progress bar -->
+  <div class="cart-free-progress" id="CartFreeProgress">
+    <div class="cart-free-progress__text" id="FreeProgressText">
+      Add <strong>₹{{ settings.free_item_threshold | default: 999 }}</strong> to get a free <strong>{{ settings.free_item_name | default: 'Free Raita' }}</strong>!
+    </div>
+    <div class="progress-bar">
+      <div class="progress-bar__fill" id="FreeProgressFill" style="width: 0%;"></div>
+    </div>
+  </div>
+
+  <!-- ETA Strip -->
+  <div class="cart-eta" id="CartEtaStrip">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    <span>Estimated Delivery: <strong id="CartDrawerEta">Today in {{ settings.kitchen_prep_time | default: '30–60' }} min</strong></span>
+  </div>
+
+  <!-- Items list or empty state -->
+  <div class="cart-drawer__items" id="CartDrawerItems">
+    {% if cart.item_count == 0 %}
+      <div class="cart-drawer__empty" id="CartDrawerEmptyState">
+        <div class="cart-drawer__empty-icon">🍚</div>
+        <h3>Your order is empty</h3>
+        <p style="font-size:0.875rem;color:var(--color-text-secondary);font-family:'Montserrat',sans-serif;">Add some freshly prepared biryani to get started!</p>
+        <a href="/pages/menu" class="btn btn-primary btn-sm" style="margin-top:12px;" id="CartEmptyBrowseBtn">
+          Browse Restaurant Menu
+        </a>
+      </div>
+    {% else %}
+      {% for item in cart.items %}
+        <div class="cart-item" id="CartItem-{{ item.key }}">
+          <img
+            src="{{ item.image | image_url: width: 140 }}"
+            alt="{{ item.title | escape }}"
+            class="cart-item__image"
+            width="68"
+            height="68"
+            loading="lazy"
+          >
+          <div class="cart-item__details">
+            <div class="cart-item__name">{{ item.product.title }}</div>
+            {% if item.variant.title != 'Default Title' %}
+              <div style="font-size:0.75rem;color:var(--color-text-secondary);margin-bottom:4px;">{{ item.variant.title }}</div>
+            {% endif %}
+            <div class="cart-item__price">₹{{ item.line_price | money_without_currency | remove: '.00' }}</div>
+
+            <div class="cart-item__controls">
+              <div class="qty-control" style="height:32px;">
+                <button
+                  class="qty-btn"
+                  data-action="decrease"
+                  data-key="{{ item.key }}"
+                  data-qty="{{ item.quantity | minus: 1 }}"
+                  aria-label="Decrease quantity"
+                  style="width:32px;height:32px;font-size:1rem;"
+                >−</button>
+                <span class="qty-display" style="min-width:24px;font-size:0.8125rem;">{{ item.quantity }}</span>
+                <button
+                  class="qty-btn"
+                  data-action="increase"
+                  data-key="{{ item.key }}"
+                  data-qty="{{ item.quantity | plus: 1 }}"
+                  aria-label="Increase quantity"
+                  style="width:32px;height:32px;font-size:1rem;"
+                >+</button>
+              </div>
+
+              <button
+                class="cart-item__remove"
+                data-key="{{ item.key }}"
+                aria-label="Remove {{ item.title | escape }}"
+              >Remove</button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <!-- Special Instructions & Coupon -->
+  {% if cart.item_count > 0 %}
+    <div style="padding:12px 20px;border-top:1px solid var(--color-border);background:var(--color-surface);" id="CartDrawerExtras">
+      <details style="font-size:0.8125rem;font-family:'Montserrat',sans-serif;color:var(--color-text-secondary);">
+        <summary style="cursor:pointer;margin-bottom:8px;font-weight:600;color:var(--color-primary);">+ Add Cooking / Special Instructions</summary>
+        <textarea
+          id="CartSpecialNotes"
+          placeholder="Less spicy, extra raita, call before delivery..."
+          style="width:100%;padding:8px 12px;background:var(--color-surface-elevated);border:1px solid var(--color-border);color:var(--color-text-primary);font-size:0.8125rem;font-family:'Montserrat',sans-serif;resize:none;min-height:60px;"
+        >{{ cart.note }}</textarea>
+      </details>
+    </div>
+  {% endif %}
+
+  <!-- Footer -->
+  <div class="cart-drawer__footer" id="CartDrawerFooter" {% if cart.item_count == 0 %}style="display:none;"{% endif %}>
+    <div class="cart-subtotal">
+      <span class="cart-subtotal__label">Item Subtotal</span>
+      <span class="cart-subtotal__value" id="CartSubtotalVal">
+        ₹{{ cart.total_price | money_without_currency | remove: '.00' }}
+      </span>
+    </div>
+
+    <div class="cart-delivery-note" id="CartDeliveryNote">
+      {% if cart.total_price >= 49900 %}
+        <span class="cart-delivery-note free">✓ You qualify for FREE Delivery!</span>
+      {% else %}
+        Free delivery on orders above ₹{{ settings.delivery_free_above | default: '499' }}
+      {% endif %}
+    </div>
+
+    <a href="/checkout" class="checkout-btn" id="CartCheckoutBtn">
+      <span>Proceed to Checkout</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,191 @@
+<section class="ordering-flows animate-on-scroll" id="OrderingFlows" aria-label="Choose your order type">
+  <div class="container">
+
+    <div class="menu-section__header" style="padding-top:0;">
+      {% if section.settings.label != blank %}
+        <p class="section-label">{{ section.settings.label }}</p>
+      {% endif %}
+      <h2>{{ section.settings.heading }}</h2>
+      {% if section.settings.subheading != blank %}
+        <p>{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <div class="ordering-flows__grid">
+
+      <!-- Card 1: Instant Delivery -->
+      <a
+        href="{{ section.settings.card1_url | default: '/pages/start-your-order' }}"
+        class="flow-card"
+        style="--flow-card-accent: {{ section.settings.card1_badge_color | default: '#4CAF50' }};"
+        id="FlowCardInstant"
+        aria-label="{{ section.settings.card1_title }}"
+      >
+        <div class="flow-card__label">{{ section.settings.card1_label | default: 'Instant Delivery' }}</div>
+
+        <div class="flow-card__badge" style="color: {{ section.settings.card1_badge_color | default: '#4CAF50' }}; border-color: {{ section.settings.card1_badge_color | default: '#4CAF50' }};">
+          {{ section.settings.card1_badge | default: 'Ready in 30 min' }}
+        </div>
+
+        <h3 class="flow-card__title">{{ section.settings.card1_title | default: 'Order Now' }}</h3>
+        <p class="flow-card__desc">{{ section.settings.card1_desc | default: 'Hot biryani, delivered to your door in 30 minutes. Select your items, confirm, and we\'ll take care of the rest.' }}</p>
+
+        <div class="flow-card__cta" style="color: {{ section.settings.card1_badge_color | default: '#4CAF50' }};">
+          {{ section.settings.card1_cta | default: 'Start Your Order' }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Card 2: Family Feast -->
+      <a
+        href="{{ section.settings.card2_url | default: '/pages/family-feast' }}"
+        class="flow-card"
+        style="--flow-card-accent: {{ section.settings.card2_badge_color | default: '#C89116' }};"
+        id="FlowCardFamily"
+        aria-label="{{ section.settings.card2_title }}"
+      >
+        <div class="flow-card__label">{{ section.settings.card2_label | default: 'Family Orders' }}</div>
+
+        <div class="flow-card__badge" style="color: {{ section.settings.card2_badge_color | default: '#C89116' }}; border-color: {{ section.settings.card2_badge_color | default: '#C89116' }};">
+          {{ section.settings.card2_badge | default: 'Pre-order' }}
+        </div>
+
+        <h3 class="flow-card__title">{{ section.settings.card2_title | default: 'Family Feast' }}</h3>
+        <p class="flow-card__desc">{{ section.settings.card2_desc | default: 'Feeding a crowd? Reserve your family feast in advance. We\'ll confirm your order and send you a payment link.' }}</p>
+
+        <div class="flow-card__cta" style="color: {{ section.settings.card2_badge_color | default: '#C89116' }};">
+          {{ section.settings.card2_cta | default: 'Reserve Your Feast' }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ordering Flows",
+  "tag": "section",
+  "class": "section-ordering-flows",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label",
+      "default": "How to Order"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Choose How You Want to Order"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Section Subheading",
+      "default": "Instant delivery for individuals, pre-order for families and groups."
+    },
+    {
+      "type": "header",
+      "content": "Card 1 — Instant Delivery"
+    },
+    {
+      "type": "text",
+      "id": "card1_label",
+      "label": "Card 1 Label (small text)",
+      "default": "Instant Delivery"
+    },
+    {
+      "type": "text",
+      "id": "card1_badge",
+      "label": "Card 1 Badge Text",
+      "default": "Ready in 30 min"
+    },
+    {
+      "type": "color",
+      "id": "card1_badge_color",
+      "label": "Card 1 Badge & Accent Color",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "text",
+      "id": "card1_title",
+      "label": "Card 1 Title",
+      "default": "Order Now"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_desc",
+      "label": "Card 1 Description",
+      "default": "Hot biryani, delivered to your door in 30 minutes. Select your items, confirm, and we'll take care of the rest."
+    },
+    {
+      "type": "text",
+      "id": "card1_cta",
+      "label": "Card 1 CTA Text",
+      "default": "Start Your Order"
+    },
+    {
+      "type": "url",
+      "id": "card1_url",
+      "label": "Card 1 Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Card 2 — Family Feast"
+    },
+    {
+      "type": "text",
+      "id": "card2_label",
+      "label": "Card 2 Label (small text)",
+      "default": "Family Orders"
+    },
+    {
+      "type": "text",
+      "id": "card2_badge",
+      "label": "Card 2 Badge Text",
+      "default": "Pre-order"
+    },
+    {
+      "type": "color",
+      "id": "card2_badge_color",
+      "label": "Card 2 Badge & Accent Color",
+      "default": "#C89116"
+    },
+    {
+      "type": "text",
+      "id": "card2_title",
+      "label": "Card 2 Title",
+      "default": "Family Feast"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_desc",
+      "label": "Card 2 Description",
+      "default": "Feeding a crowd? Reserve your family feast in advance. We'll confirm your order and send you a payment link."
+    },
+    {
+      "type": "text",
+      "id": "card2_cta",
+      "label": "Card 2 CTA Text",
+      "default": "Reserve Your Feast"
+    },
+    {
+      "type": "url",
+      "id": "card2_url",
+      "label": "Card 2 Link URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ordering Flows"
+    }
+  ]
+}
+{% endschema %}

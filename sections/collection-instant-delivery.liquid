@@ -1,0 +1,124 @@
+<section id="InstantDeliveryCollection" aria-label="Instant Delivery Menu">
+  <!-- Collection Header -->
+  <div class="container">
+    <div class="collection-header animate-on-scroll">
+      <div class="collection-badge available" aria-label="Items available now">
+        <svg width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+        Available Now
+      </div>
+      <h1 style="margin-bottom: 10px;">{{ collection.title | default: 'Order Now — Instant Delivery' }}</h1>
+      {% if collection.description != blank %}
+        <p style="max-width:600px;">{{ collection.description }}</p>
+      {% else %}
+        <p style="max-width:600px;">Hot biryani ready and on its way in 30 minutes. Add items to your cart and checkout.</p>
+      {% endif %}
+    </div>
+
+    <!-- Products Grid (horizontal layout) -->
+    <div class="collection-grid" id="InstantDeliveryGrid">
+      {% for product in collection.products %}
+        {%- assign veg_meta = product.metafields.custom.is_veg -%}
+        {%- assign is_veg = false -%}
+        {%- if veg_meta == true or veg_meta == 'true' or veg_meta == '1' -%}
+          {%- assign is_veg = true -%}
+        {%- endif -%}
+
+        {%- assign tag_label = '' -%}
+        {%- for tag in product.tags -%}
+          {%- assign tl = tag | downcase -%}
+          {%- if tl contains 'popular' -%}{%- assign tag_label = 'Popular' -%}
+          {%- elsif tl contains 'must try' -%}{%- assign tag_label = 'Must Try' -%}
+          {%- elsif tl contains 'best seller' -%}{%- assign tag_label = 'Best Seller' -%}
+          {%- elsif tl contains "chef's special" -%}{%- assign tag_label = "Chef's Special" -%}
+          {%- elsif tl contains 'new' -%}{%- assign tag_label = 'New' -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        <div class="product-card product-card--horizontal animate-on-scroll" id="product-{{ product.id }}">
+          <!-- Text content (left) -->
+          <div class="product-card__body">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <span class="product-card__veg-indicator {% if is_veg %}veg{% else %}non-veg{% endif %}" style="position:static;" aria-label="{% if is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"></span>
+              {% if tag_label != blank %}
+                <span class="product-card__tag" style="position:static;">{{ tag_label }}</span>
+              {% endif %}
+            </div>
+            <h3 class="product-card__name">
+              <a href="{{ product.url }}" style="color:inherit;text-decoration:none;">{{ product.title }}</a>
+            </h3>
+            {% if product.description != blank %}
+              <p class="product-card__desc">{{ product.description | strip_html | truncate: 90 }}</p>
+            {% endif %}
+
+            {%- assign rating = product.metafields.reviews.rating.value -%}
+            {%- if rating != blank -%}
+              <div class="product-card__rating">
+                <span class="product-card__stars">★★★★★</span>
+                <span>{{ rating | round: 1 }} ({{ product.metafields.reviews.rating_count.value | default: '0' }})</span>
+              </div>
+            {%- endif -%}
+
+            <div class="product-card__footer">
+              <div class="product-card__price">
+                <span class="currency">₹</span>{{ product.price | money_without_currency | remove: '.00' }}
+                {% if product.compare_at_price > product.price %}
+                  <del style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;margin-left:4px;">₹{{ product.compare_at_price | money_without_currency | remove: '.00' }}</del>
+                {% endif %}
+              </div>
+
+              {% if product.available %}
+                {%- assign variant = product.first_available_variant -%}
+                <button
+                  class="add-to-cart-btn"
+                  data-variant="{{ variant.id }}"
+                  data-product-id="{{ product.id }}"
+                  aria-label="Add {{ product.title | escape }} to cart"
+                  id="AddToCart-{{ product.id }}"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                  Add
+                </button>
+              {% else %}
+                <span style="font-size:0.8125rem;color:var(--color-text-secondary);">Sold out</span>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Image (right, 150×150) -->
+          <a href="{{ product.url }}" class="product-card__image-wrap" aria-hidden="true" tabindex="-1" style="max-width:150px;min-width:150px;">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | image_url: width: 300 }}"
+                alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                width="150"
+                height="150"
+                loading="lazy"
+                style="object-fit:cover;width:100%;height:100%;"
+              >
+            {% else %}
+              <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:var(--color-surface-elevated);">🍚</div>
+            {% endif %}
+          </a>
+        </div>
+
+      {% else %}
+        <div style="text-align:center;padding:60px 0;color:var(--color-text-secondary);">
+          <p>No items available right now. Check back soon!</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <div style="display:flex;justify-content:center;gap:8px;margin:40px 0;">
+        {{ paginate | default_pagination }}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instant Delivery Collection",
+  "settings": []
+}
+{% endschema %}

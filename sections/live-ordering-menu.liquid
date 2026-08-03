@@ -1,0 +1,167 @@
+<section class="menu-section" id="LiveMenu" aria-label="Live Ordering Menu">
+
+  <!-- Section Header -->
+  <div class="menu-section__header">
+    <p class="section-label">{{ section.settings.label }}</p>
+    <h2>{{ section.settings.heading }}</h2>
+    <p>{{ section.settings.subheading }}</p>
+
+    <!-- Search -->
+    <div class="menu-search" role="search">
+      <svg class="menu-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input
+        type="search"
+        class="menu-search__input"
+        id="MenuSearch"
+        placeholder="Search biryani, starters, gravies..."
+        autocomplete="off"
+        aria-label="Search menu items"
+      >
+      <button class="menu-search__clear" id="MenuSearchClear" aria-label="Clear search">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Category Nav (sticky) -->
+  <nav class="menu-categories" aria-label="Menu categories">
+    <div class="menu-categories__inner">
+      {% assign first = true %}
+      {% for block in section.blocks %}
+        {% if block.type == 'category' %}
+          <button
+            class="menu-cat-btn {% if first %}active{% endif %}"
+            data-category="cat-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.emoji != blank %}{{ block.settings.emoji }} {% endif %}{{ block.settings.name }}
+          </button>
+          {% assign first = false %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </nav>
+
+  <!-- Menu Grid -->
+  <div class="container">
+    <div class="menu-content">
+      {% for block in section.blocks %}
+        {% if block.type == 'category' %}
+          <div class="menu-category-group" id="cat-{{ block.id }}" {{ block.shopify_attributes }}>
+            <h3 class="menu-category-group__title">
+              {% if block.settings.emoji != blank %}{{ block.settings.emoji }} {% endif %}{{ block.settings.name }}
+            </h3>
+
+            {%- assign cat_collection = collections[block.settings.collection] -%}
+            {% if cat_collection != blank and cat_collection.products_count > 0 %}
+              <div class="menu-grid">
+                {% for product in cat_collection.products limit: block.settings.product_limit %}
+                  {% render 'product-card', product: product %}
+                {% endfor %}
+              </div>
+            {% elsif block.settings.manual_items != blank %}
+              <!-- Manual items fallback: paste comma-separated product handles -->
+              {%- assign handles = block.settings.manual_items | split: ',' -%}
+              <div class="menu-grid">
+                {% for handle in handles %}
+                  {%- assign p = handle | strip | handle -%}
+                  {%- assign manual_product = all_products[p] -%}
+                  {% if manual_product %}
+                    {% render 'product-card', product: manual_product %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% else %}
+              <p style="color: var(--color-text-secondary); font-size:0.875rem; padding: 20px 0;">
+                Assign a collection to this category in the Shopify customizer to show items here.
+              </p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Live Ordering Menu",
+  "tag": "section",
+  "class": "section-menu",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label (small text above heading)",
+      "default": "Our Menu"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Order Your Royal Feast"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Section Subheading",
+      "default": "Every dish slow-cooked to perfection. Add to your order and we'll deliver it fresh."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Menu Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Category Name",
+          "default": "Traditional Dum Biryanis"
+        },
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Category Emoji (optional)",
+          "default": "🍚"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Product Collection",
+          "info": "Assign a Shopify collection to display products automatically"
+        },
+        {
+          "type": "range",
+          "id": "product_limit",
+          "label": "Max products to show",
+          "min": 2,
+          "max": 24,
+          "step": 1,
+          "default": 8
+        },
+        {
+          "type": "textarea",
+          "id": "manual_items",
+          "label": "Manual product handles (fallback)",
+          "info": "Comma-separated Shopify product handles. Used only if no collection is assigned."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Live Ordering Menu",
+      "blocks": [
+        { "type": "category", "settings": { "name": "Traditional Dum Biryanis", "emoji": "🍚" } },
+        { "type": "category", "settings": { "name": "Biryani Reimagined", "emoji": "✨" } },
+        { "type": "category", "settings": { "name": "Tandoori & Starters", "emoji": "🔥" } },
+        { "type": "category", "settings": { "name": "Gravies & Curries", "emoji": "🥘" } },
+        { "type": "category", "settings": { "name": "Veg Specials", "emoji": "🌿" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

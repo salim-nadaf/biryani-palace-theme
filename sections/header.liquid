@@ -1,0 +1,120 @@
+<header class="site-header" id="SiteHeader" role="banner">
+  <!-- Announcement Bar -->
+  {% if settings.header_show_announcement %}
+    <div class="announcement-bar" style="background-color: {{ settings.announcement_bg }}; color: {{ settings.announcement_text_color }};">
+      {{ settings.announcement_text }}
+    </div>
+  {% endif %}
+
+  <div class="container">
+    <div class="header__inner">
+
+      <!-- Logo / Brand -->
+      <a href="/" class="header__logo" aria-label="{{ shop.name }}">
+        {% if settings.logo %}
+          <img
+            src="{{ settings.logo | image_url: width: 300 }}"
+            alt="{{ shop.name }}"
+            width="{{ settings.logo_width }}"
+            height="auto"
+            loading="eager"
+          >
+        {% else %}
+          <div class="header__logo-text">
+            {{ settings.brand_name | default: shop.name }}
+            <span>{{ settings.brand_tagline | default: 'Dum Cooked. Royal Served.' }}</span>
+          </div>
+        {% endif %}
+      </a>
+
+      <!-- Restaurant Navigation -->
+      <nav aria-label="Main Navigation">
+        <ul class="header__nav" id="HeaderNav">
+          <li><a href="/" class="{% if template == 'index' %}active{% endif %}">Home</a></li>
+          <li><a href="/pages/menu" class="{% if request.path contains '/menu' %}active{% endif %}">Menu</a></li>
+          <li><a href="/collections/instant-delivery" class="nav-cta {% if request.path contains 'instant-delivery' %}active{% endif %}">Instant Delivery</a></li>
+          <li><a href="/pages/family-feast" class="nav-cta {% if request.path contains 'family-feast' %}active{% endif %}">Family Orders</a></li>
+          <li><a href="/pages/about" class="{% if request.path contains '/about' %}active{% endif %}">About</a></li>
+          <li><a href="/pages/contact" class="{% if request.path contains '/contact' %}active{% endif %}">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header__actions">
+
+        <!-- Area Checker -->
+        {% if settings.show_area_checker %}
+          <div class="area-selector" id="AreaSelector">
+            <button
+              class="area-selector__toggle"
+              id="AreaToggleBtn"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-label="Check delivery area"
+            >
+              <svg class="area-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              <span id="SelectedAreaName">Kalyan</span>
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
+            </button>
+
+            <div class="area-selector__dropdown" id="AreaDropdown" role="dialog" aria-label="Select delivery area">
+              <h4>Check Delivery Availability</h4>
+              <input
+                type="text"
+                class="area-selector__input"
+                id="AreaSearchInput"
+                placeholder="Search area (e.g. Kalyan West)..."
+                aria-label="Search delivery area"
+              >
+              <ul class="area-selector__list" id="AreaList" role="listbox">
+                {% assign areas = settings.delivery_areas | split: ',' %}
+                {% for area in areas %}
+                  <li role="option" data-area="{{ area | strip }}">{{ area | strip }}</li>
+                {% endfor %}
+              </ul>
+              <div class="area-selector__status" id="AreaStatus"></div>
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Cart Icon Button -->
+        <button
+          class="cart-btn"
+          id="CartToggleBtn"
+          aria-label="Open Cart ({{ cart.item_count }} items)"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-badge {% if cart.item_count > 0 %}has-items{% endif %}" id="CartBadge">
+            {{ cart.item_count }}
+          </span>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          class="mobile-menu-btn"
+          id="MobileMenuToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

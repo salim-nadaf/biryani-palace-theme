@@ -1,0 +1,147 @@
+<section class="about-section" id="AboutBrand" aria-label="About our brand">
+  <div class="container">
+    <div class="about-section__grid">
+
+      <!-- Image -->
+      <div class="about-section__image animate-on-scroll">
+        {% if section.settings.image %}
+          <img
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            srcset="{{ section.settings.image | image_url: width: 480 }} 480w, {{ section.settings.image | image_url: width: 800 }} 800w"
+            alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}"
+            width="800"
+            height="600"
+            loading="lazy"
+          >
+        {% else %}
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--color-surface-elevated);font-size:5rem;aspect-ratio:4/3;">
+            🍚
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Content -->
+      <div class="animate-on-scroll">
+        <p class="section-label" style="font-size:0.6875rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--color-primary);margin-bottom:12px;">
+          {{ section.settings.label }}
+        </p>
+        <h2 style="margin-bottom:16px;">{{ section.settings.heading }}</h2>
+        <p style="margin-bottom:24px;">{{ section.settings.body }}</p>
+
+        {% if section.settings.body_2 != blank %}
+        <p style="margin-bottom:28px;">{{ section.settings.body_2 }}</p>
+        {% endif %}
+
+        <!-- Pillars -->
+        {% if section.blocks.size > 0 %}
+        <div class="about-pillars">
+          {% for block in section.blocks %}
+            {% if block.type == 'pillar' %}
+            <div class="about-pillar" {{ block.shopify_attributes }}>
+              <div class="about-pillar__icon">{{ block.settings.icon }}</div>
+              <div>
+                <div class="about-pillar__title">{{ block.settings.title }}</div>
+                <div class="about-pillar__desc">{{ block.settings.description }}</div>
+              </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if section.settings.cta_text != blank %}
+        <a href="{{ section.settings.cta_url }}" class="btn btn-primary" style="margin-top:28px;" id="AboutCtaBtn">
+          {{ section.settings.cta_text }}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Brand",
+  "tag": "section",
+  "class": "section-about",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Brand / Food Image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Cooked with Passion, Served with Pride"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body Text",
+      "default": "We started Biryani Palace with one mission: to serve Hyderabadi biryani the way it was meant to be — slow-cooked on dum, sealed with dough, perfected by time."
+    },
+    {
+      "type": "textarea",
+      "id": "body_2",
+      "label": "Body Text 2 (optional)",
+      "default": "Every grain of rice tells a story of 6-hour marination, handpicked spices, and a kitchen that never cuts corners."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Our Full Story"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Button URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Brand Pillar",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon / Emoji",
+          "default": "🔥"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Dum Cooked"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Sealed & slow-cooked for 3 hours"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Brand",
+      "blocks": [
+        { "type": "pillar", "settings": { "icon": "🔥", "title": "Dum Cooked", "description": "Sealed & slow-cooked for 3 hours" } },
+        { "type": "pillar", "settings": { "icon": "🌿", "title": "Fresh Spices", "description": "Ground fresh every morning" } },
+        { "type": "pillar", "settings": { "icon": "⚡", "title": "30 min Delivery", "description": "Hot to your door, always" } },
+        { "type": "pillar", "settings": { "icon": "❤️", "title": "Made with Love", "description": "Like home-cooked, just better" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

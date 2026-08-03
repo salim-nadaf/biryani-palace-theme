@@ -1,0 +1,163 @@
+[
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Page Background",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Card / Surface",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "color_surface_elevated",
+        "label": "Elevated Surface",
+        "default": "#222222"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Gold Accent (Primary)",
+        "default": "#C89116"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "label": "Gold Dark (Hover)",
+        "default": "#A67A10"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent",
+        "default": "#C89116"
+      },
+      {
+        "type": "color",
+        "id": "color_text_primary",
+        "label": "Text Primary",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_text_secondary",
+        "label": "Text Secondary",
+        "default": "#aaaaaa"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border",
+        "default": "#2a2a2a"
+      },
+      {
+        "type": "color",
+        "id": "color_veg",
+        "label": "Veg Indicator",
+        "default": "#4CAF50"
+      },
+      {
+        "type": "color",
+        "id": "color_nonveg",
+        "label": "Non-Veg Indicator",
+        "default": "#E53935"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "label": "Base Font Size (px)",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo Width (px)",
+        "min": 80,
+        "max": 300,
+        "step": 10,
+        "default": 140
+      }
+    ]
+  },
+  {
+    "name": "WhatsApp",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_whatsapp_order",
+        "label": "Show WhatsApp Button",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp Number (with country code)",
+        "default": "919999999999"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_order_msg",
+        "label": "WhatsApp Pre-filled Message",
+        "default": "Hi! I'd like to place an order."
+      }
+    ]
+  },
+  {
+    "name": "Kitchen",
+    "settings": [
+      {
+        "type": "select",
+        "id": "kitchen_status",
+        "label": "Kitchen Status",
+        "options": [
+          { "value": "open", "label": "Open — Accepting Orders" },
+          { "value": "limited", "label": "Limited Stock" },
+          { "value": "closed", "label": "Closed — Pre-orders Only" }
+        ],
+        "default": "open"
+      },
+      {
+        "type": "text",
+        "id": "kitchen_prep_time",
+        "label": "Prep Time Display",
+        "default": "30–60"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "header_sticky",
+        "label": "Sticky Header",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement Bar Text",
+        "default": "Free delivery on orders above ₹499 · Delivering within 8 km"
+      }
+    ]
+  }
+]

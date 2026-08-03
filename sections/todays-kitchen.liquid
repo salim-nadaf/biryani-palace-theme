@@ -1,0 +1,238 @@
+<section class="todays-kitchen animate-on-scroll" id="TodaysKitchenSection" aria-label="Today's Kitchen Live Menu">
+
+  <!-- Live Status Bar -->
+  <div class="kitchen-header">
+    <div class="container">
+      <div class="kitchen-header__inner">
+
+        <div class="kitchen-header__left">
+          <div class="kitchen-status-badge {{ settings.kitchen_status | default: 'open' }}">
+            <span class="kitchen-status-dot"></span>
+            {% if settings.kitchen_status == 'closed' %}
+              🔴 Kitchen Currently Closed
+            {% elsif settings.kitchen_status == 'limited' %}
+              🟠 Limited Stock Available
+            {% else %}
+              🟢 Kitchen Open & Accepting Orders
+            {% endif %}
+          </div>
+
+          <div class="kitchen-header__timing">
+            <div class="kitchen-timing-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span>Hours: {{ settings.kitchen_hours | default: '12:00 PM – 10:30 PM' }}</span>
+            </div>
+            <div class="kitchen-timing-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Delivering across Kalyan & nearby</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="kitchen-eta">
+          <span>Est. Delivery:</span>
+          <span class="kitchen-eta__time" id="KitchenEstTime">Today {{ settings.kitchen_prep_time | default: '30–60' }} min</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Today's Available Biryanis -->
+  <div class="kitchen-items-section">
+    <div class="container">
+
+      <div class="kitchen-section-header">
+        <span class="section-label">{{ section.settings.label | default: 'Live Kitchen' }}</span>
+        <h2 class="section-title">{{ section.settings.heading | default: "Today's Available Biryanis" }}</h2>
+        <p class="section-sub">{{ section.settings.subheading | default: 'Freshly prepared dum biryani ready for instant delivery in 30–60 minutes.' }}</p>
+      </div>
+
+      {%- assign collection = collections[section.settings.collection] -%}
+
+      {% if settings.kitchen_status == 'closed' %}
+        <!-- Empty / Closed State -->
+        <div class="kitchen-empty">
+          <div class="kitchen-empty__icon">🍚</div>
+          <h3 class="kitchen-empty__title">Today's Kitchen is Currently Closed</h3>
+          <p class="kitchen-empty__text">Our kitchen opens at {{ settings.kitchen_opens | default: '12:00 PM' }}. You can still place a pre-order for a family feast!</p>
+          <a href="/pages/family-feast" class="btn btn-primary" id="KitchenClosedFamilyBtn">
+            Pre-order Family Feast →
+          </a>
+        </div>
+      {% else %}
+
+        <div class="kitchen-grid" id="KitchenItemsGrid">
+          {% if collection.products.size > 0 %}
+            {% for product in collection.products limit: section.settings.products_to_show %}
+              {%- assign veg_meta = product.metafields.custom.is_veg -%}
+              {%- assign is_veg = false -%}
+              {%- if veg_meta == true or veg_meta == 'true' or veg_meta == '1' -%}
+                {%- assign is_veg = true -%}
+              {%- endif -%}
+
+              <div class="kitchen-card" id="kitchen-card-{{ product.id }}">
+                <!-- Image -->
+                <div class="kitchen-card__image">
+                  {% if product.featured_image %}
+                    <img src="{{ product.featured_image | image_url: width: 240 }}" alt="{{ product.title | escape }}" width="100" height="100" loading="lazy">
+                  {% else %}
+                    <div class="kitchen-card__image-placeholder">🍚</div>
+                  {% endif %}
+                </div>
+
+                <!-- Info -->
+                <div class="kitchen-card__body">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:4px;">
+                    <h3 class="kitchen-card__name">{{ product.title }}</h3>
+                    <span class="product-card__veg-indicator {% if is_veg %}veg{% else %}non-veg{% endif %}" style="position:static;width:16px;height:16px;" aria-label="{% if is_veg %}Veg{% else %}Non-Veg{% endif %}"></span>
+                  </div>
+
+                  <p class="kitchen-card__desc">{{ product.description | strip_html | truncate: 80 }}</p>
+
+                  <div class="kitchen-card__meta">
+                    {% if product.available %}
+                      <span class="kitchen-card__badge available">Ready in {{ settings.kitchen_prep_time | default: '30–60' }}m</span>
+                    {% else %}
+                      <span class="kitchen-card__badge soldout">Today's Stock Sold Out</span>
+                    {% endif %}
+
+                    {% if product.tags contains 'popular' or product.tags contains 'Best Seller' %}
+                      <span class="kitchen-card__badge preorder" style="color:var(--color-primary);border-color:rgba(200,145,22,0.4);">Best Seller</span>
+                    {% endif %}
+                  </div>
+
+                  <!-- Serving & Size pills -->
+                  {% if product.variants.size > 1 %}
+                    <div class="kitchen-card__sizes">
+                      {% for variant in product.variants %}
+                        <div
+                          class="size-pill {% if forloop.first %}selected{% endif %}"
+                          data-variant-id="{{ variant.id }}"
+                          data-price="₹{{ variant.price | money_without_currency | remove: '.00' }}"
+                        >
+                          <span class="size-pill__label">{{ variant.title }}</span>
+                          <span class="size-pill__price">₹{{ variant.price | money_without_currency | remove: '.00' }}</span>
+                          <span class="size-pill__serves">
+                            {% if variant.title contains 'Single' or variant.title contains 'Plate' %}Serves 1
+                            {% elsif variant.title contains 'Double' %}Serves 2
+                            {% elsif variant.title contains 'Half' %}Serves 2–3
+                            {% elsif variant.title contains '1' %}Serves 4–5
+                            {% else %}Serves 1–2
+                            {% endif %}
+                          </span>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  <div class="kitchen-card__cta">
+                    {% if product.available %}
+                      {%- assign variant = product.first_available_variant -%}
+                      <button
+                        class="add-to-cart-btn"
+                        data-variant="{{ variant.id }}"
+                        data-product-id="{{ product.id }}"
+                        id="KitchenAdd-{{ product.id }}"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M12 5v14M5 12h14"/></svg>
+                        Order Now &bull; ₹{{ product.price | money_without_currency | remove: '.00' }}
+                      </button>
+                    {% else %}
+                      <a href="/pages/family-feast" class="preorder-btn" id="KitchenSoldOut-{{ product.id }}">
+                        Sold Out Today &bull; Pre-order for Tomorrow
+                      </a>
+                    {% endif %}
+                  </div>
+
+                </div>
+              </div>
+
+            {% endfor %}
+          {% else %}
+            <!-- Demo items when no collection selected -->
+            <div class="kitchen-card">
+              <div class="kitchen-card__image"><div class="kitchen-card__image-placeholder">🍚</div></div>
+              <div class="kitchen-card__body">
+                <h3 class="kitchen-card__name">Chicken Dum Biryani</h3>
+                <p class="kitchen-card__desc">Marinated chicken slow-cooked on dum with long grain basmati rice and signature spices.</p>
+                <div class="kitchen-card__meta">
+                  <span class="kitchen-card__badge available">Ready in 30–45m</span>
+                  <span class="kitchen-card__serving">Serves 1–2</span>
+                </div>
+                <div class="kitchen-card__cta">
+                  <a href="/pages/start-your-order" class="add-to-cart-btn" style="text-decoration:none;">Order Now &bull; ₹299</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="kitchen-card">
+              <div class="kitchen-card__image"><div class="kitchen-card__image-placeholder">🍖</div></div>
+              <div class="kitchen-card__body">
+                <h3 class="kitchen-card__name">Mutton Shahi Dum Biryani</h3>
+                <p class="kitchen-card__desc">Tender mutton pieces layered with saffron basmati rice and caramelised onions.</p>
+                <div class="kitchen-card__meta">
+                  <span class="kitchen-card__badge available">Ready in 30–45m</span>
+                  <span class="kitchen-card__serving">Serves 1–2</span>
+                </div>
+                <div class="kitchen-card__cta">
+                  <a href="/pages/start-your-order" class="add-to-cart-btn" style="text-decoration:none;">Order Now &bull; ₹399</a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+      {% endif %}
+
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Today's Kitchen Live",
+  "tag": "section",
+  "class": "section-todays-kitchen",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label",
+      "default": "Today's Kitchen"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Today's Available Biryanis"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Freshly prepared dum biryani ready for instant delivery in 30–60 minutes."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection for Instant Delivery"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Today's Kitchen Live"
+    }
+  ]
+}
+{% endschema %}

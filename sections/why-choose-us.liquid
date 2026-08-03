@@ -1,0 +1,94 @@
+<section class="why-choose-us animate-on-scroll" id="WhyChooseUsSection" aria-label="Why Choose Us">
+  <div class="container">
+
+    <div class="section-header section-header--center">
+      <span class="section-label">{{ section.settings.label | default: 'Our Promise' }}</span>
+      <h2 class="section-title">{{ section.settings.heading | default: 'Why Families Choose Biryani Palace' }}</h2>
+      <p class="section-sub">{{ section.settings.subheading | default: 'No shortcuts, no artificial flavors. Just authentic dum biryani cooked fresh for every order.' }}</p>
+    </div>
+
+    <!-- Trust Grid -->
+    <div class="trust-grid">
+
+      <div class="trust-item">
+        <span class="trust-item__icon">🍲</span>
+        <h3 class="trust-item__title">Freshly Prepared</h3>
+        <p class="trust-item__text">Every order is cooked fresh after you order. Never pre-made, stored, or re-heated.</p>
+      </div>
+
+      <div class="trust-item">
+        <span class="trust-item__icon">🌿</span>
+        <h3 class="trust-item__title">Premium Spices & Rice</h3>
+        <p class="trust-item__text">Authentic long-grain basmati rice and hand-ground spices for rich aroma and natural flavor.</p>
+      </div>
+
+      <div class="trust-item">
+        <span class="trust-item__icon">✨</span>
+        <h3 class="trust-item__title">100% Halal Certified</h3>
+        <p class="trust-item__text">Sourced exclusively from certified suppliers. Prepared with utmost hygiene and care.</p>
+      </div>
+
+      <div class="trust-item">
+        <span class="trust-item__icon">👨‍👩‍👧‍👦</span>
+        <h3 class="trust-item__title">Crafted for Families</h3>
+        <p class="trust-item__text">Generous portion sizes and balanced spice levels that everyone in the family will enjoy.</p>
+      </div>
+
+    </div>
+
+    <!-- Payment Trust Strip -->
+    <div class="payment-strip">
+      <span class="payment-strip__label">🔒 100% Secure Payments:</span>
+      <div class="payment-method">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>UPI / GPay / PhonePe</span>
+      </div>
+      <div class="payment-method">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span>Credit / Debit Cards</span>
+      </div>
+      <div class="payment-method">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h16M4 14h16M9 6v12M15 6v12"/></svg>
+        <span>Net Banking</span>
+      </div>
+      <div class="payment-method">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Razorpay Secure</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why Choose Us",
+  "tag": "section",
+  "class": "section-why-choose-us",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label",
+      "default": "Our Promise"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Families Choose Biryani Palace"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "No shortcuts, no artificial flavors. Just authentic dum biryani cooked fresh for every order."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Choose Us"
+    }
+  ]
+}
+{% endschema %}

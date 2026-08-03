@@ -1,0 +1,132 @@
+{% comment %}
+  Digital Restaurant Menu Page
+  Feels like a luxury restaurant menu: Categorized, filters, serving sizes, availability badges, Order Now / Pre-order buttons.
+{% endcomment %}
+
+<section class="menu-section" id="RestaurantMenuPage" aria-label="Restaurant Menu">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="section-header section-header--center" style="margin-bottom:32px;">
+      <span class="section-label">Biryani Palace by Niamat</span>
+      <h1 class="section-title">Our Dum Biryani Menu</h1>
+      <p class="section-sub">Slow-cooked fresh for every order. Select an item to order for instant delivery or family pre-order.</p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="menu-search-wrap" style="max-width:480px;margin:0 auto 28px;">
+      <svg class="menu-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input
+        type="text"
+        class="menu-search-input"
+        id="RestaurantMenuSearch"
+        placeholder="Search biryani, starters, gravies..."
+        aria-label="Search menu items"
+      >
+    </div>
+
+    <!-- Smart Filters -->
+    <div class="menu-filter-bar" id="MenuFilterBar" style="justify-content:center;">
+      <button class="menu-filter-btn active" data-filter="all">All Items</button>
+      <button class="menu-filter-btn" data-filter="chicken">Chicken</button>
+      <button class="menu-filter-btn" data-filter="mutton">Mutton</button>
+      <button class="menu-filter-btn" data-filter="veg">Veg Specials</button>
+      <button class="menu-filter-btn" data-filter="available">Available Now</button>
+      <button class="menu-filter-btn" data-filter="family">Family Packs</button>
+      <button class="menu-filter-btn" data-filter="bestseller">Best Sellers</button>
+    </div>
+
+    <!-- Menu Grid -->
+    <div class="menu-grid" id="RestaurantMenuGrid">
+      {% comment %} Loop through all products across collections {% endcomment %}
+      {% for product in collections.all.products %}
+        {% render 'product-card', product: product %}
+      {% else %}
+        <!-- Demo restaurant items if no products exist yet -->
+        <div class="product-card" data-category="chicken bestseller available">
+          <div class="product-card__image-wrap">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--color-surface-elevated);">🍚</div>
+            <div class="product-card__badges"><span class="product-card__tag">Best Seller</span></div>
+            <span class="product-card__veg-indicator non-veg"></span>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Chicken Dum Biryani</h3>
+            <p class="product-card__desc">Marinated chicken slow-cooked on dum with saffron basmati rice and signature spices.</p>
+            <div class="product-card__serving-prep">
+              <div class="product-card__info-item"><span>Serves 1–2</span></div>
+              <div class="product-card__info-item"><span>30–60 min</span></div>
+            </div>
+            <div class="product-card__avail now">Available Now</div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="currency">₹</span>299</div>
+              <a href="/pages/start-your-order" class="add-to-cart-btn" style="text-decoration:none;">Order Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="mutton bestseller available">
+          <div class="product-card__image-wrap">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--color-surface-elevated);">🍖</div>
+            <div class="product-card__badges"><span class="product-card__tag">Chef's Special</span></div>
+            <span class="product-card__veg-indicator non-veg"></span>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Mutton Shahi Dum Biryani</h3>
+            <p class="product-card__desc">Tender mutton pieces layered with long-grain basmati rice, caramelized onions, and ghee.</p>
+            <div class="product-card__serving-prep">
+              <div class="product-card__info-item"><span>Serves 1–2</span></div>
+              <div class="product-card__info-item"><span>30–60 min</span></div>
+            </div>
+            <div class="product-card__avail now">Available Now</div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="currency">₹</span>399</div>
+              <a href="/pages/start-your-order" class="add-to-cart-btn" style="text-decoration:none;">Order Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="veg available">
+          <div class="product-card__image-wrap">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--color-surface-elevated);">🌱</div>
+            <span class="product-card__veg-indicator veg"></span>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Paneer Royal Dum Biryani</h3>
+            <p class="product-card__desc">Fresh cottage cheese cubes marinated in aromatic spices and slow-cooked with basmati rice.</p>
+            <div class="product-card__serving-prep">
+              <div class="product-card__info-item"><span>Serves 1–2</span></div>
+              <div class="product-card__info-item"><span>30–60 min</span></div>
+            </div>
+            <div class="product-card__avail now">Available Now</div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="currency">₹</span>259</div>
+              <a href="/pages/start-your-order" class="add-to-cart-btn" style="text-decoration:none;">Order Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="family">
+          <div class="product-card__image-wrap">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--color-surface-elevated);">👑</div>
+            <div class="product-card__badges"><span class="product-card__tag">Family Pack</span></div>
+            <span class="product-card__veg-indicator non-veg"></span>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">2 KG Shahi Family Feast</h3>
+            <p class="product-card__desc">2 KG Dum Biryani + Gravy + Starter + Dessert. Complete meal for the family.</p>
+            <div class="product-card__serving-prep">
+              <div class="product-card__info-item"><span>Serves 8–10</span></div>
+              <div class="product-card__info-item"><span>3 hr notice</span></div>
+            </div>
+            <div class="product-card__avail preorder">Pre-order</div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="currency">₹</span>1,699</div>
+              <a href="/pages/family-feast" class="preorder-btn" style="text-decoration:none;">Pre-order</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

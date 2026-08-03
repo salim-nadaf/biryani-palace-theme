@@ -1,0 +1,124 @@
+{% comment %}
+  Product Card Snippet — Restaurant Style
+  Includes: food image, name, short desc, serving info (Serves X), prep time, availability badge, price, primary CTA
+{% endcomment %}
+
+{%- assign veg_meta = product.metafields.custom.is_veg -%}
+{%- assign is_veg = false -%}
+{%- if veg_meta == true or veg_meta == 'true' or veg_meta == '1' -%}
+  {%- assign is_veg = true -%}
+{%- endif -%}
+
+{%- assign tag_label = '' -%}
+{%- for tag in product.tags -%}
+  {%- assign tl = tag | downcase -%}
+  {%- if tl contains 'popular' -%}{%- assign tag_label = 'Popular' -%}
+  {%- elsif tl contains 'must try' -%}{%- assign tag_label = 'Must Try' -%}
+  {%- elsif tl contains 'best seller' -%}{%- assign tag_label = 'Best Seller' -%}
+  {%- elsif tl contains "chef's special" -%}{%- assign tag_label = "Chef's Special" -%}
+  {%- elsif tl contains 'new' -%}{%- assign tag_label = 'New' -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<div class="product-card animate-on-scroll" id="product-card-{{ product.id }}">
+
+  <!-- Image & Badges -->
+  <div class="product-card__image-wrap">
+    {% if product.featured_image %}
+      <img
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        srcset="{{ product.featured_image | image_url: width: 360 }} 360w, {{ product.featured_image | image_url: width: 600 }} 600w"
+        sizes="(max-width: 768px) 100vw, 380px"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        width="600"
+        height="450"
+        loading="lazy"
+      >
+    {% else %}
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--color-surface-elevated);">🍚</div>
+    {% endif %}
+
+    {% if tag_label != blank %}
+      <div class="product-card__badges">
+        <span class="product-card__tag {% if tag_label == 'New' %}new{% endif %}">{{ tag_label }}</span>
+      </div>
+    {% endif %}
+
+    <span
+      class="product-card__veg-indicator {% if is_veg %}veg{% else %}non-veg{% endif %}"
+      aria-label="{% if is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"
+      title="{% if is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"
+    ></span>
+  </div>
+
+  <!-- Body -->
+  <div class="product-card__body">
+
+    <h3 class="product-card__name">
+      <a href="{{ product.url }}" style="color:inherit;text-decoration:none;">{{ product.title }}</a>
+    </h3>
+
+    {% if product.description != blank %}
+      <p class="product-card__desc">{{ product.description | strip_html | truncate: 90 }}</p>
+    {% endif %}
+
+    <!-- Serving Info & Prep Time Strip -->
+    <div class="product-card__serving-prep">
+      <div class="product-card__info-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        <span>
+          {% if product.title contains 'Single' or product.title contains 'Plate' %}Serves 1
+          {% elsif product.title contains 'Double' %}Serves 2
+          {% elsif product.title contains 'Half' %}Serves 2–3
+          {% elsif product.title contains '1 Kg' or product.title contains '1Kg' %}Serves 4–5
+          {% elsif product.title contains '2 Kg' or product.title contains '2Kg' %}Serves 8–10
+          {% else %}Serves 1–2
+          {% endif %}
+        </span>
+      </div>
+      <div class="product-card__info-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span>{{ settings.kitchen_prep_time | default: '30–60' }} min</span>
+      </div>
+    </div>
+
+    <!-- Availability Status -->
+    <div style="margin-bottom:12px;">
+      {% if product.available %}
+        <span class="product-card__avail now">Available Now</span>
+      {% else %}
+        <span class="product-card__avail soldout">Sold Out Today</span>
+      {% endif %}
+    </div>
+
+    <!-- Footer: Price & Primary CTA -->
+    <div class="product-card__footer">
+      <div class="product-card__price">
+        <span class="currency">₹</span>{{ product.price | money_without_currency | remove: '.00' }}
+        {% if product.compare_at_price > product.price %}
+          <del style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;margin-left:4px;">₹{{ product.compare_at_price | money_without_currency | remove: '.00' }}</del>
+        {% endif %}
+      </div>
+
+      {% if product.available %}
+        {%- assign variant = product.first_available_variant -%}
+        <button
+          class="add-to-cart-btn"
+          data-variant="{{ variant.id }}"
+          data-product-id="{{ product.id }}"
+          id="CardAdd-{{ product.id }}"
+          aria-label="Order {{ product.title | escape }}"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          Order Now
+        </button>
+      {% else %}
+        <a href="/pages/family-feast" class="preorder-btn" style="padding:8px 12px;font-size:0.75rem;" id="CardPreorder-{{ product.id }}">
+          Pre-order
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+
+</div>

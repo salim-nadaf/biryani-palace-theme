@@ -1,0 +1,187 @@
+<section class="bulk-plans animate-on-scroll" id="BulkPlans" aria-label="Bulk Order Plans">
+  <div class="container">
+
+    <div class="menu-section__header">
+      <p class="section-label">{{ section.settings.label }}</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subheading }}</p>
+    </div>
+
+    <div class="bulk-plans__grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'plan' %}
+        <div class="bulk-card {% if block.settings.popular %}popular{% endif %} animate-on-scroll" {{ block.shopify_attributes }}>
+          {% if block.settings.popular %}
+            <div class="bulk-card__badge">Most Popular</div>
+          {% endif %}
+
+          <div class="bulk-card__icon">{{ block.settings.icon | default: '👑' }}</div>
+          <h3 class="bulk-card__name">{{ block.settings.name }}</h3>
+          <p class="bulk-card__guests">{{ block.settings.guests }} &nbsp;|&nbsp; {{ block.settings.quantity }}</p>
+
+          <ul class="bulk-card__details">
+            {% unless block.settings.item_1 == blank %}<li>{{ block.settings.item_1 }}</li>{% endunless %}
+            {% unless block.settings.item_2 == blank %}<li>{{ block.settings.item_2 }}</li>{% endunless %}
+            {% unless block.settings.item_3 == blank %}<li>{{ block.settings.item_3 }}</li>{% endunless %}
+            {% unless block.settings.item_4 == blank %}<li>{{ block.settings.item_4 }}</li>{% endunless %}
+          </ul>
+
+          {% if block.settings.freebie != blank %}
+          <div class="bulk-card__freebie">🎁 {{ block.settings.freebie }}</div>
+          {% endif %}
+
+          <div class="bulk-card__price">
+            <span class="currency">₹</span>
+            <span class="amount">{{ block.settings.price | money_without_currency | remove: '.00' }}</span>
+          </div>
+
+          <a
+            href="{{ section.settings.cta_url }}"
+            class="btn btn-primary {% if block.settings.popular %}{% else %}btn-outline{% endif %}"
+            style="width:100%;justify-content:center;"
+            id="BulkPlanCta-{{ block.id }}"
+          >
+            {{ section.settings.cta_text | default: 'Book This Plan' }}
+          </a>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if section.settings.note != blank %}
+    <p style="text-align:center;margin-top:32px;font-size:0.875rem;color:var(--color-text-secondary);">
+      {{ section.settings.note }}
+    </p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bulk Order Plans",
+  "tag": "section",
+  "class": "section-bulk-plans",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label",
+      "default": "Group Orders"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Feed the Crowd, Royal Style"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Section Subheading",
+      "default": "Perfect for weddings, kitty parties, office lunches. Pre-order 24 hours in advance."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Book This Plan"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Button URL",
+      "info": "Link to a contact form, WhatsApp, or a custom page"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Footer Note (optional)",
+      "default": "* Prices subject to change. Advance booking required. GST applicable."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "plan",
+      "name": "Bulk Plan",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "popular",
+          "label": "Mark as Most Popular",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon / Emoji",
+          "default": "👑"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Plan Name",
+          "default": "The Shahi Dawat"
+        },
+        {
+          "type": "text",
+          "id": "guests",
+          "label": "Number of Guests",
+          "default": "20–30 Guests"
+        },
+        {
+          "type": "text",
+          "id": "quantity",
+          "label": "Total Quantity",
+          "default": "10 KG Total"
+        },
+        {
+          "type": "text",
+          "id": "item_1",
+          "label": "Included Item 1",
+          "default": "Biryani: 2 Choices"
+        },
+        {
+          "type": "text",
+          "id": "item_2",
+          "label": "Included Item 2",
+          "default": "Gravy: 1 Choice"
+        },
+        {
+          "type": "text",
+          "id": "item_3",
+          "label": "Included Item 3",
+          "default": "Starter: 1 Choice"
+        },
+        {
+          "type": "text",
+          "id": "item_4",
+          "label": "Included Item 4 (optional)",
+          "default": ""
+        },
+        {
+          "type": "text",
+          "id": "freebie",
+          "label": "Free Gift / Bonus (optional)",
+          "default": "Dessert: Free"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price (in Rupees, e.g. 8999)",
+          "default": "8999"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bulk Order Plans",
+      "blocks": [
+        { "type": "plan", "settings": { "name": "The Mehmaan Plan", "icon": "🍽️", "guests": "10–15 Guests", "quantity": "5 KG Total", "item_1": "Biryani: 3 Choices", "item_2": "Gravy: 1 Choice", "item_3": "Starter: 1 Choice", "freebie": "Dessert: Free", "price": "4499", "popular": false } },
+        { "type": "plan", "settings": { "name": "The Shahi Dawat", "icon": "👑", "guests": "20–30 Guests", "quantity": "10 KG Total", "item_1": "Biryani: 2 Choices", "item_2": "Gravy: 1 Choice", "item_3": "Starter: 1 Choice", "freebie": "Dessert: Free", "price": "8999", "popular": true } },
+        { "type": "plan", "settings": { "name": "The Royal Baithak", "icon": "🏰", "guests": "40–50 Guests", "quantity": "15 KG Total", "item_1": "Biryani: 3 Choices", "item_2": "Gravy: 1 Choice", "item_3": "Starter: 2 Choices", "item_4": "Raita & Papad", "freebie": "Dessert + Drinks: Free", "price": "13999", "popular": false } }
+      ]
+    }
+  ]
+}
+{% endschema %}

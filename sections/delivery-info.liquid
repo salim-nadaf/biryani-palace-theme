@@ -1,0 +1,88 @@
+<section class="delivery-info-section animate-on-scroll" id="DeliveryInfoSection" aria-label="Delivery Information">
+  <div class="container">
+
+    <div class="section-header section-header--center">
+      <span class="section-label">{{ section.settings.label | default: 'Delivery Details' }}</span>
+      <h2 class="section-title">{{ section.settings.heading | default: 'Delivery & Kitchen Timings' }}</h2>
+      <p class="section-sub">{{ section.settings.subheading | default: 'Freshly prepared and delivered hot right to your doorstep.' }}</p>
+    </div>
+
+    <div class="delivery-info-grid">
+
+      <!-- Areas -->
+      <div class="delivery-info-card">
+        <span class="delivery-info-card__icon">📍</span>
+        <div class="delivery-info-card__label">Delivery Areas</div>
+        <div class="delivery-info-card__value">
+          {{ settings.delivery_areas | default: 'Kalyan West, Kalyan East, Dombivli, Ambernath, Badlapur, Ulhasnagar, Thane, Bhiwandi' }}
+        </div>
+      </div>
+
+      <!-- Timings -->
+      <div class="delivery-info-card">
+        <span class="delivery-info-card__icon">⏰</span>
+        <div class="delivery-info-card__label">Kitchen Hours</div>
+        <div class="delivery-info-card__value">
+          Lunch: 12:00 PM – 4:00 PM<br>
+          Dinner: 7:00 PM – 10:30 PM
+        </div>
+        <div class="delivery-info-card__sub">Open all 7 days a week</div>
+      </div>
+
+      <!-- Preparation Time -->
+      <div class="delivery-info-card">
+        <span class="delivery-info-card__icon">🚀</span>
+        <div class="delivery-info-card__label">Preparation & Delivery</div>
+        <div class="delivery-info-card__value">
+          Instant Orders: {{ settings.kitchen_prep_time | default: '30–60' }} Minutes<br>
+          Family Feasts: Min 3 Hours Notice
+        </div>
+      </div>
+
+      <!-- Charges & Free delivery -->
+      <div class="delivery-info-card">
+        <span class="delivery-info-card__icon">🎁</span>
+        <div class="delivery-info-card__label">Delivery Charges</div>
+        <div class="delivery-info-card__value">
+          FREE Delivery on orders above ₹{{ settings.delivery_free_above | default: '499' }}<br>
+          <span style="font-size:0.8125rem;color:var(--color-text-secondary);">Min Order: ₹{{ settings.delivery_min_order | default: '299' }}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Delivery Info",
+  "tag": "section",
+  "class": "section-delivery-info",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label",
+      "default": "Delivery Details"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Delivery & Kitchen Timings"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Freshly prepared and delivered hot right to your doorstep."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Delivery Info"
+    }
+  ]
+}
+{% endschema %}
