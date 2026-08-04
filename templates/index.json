@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -16,13 +25,15 @@
         "heading_block": {
           "type": "heading",
           "settings": {
-            "heading": "More Than a Meal. A Biryani Worth Gathering For."
+            "heading": "More Than a Meal. A Biryani Worth Gathering For.",
+            "heading_color": "#ffffff"
           }
         },
         "subheading_block": {
           "type": "subheading",
           "settings": {
-            "text": "From quick cravings to family feasts, enjoy freshly prepared biryani delivered across Kalyan. Order instantly or schedule your family order in advance."
+            "text": "From quick cravings to family feasts, enjoy freshly prepared biryani delivered across Kalyan. Order instantly or schedule your family order in advance.",
+            "subheading_color": "#aaaaaa"
           }
         },
         "buttons_block": {
@@ -57,8 +68,8 @@
       "settings": {
         "bg_video_url": "https://cdn.shopify.com/videos/c/o/v/d9d77b9d67f2417b8243214b4f77fd47.mp4",
         "overlay_opacity": 80,
-        "desktop_height": 480,
-        "text_alignment": "left"
+        "desktop_height": 450,
+        "text_alignment": "center"
       }
     },
     "todays-kitchen": {
@@ -67,9 +78,65 @@
         "label": "Today's Kitchen",
         "heading": "Today's Available Biryanis",
         "subheading": "Freshly prepared dum biryani ready for instant delivery in 30–60 minutes.",
-        "collection": "",
-        "products_to_show": 6
+        "collection": "instant-delivery",
+        "products_to_show": 3
       }
+    },
+    "1785843059d0a501ad": {
+      "type": "apps",
+      "settings": {}
+    },
+    "17858431362c55480e": {
+      "type": "apps",
+      "settings": {}
+    },
+    "1785843170f5b196c5": {
+      "type": "apps",
+      "settings": {}
+    },
+    "1785843196ef33cbb5": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_cards_carousel_yBxfnA": {
+          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "all",
+            "products": [],
+            "filter_pinned": false,
+            "filter_featured": true,
+            "filter_custom_tags": "",
+            "star_rating": "all",
+            "show_review_media": true,
+            "display_order": "media_first",
+            "no_image_fallback": "review_text_only",
+            "max_reviews": 20,
+            "review_length": "medium",
+            "text_size": "medium",
+            "image_ratio": "1",
+            "reviews_shown": 4,
+            "show_reviewer_name": true,
+            "show_product_name": true,
+            "hide_arrows_mobile": true,
+            "arrows_position": "sides",
+            "max_width": 1100,
+            "corner_styling": "extra_round",
+            "header_text_color": "#C89116",
+            "text_color": "#000000",
+            "card_color": "#F9F9F9",
+            "stars_color": "#C89116",
+            "arrows_color": "#C89116",
+            "transition_speed": 5,
+            "header_text": "Loved by Biryani Enthusiasts Across Kalyan",
+            "show_average_rating": true,
+            "rating_display": "default"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_cards_carousel_yBxfnA"
+      ],
+      "settings": {}
     },
     "family-orders": {
       "type": "family-orders-home",
@@ -78,10 +145,10 @@
           "type": "size_card",
           "settings": {
             "size_title": "1 KG Dum Biryani",
-            "serves_info": "Serves 4–5 People",
-            "price_text": "₹899",
+            "serves_info": "Serves 5–6 People",
+            "price_text": "₹999",
             "price_sub": "onwards",
-            "note": "Includes 2 Complimentary Raitas & Salan",
+            "note": "Includes Free Raitas",
             "is_featured": false,
             "button_text": "Pre-order 1 KG",
             "button_url": "shopify://pages/family-feast"
@@ -91,47 +158,19 @@
           "type": "size_card",
           "settings": {
             "size_title": "2 KG Dum Biryani",
-            "serves_info": "Serves 8–10 People",
-            "price_text": "₹1,699",
+            "serves_info": "Serves 10–12 People",
+            "price_text": "₹2099",
             "price_sub": "onwards",
-            "note": "Includes Free Dessert + Raita & Salan",
+            "note": "Includes Free Raita",
             "is_featured": true,
             "button_text": "Pre-order 2 KG",
-            "button_url": "shopify://pages/family-feast"
-          }
-        },
-        "card_3kg": {
-          "type": "size_card",
-          "settings": {
-            "size_title": "3 KG Dum Biryani",
-            "serves_info": "Serves 12–15 People",
-            "price_text": "₹2,499",
-            "price_sub": "onwards",
-            "note": "Includes Starter + Dessert + Raita",
-            "is_featured": false,
-            "button_text": "Pre-order 3 KG",
-            "button_url": "shopify://pages/family-feast"
-          }
-        },
-        "card_bulk": {
-          "type": "size_card",
-          "settings": {
-            "size_title": "5 KG+ Bulk Orders",
-            "serves_info": "Serves 20+ People",
-            "price_text": "Custom Quote",
-            "price_sub": "",
-            "note": "Weddings, Parties & Corporate Lunches",
-            "is_featured": false,
-            "button_text": "Pre-order Bulk",
             "button_url": "shopify://pages/family-feast"
           }
         }
       },
       "block_order": [
         "card_1kg",
-        "card_2kg",
-        "card_3kg",
-        "card_bulk"
+        "card_2kg"
       ],
       "settings": {
         "label": "Family & Group Orders",
@@ -188,14 +227,6 @@
         "payment_label": "100% Secure Payments:"
       }
     },
-    "reviews": {
-      "type": "customer-reviews",
-      "settings": {
-        "label": "Real Customer Experiences",
-        "heading": "Loved by Biryani Enthusiasts Across Kalyan",
-        "subheading": "Here is what our customers say about our authentic dum biryanis."
-      }
-    },
     "delivery-info": {
       "type": "delivery-info",
       "settings": {
@@ -216,9 +247,12 @@
   "order": [
     "hero",
     "todays-kitchen",
+    "1785843059d0a501ad",
+    "17858431362c55480e",
+    "1785843170f5b196c5",
+    "1785843196ef33cbb5",
     "family-orders",
     "why-choose-us",
-    "reviews",
     "delivery-info",
     "faq"
   ]
