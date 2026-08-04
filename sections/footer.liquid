@@ -4,15 +4,25 @@
     <div class="footer__grid">
 
       <!-- Brand Column (Centered) -->
-      <div class="footer__brand" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
-        {% if settings.logo %}
-          <img src="{{ settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" width="140" height="auto" loading="lazy" style="margin:0 auto 12px;">
+      <div class="footer__brand" style="display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;">
+        {% assign footer_logo = section.settings.logo | default: settings.logo %}
+        {% assign logo_h = section.settings.logo_max_height | default: settings.logo_max_height | default: 75 %}
+        {% assign logo_w = section.settings.logo_width | default: settings.logo_width | default: 150 %}
+
+        {% if footer_logo %}
+          <img
+            src="{{ footer_logo | image_url: width: 600 }}"
+            alt="{{ shop.name }}"
+            class="footer__logo-img"
+            style="max-height: {{ logo_h }}px; max-width: {{ logo_w }}px; width: auto; height: auto; object-fit: contain; display: block; margin: 0 auto 12px;"
+            loading="lazy"
+          >
         {% else %}
-          <div class="footer__brand-name" style="text-align:center;">{{ settings.brand_name | default: shop.name }}</div>
+          <div class="footer__brand-name" style="text-align:center;width:100%;">{{ settings.brand_name | default: shop.name }}</div>
         {% endif %}
 
-        <!-- Tagline: Share the Joy -->
-        <p class="footer__tagline" style="text-align:center;color:var(--color-primary);font-size:1rem;font-weight:700;letter-spacing:1px;margin-top:4px;margin-bottom:16px;">
+        <!-- Tagline: Share the Joy (Italicized specifically for footer) -->
+        <p class="footer__tagline" style="text-align:center;color:var(--color-primary);font-size:1.0625rem;font-weight:600;font-style:italic;letter-spacing:0.5px;margin-top:4px;margin-bottom:16px;">
           Share the Joy
         </p>
 
@@ -63,17 +73,14 @@
         {% endif %}
       {% endfor %}
 
-      <!-- Contact Column -->
+      <!-- Contact Info Column -->
       {% if section.settings.show_contact %}
       <div class="footer__col">
         <h4>{{ section.settings.contact_heading | default: 'Get in Touch' }}</h4>
         <ul class="footer__links">
-          {% if settings.phone_number != blank %}
-          <li><a href="tel:{{ settings.phone_number | remove: ' ' }}">{{ settings.phone_number }}</a></li>
-          {% endif %}
-          {% if settings.email_address != blank %}
-          <li><a href="mailto:{{ settings.email_address }}">{{ settings.email_address }}</a></li>
-          {% endif %}
+          <li><a href="tel:{{ settings.contact_phone | remove: ' ' }}">📞 {{ settings.contact_phone | default: '+91 98765 43210' }}</a></li>
+          <li><span>📍 Kalyan West, Maharashtra</span></li>
+          <li><span>⏰ 12:00 PM – 10:30 PM (Daily)</span></li>
         </ul>
       </div>
       {% endif %}
@@ -82,17 +89,17 @@
 
     <!-- Bottom Bar -->
     <div class="footer__bottom">
-      <p>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
-      <p>
-        {% if section.settings.show_powered_by %}Powered by love and biryani 🍚{% endif %}
-      </p>
-      <ul style="list-style:none;display:flex;gap:16px;">
-        {% if linklists['footer'].links.size > 0 %}
-          {% for link in linklists['footer'].links %}
-          <li><a href="{{ link.url }}" style="font-size:0.75rem;color:var(--color-text-secondary);">{{ link.title }}</a></li>
-          {% endfor %}
-        {% endif %}
-      </ul>
+      <div class="footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ settings.brand_name | default: shop.name }}. All rights reserved.
+      </div>
+      {% if section.settings.show_powered_by %}
+      <div class="footer__powered">
+        {{ powered_by_link }}
+      </div>
+      {% endif %}
+      <div class="footer__payments" style="display:flex;gap:8px;align-items:center;font-size:0.75rem;color:var(--color-text-secondary);">
+        <span>🔒 100% Halal Certified &bull; UPI &bull; Cards &bull; Cash on Delivery</span>
+      </div>
     </div>
 
   </div>
@@ -102,6 +109,29 @@
 {
   "name": "Footer",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Custom Footer Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_height",
+      "label": "Logo Max Height (px)",
+      "min": 40,
+      "max": 140,
+      "step": 5,
+      "default": 75
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo Max Width (px)",
+      "min": 60,
+      "max": 300,
+      "step": 5,
+      "default": 150
+    },
     {
       "type": "checkbox",
       "id": "show_contact",
