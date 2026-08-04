@@ -1,6 +1,6 @@
 /**
  * Biryani Palace by Niamat — Custom Restaurant Theme JS
- * Features: Ajax Cart Drawer, Smart Add-ons Modal, FAQ Accordions, Menu Filters, Area Checker, Analytics/Pixel Events
+ * Features: Ajax Cart Drawer, Behrouz-Style Quick Food Checkout, Smart Add-ons Modal, FAQ Accordions, Menu Filters, Area Checker, Analytics/Pixel Events
  */
 
 (function () {
@@ -30,7 +30,7 @@
     }, 3200);
   }
 
-  /* ─────────────────── 1. CART DRAWER SYSTEM ─────────────────── */
+  /* ─────────────────── 1. CART DRAWER SYSTEM & QUICK CHECKOUT ─────────────────── */
   const CartManager = {
     drawer: null,
     overlay: null,
@@ -59,6 +59,21 @@
       document.getElementById('CartToggleBtn')?.addEventListener('click', () => this.open());
       document.getElementById('CartDrawerCloseBtn')?.addEventListener('click', () => this.close());
       this.overlay?.addEventListener('click', () => this.close());
+
+      // Proceed to Delivery Details View
+      document.getElementById('CartProceedToFormBtn')?.addEventListener('click', () => {
+        this.showCheckoutForm();
+      });
+
+      // Back to Cart View
+      document.getElementById('CartDrawerBackBtn')?.addEventListener('click', () => {
+        this.showCartItems();
+      });
+
+      // Quick Submit Order
+      document.getElementById('QuickSubmitOrderBtn')?.addEventListener('click', async () => {
+        await this.handleQuickSubmit();
+      });
 
       // Global Add to Cart Delegation
       document.addEventListener('click', (e) => {
@@ -95,6 +110,7 @@
 
     open() {
       if (!this.drawer) return;
+      this.showCartItems();
       this.drawer.classList.add('open');
       this.overlay?.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -107,6 +123,96 @@
       this.overlay?.classList.remove('open');
       document.body.style.overflow = '';
       this.drawer.setAttribute('aria-hidden', 'true');
+    },
+
+    showCheckoutForm() {
+      const viewItems = document.getElementById('CartViewItems');
+      const viewForm = document.getElementById('CartViewCheckoutForm');
+      const backBtn = document.getElementById('CartDrawerBackBtn');
+      const titleEl = document.getElementById('CartDrawerHeadingTitle');
+
+      if (viewItems && viewForm) {
+        viewItems.style.display = 'none';
+        viewForm.style.display = 'flex';
+        if (backBtn) backBtn.style.display = 'block';
+        if (titleEl) titleEl.textContent = 'Delivery Details';
+      }
+    },
+
+    showCartItems() {
+      const viewItems = document.getElementById('CartViewItems');
+      const viewForm = document.getElementById('CartViewCheckoutForm');
+      const backBtn = document.getElementById('CartDrawerBackBtn');
+      const titleEl = document.getElementById('CartDrawerHeadingTitle');
+
+      if (viewItems && viewForm) {
+        viewForm.style.display = 'none';
+        viewItems.style.display = 'block';
+        if (backBtn) backBtn.style.display = 'none';
+        if (titleEl) titleEl.textContent = 'Your Order';
+      }
+    },
+
+    async handleQuickSubmit() {
+      const name = document.getElementById('qc_name')?.value.trim();
+      const phone = document.getElementById('qc_phone')?.value.trim();
+      const email = document.getElementById('qc_email')?.value.trim();
+      const area = document.getElementById('qc_area')?.value;
+      const address = document.getElementById('qc_address')?.value.trim();
+      const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value || 'online';
+
+      if (!name) {
+        showToast('Please enter your full name', 'error');
+        document.getElementById('qc_name')?.focus();
+        return;
+      }
+      if (!phone || phone.length < 10) {
+        showToast('Please enter a valid 10-digit mobile number', 'error');
+        document.getElementById('qc_phone')?.focus();
+        return;
+      }
+      if (!area) {
+        showToast('Please select your delivery area', 'error');
+        document.getElementById('qc_area')?.focus();
+        return;
+      }
+      if (!address) {
+        showToast('Please enter your complete delivery address', 'error');
+        document.getElementById('qc_address')?.focus();
+        return;
+      }
+
+      const submitBtn = document.getElementById('QuickSubmitOrderBtn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Processing Order...</span>';
+      }
+
+      try {
+        // 1. Save customer details to cart attributes
+        await fetch('/cart/update.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            attributes: {
+              'Customer Name': name,
+              'Customer Phone': phone,
+              'Customer Email': email || 'Not provided',
+              'Delivery Area': area,
+              'Delivery Address': address,
+              'Payment Choice': paymentMethod === 'cod' ? 'Cash on Delivery' : 'Online Payment'
+            }
+          })
+        });
+
+        // 2. Pre-fill & redirect to Shopify checkout cleanly
+        window.location.href = `/checkout?checkout[shipping_address][first_name]=${encodeURIComponent(name)}&checkout[shipping_address][phone]=${encodeURIComponent(phone)}&checkout[shipping_address][address1]=${encodeURIComponent(address)}&checkout[shipping_address][city]=${encodeURIComponent(area)}&checkout[email]=${encodeURIComponent(email || '')}`;
+
+      } catch (err) {
+        console.error(err);
+        showToast('Unable to save details. Redirecting to checkout...', 'error');
+        window.location.href = '/checkout';
+      }
     },
 
     async addItem(variantId, quantity = 1, buttonEl = null, productId = null) {
@@ -206,6 +312,9 @@
 
       // Subtotal
       if (this.subtotalEl) this.subtotalEl.textContent = formatMoney(cart.total_price);
+
+      const quickSubtotalDisplay = document.getElementById('QuickFormSubtotalDisplay');
+      if (quickSubtotalDisplay) quickSubtotalDisplay.textContent = formatMoney(cart.total_price);
 
       // Free delivery progress bar (Zone 1: ₹799, Zone 2: ₹1,299)
       const freeZone1Cents = 79900;

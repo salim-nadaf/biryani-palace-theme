@@ -2,128 +2,218 @@
 
   <!-- Header -->
   <div class="cart-drawer__header">
-    <div>
-      <span class="cart-drawer__title">Your Order</span>
-      <span class="cart-drawer__count" id="CartDrawerCount">({{ cart.item_count }} items)</span>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="cart-drawer__back-btn" id="CartDrawerBackBtn" style="display:none;background:none;border:none;color:var(--color-primary);cursor:pointer;font-size:1rem;padding:0;" aria-label="Back to Cart">
+        ← Back
+      </button>
+      <div>
+        <span class="cart-drawer__title" id="CartDrawerHeadingTitle">Your Order</span>
+        <span class="cart-drawer__count" id="CartDrawerCount">({{ cart.item_count }} items)</span>
+      </div>
     </div>
     <button class="cart-drawer__close" id="CartDrawerCloseBtn" aria-label="Close cart drawer">✕</button>
   </div>
 
-  <!-- Free item progress bar -->
-  <div class="cart-free-progress" id="CartFreeProgress">
-    <div class="cart-free-progress__text" id="FreeProgressText">
-      Add <strong>₹799</strong> for <strong>FREE Delivery</strong> (0–5 KM)
-    </div>
-    <div class="progress-bar">
-      <div class="progress-bar__fill" id="FreeProgressFill" style="width: 0%;"></div>
-    </div>
-  </div>
-
-  <!-- ETA Strip -->
-  <div class="cart-eta" id="CartEtaStrip">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-    <span>Estimated Delivery: <strong id="CartDrawerEta">Today in {{ settings.kitchen_prep_time | default: '30–60' }} min</strong></span>
-  </div>
-
-  <!-- Items list or empty state -->
-  <div class="cart-drawer__items" id="CartDrawerItems">
-    {% if cart.item_count == 0 %}
-      <div class="cart-drawer__empty" id="CartDrawerEmptyState">
-        <div class="cart-drawer__empty-icon">🍚</div>
-        <h3>Your order is empty</h3>
-        <p style="font-size:0.875rem;color:var(--color-text-secondary);font-family:'Montserrat',sans-serif;">Add some freshly prepared biryani to get started!</p>
-        <a href="/pages/menu" class="btn btn-primary btn-sm" style="margin-top:12px;" id="CartEmptyBrowseBtn">
-          Browse Restaurant Menu
-        </a>
+  <!-- VIEW 1: CART ITEMS & PROGRESS -->
+  <div id="CartViewItems" class="cart-drawer-view active">
+    <!-- Free item progress bar -->
+    <div class="cart-free-progress" id="CartFreeProgress">
+      <div class="cart-free-progress__text" id="FreeProgressText">
+        Add <strong>₹799</strong> for <strong>FREE Delivery</strong> (0–5 KM)
       </div>
-    {% else %}
-      {% for item in cart.items %}
-        <div class="cart-item" id="CartItem-{{ item.key }}">
-          <img
-            src="{{ item.image | image_url: width: 140 }}"
-            alt="{{ item.title | escape }}"
-            class="cart-item__image"
-            width="68"
-            height="68"
-            loading="lazy"
-          >
-          <div class="cart-item__details">
-            <div class="cart-item__name">{{ item.product.title }}</div>
-            {% if item.variant.title != 'Default Title' %}
-              <div style="font-size:0.75rem;color:var(--color-text-secondary);margin-bottom:4px;">{{ item.variant.title }}</div>
-            {% endif %}
-            <div class="cart-item__price">₹{{ item.line_price | money_without_currency | remove: '.00' }}</div>
+      <div class="progress-bar">
+        <div class="progress-bar__fill" id="FreeProgressFill" style="width: 0%;"></div>
+      </div>
+    </div>
 
-            <div class="cart-item__controls">
-              <div class="qty-control" style="height:32px;">
+    <!-- ETA Strip -->
+    <div class="cart-eta" id="CartEtaStrip">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <span>Estimated Delivery: <strong id="CartDrawerEta">Today in {{ settings.kitchen_prep_time | default: '30–60' }} min</strong></span>
+    </div>
+
+    <!-- Items list or empty state -->
+    <div class="cart-drawer__items" id="CartDrawerItems">
+      {% if cart.item_count == 0 %}
+        <div class="cart-drawer__empty" id="CartDrawerEmptyState">
+          <div class="cart-drawer__empty-icon">🍚</div>
+          <h3>Your order is empty</h3>
+          <p style="font-size:0.875rem;color:var(--color-text-secondary);font-family:'Montserrat',sans-serif;">Add some freshly prepared biryani to get started!</p>
+          <a href="/pages/menu" class="btn btn-primary btn-sm" style="margin-top:12px;" id="CartEmptyBrowseBtn">
+            Browse Restaurant Menu
+          </a>
+        </div>
+      {% else %}
+        {% for item in cart.items %}
+          <div class="cart-item" id="CartItem-{{ item.key }}">
+            <img
+              src="{{ item.image | image_url: width: 140 }}"
+              alt="{{ item.title | escape }}"
+              class="cart-item__image"
+              width="68"
+              height="68"
+              loading="lazy"
+            >
+            <div class="cart-item__details">
+              <div class="cart-item__name">{{ item.product.title }}</div>
+              {% if item.variant.title != 'Default Title' %}
+                <div style="font-size:0.75rem;color:var(--color-text-secondary);margin-bottom:4px;">{{ item.variant.title }}</div>
+              {% endif %}
+              <div class="cart-item__price">₹{{ item.line_price | money_without_currency | remove: '.00' }}</div>
+
+              <div class="cart-item__controls">
+                <div class="qty-control" style="height:32px;">
+                  <button
+                    class="qty-btn"
+                    data-action="decrease"
+                    data-key="{{ item.key }}"
+                    data-qty="{{ item.quantity | minus: 1 }}"
+                    aria-label="Decrease quantity"
+                    style="width:32px;height:32px;font-size:1rem;"
+                  >−</button>
+                  <span class="qty-display" style="min-width:24px;font-size:0.8125rem;">{{ item.quantity }}</span>
+                  <button
+                    class="qty-btn"
+                    data-action="increase"
+                    data-key="{{ item.key }}"
+                    data-qty="{{ item.quantity | plus: 1 }}"
+                    aria-label="Increase quantity"
+                    style="width:32px;height:32px;font-size:1rem;"
+                  >+</button>
+                </div>
+
                 <button
-                  class="qty-btn"
-                  data-action="decrease"
+                  class="cart-item__remove"
                   data-key="{{ item.key }}"
-                  data-qty="{{ item.quantity | minus: 1 }}"
-                  aria-label="Decrease quantity"
-                  style="width:32px;height:32px;font-size:1rem;"
-                >−</button>
-                <span class="qty-display" style="min-width:24px;font-size:0.8125rem;">{{ item.quantity }}</span>
-                <button
-                  class="qty-btn"
-                  data-action="increase"
-                  data-key="{{ item.key }}"
-                  data-qty="{{ item.quantity | plus: 1 }}"
-                  aria-label="Increase quantity"
-                  style="width:32px;height:32px;font-size:1rem;"
-                >+</button>
+                  aria-label="Remove {{ item.title | escape }}"
+                >Remove</button>
               </div>
-
-              <button
-                class="cart-item__remove"
-                data-key="{{ item.key }}"
-                aria-label="Remove {{ item.title | escape }}"
-              >Remove</button>
             </div>
           </div>
-        </div>
-      {% endfor %}
-    {% endif %}
-  </div>
-
-  <!-- Special Instructions -->
-  {% if cart.item_count > 0 %}
-    <div style="padding:12px 20px;border-top:1px solid var(--color-border);background:var(--color-surface);" id="CartDrawerExtras">
-      <details style="font-size:0.8125rem;font-family:'Montserrat',sans-serif;color:var(--color-text-secondary);">
-        <summary style="cursor:pointer;margin-bottom:8px;font-weight:600;color:var(--color-primary);">+ Add Cooking / Special Instructions</summary>
-        <textarea
-          id="CartSpecialNotes"
-          placeholder="Less spicy, extra raita, call before delivery..."
-          style="width:100%;padding:8px 12px;background:var(--color-surface-elevated);border:1px solid var(--color-border);color:var(--color-text-primary);font-size:0.8125rem;font-family:'Montserrat',sans-serif;resize:none;min-height:60px;"
-        >{{ cart.note }}</textarea>
-      </details>
-    </div>
-  {% endif %}
-
-  <!-- Footer -->
-  <div class="cart-drawer__footer" id="CartDrawerFooter" {% if cart.item_count == 0 %}style="display:none;"{% endif %}>
-    <div class="cart-subtotal">
-      <span class="cart-subtotal__label">Item Subtotal</span>
-      <span class="cart-subtotal__value" id="CartSubtotalVal">
-        ₹{{ cart.total_price | money_without_currency | remove: '.00' }}
-      </span>
-    </div>
-
-    <div class="cart-delivery-note" id="CartDeliveryNote">
-      {% if cart.total_price >= 129900 %}
-        <span class="cart-delivery-note free">✓ You qualify for FREE Delivery for all areas up to 8 KM!</span>
-      {% elsif cart.total_price >= 79900 %}
-        <span class="cart-delivery-note free">✓ You qualify for FREE Delivery (0–5 KM)!</span>
-      {% else %}
-        Free delivery on orders above ₹799 (0–5 KM) & ₹1,299 (5–8 KM)
+        {% endfor %}
       {% endif %}
     </div>
 
-    <a href="/checkout" class="checkout-btn" id="CartCheckoutBtn">
-      <span>Proceed to Checkout</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
+    <!-- Special Instructions -->
+    {% if cart.item_count > 0 %}
+      <div style="padding:12px 20px;border-top:1px solid var(--color-border);background:var(--color-surface);" id="CartDrawerExtras">
+        <details style="font-size:0.8125rem;font-family:'Montserrat',sans-serif;color:var(--color-text-secondary);">
+          <summary style="cursor:pointer;margin-bottom:8px;font-weight:600;color:var(--color-primary);">+ Add Cooking / Special Instructions</summary>
+          <textarea
+            id="CartSpecialNotes"
+            placeholder="Less spicy, extra raita, call before delivery..."
+            style="width:100%;padding:8px 12px;background:var(--color-surface-elevated);border:1px solid var(--color-border);color:var(--color-text-primary);font-size:0.8125rem;font-family:'Montserrat',sans-serif;resize:none;min-height:60px;"
+          >{{ cart.note }}</textarea>
+        </details>
+      </div>
+    {% endif %}
+
+    <!-- Footer -->
+    <div class="cart-drawer__footer" id="CartDrawerFooter" {% if cart.item_count == 0 %}style="display:none;"{% endif %}>
+      <div class="cart-subtotal">
+        <span class="cart-subtotal__label">Item Subtotal</span>
+        <span class="cart-subtotal__value" id="CartSubtotalVal">
+          ₹{{ cart.total_price | money_without_currency | remove: '.00' }}
+        </span>
+      </div>
+
+      <div class="cart-delivery-note" id="CartDeliveryNote">
+        {% if cart.total_price >= 129900 %}
+          <span class="cart-delivery-note free">✓ You qualify for FREE Delivery for all areas up to 8 KM!</span>
+        {% elsif cart.total_price >= 79900 %}
+          <span class="cart-delivery-note free">✓ You qualify for FREE Delivery (0–5 KM)!</span>
+        {% else %}
+          Free delivery on orders above ₹799 (0–5 KM) & ₹1,299 (5–8 KM)
+        {% endif %}
+      </div>
+
+      <button type="button" class="checkout-btn" id="CartProceedToFormBtn">
+        <span>Proceed to Delivery Details</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- VIEW 2: BEHROUZ-STYLE QUICK FOOD CHECKOUT FORM -->
+  <div id="CartViewCheckoutForm" class="cart-drawer-view" style="display:none;flex-direction:column;height:100%;">
+    <div style="flex:1;overflow-y:auto;padding:20px 24px;">
+
+      <div style="margin-bottom:20px;padding:12px 16px;background:rgba(229,169,60,0.08);border:1px solid var(--color-border);">
+        <div style="font-size:0.75rem;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Order Summary</div>
+        <div style="font-size:1.125rem;font-weight:800;color:var(--color-primary);" id="QuickFormSubtotalDisplay">₹{{ cart.total_price | money_without_currency | remove: '.00' }}</div>
+      </div>
+
+      <!-- Quick Delivery Details Form -->
+      <form id="QuickFoodCheckoutForm" onsubmit="return false;">
+
+        <!-- Full Name -->
+        <div class="form-field" style="margin-bottom:16px;">
+          <label for="qc_name" style="display:block;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:6px;">Full Name <span style="color:var(--color-primary);">*</span></label>
+          <input type="text" id="qc_name" name="name" placeholder="Enter your full name" required style="width:100%;padding:12px;background:var(--color-bg);border:1px solid var(--color-border);color:#FFF;font-size:0.875rem;">
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-field" style="margin-bottom:16px;">
+          <label for="qc_phone" style="display:block;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:6px;">Mobile Number <span style="color:var(--color-primary);">*</span></label>
+          <input type="tel" id="qc_phone" name="phone" placeholder="10-digit mobile number" pattern="[0-9]{10}" required style="width:100%;padding:12px;background:var(--color-bg);border:1px solid var(--color-border);color:#FFF;font-size:0.875rem;">
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-field" style="margin-bottom:16px;">
+          <label for="qc_email" style="display:block;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:6px;">Email Address <span style="color:var(--color-text-secondary);font-weight:400;">(for order receipt)</span></label>
+          <input type="email" id="qc_email" name="email" placeholder="name@example.com" style="width:100%;padding:12px;background:var(--color-bg);border:1px solid var(--color-border);color:#FFF;font-size:0.875rem;">
+        </div>
+
+        <!-- Delivery Area -->
+        <div class="form-field" style="margin-bottom:16px;">
+          <label for="qc_area" style="display:block;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:6px;">Delivery Area <span style="color:var(--color-primary);">*</span></label>
+          <select id="qc_area" name="area" required style="width:100%;padding:12px;background:var(--color-bg);border:1px solid var(--color-border);color:#FFF;font-size:0.875rem;">
+            <option value="" disabled selected>Select area (Up to 8 KM)</option>
+            <option value="Kalyan West">Kalyan West</option>
+            <option value="Kalyan East">Kalyan East</option>
+            <option value="Dombivli">Dombivli</option>
+            <option value="Ulhasnagar">Ulhasnagar</option>
+          </select>
+        </div>
+
+        <!-- Flat / House & Landmark -->
+        <div class="form-field" style="margin-bottom:16px;">
+          <label for="qc_address" style="display:block;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:6px;">Complete Delivery Address <span style="color:var(--color-primary);">*</span></label>
+          <textarea id="qc_address" name="address" placeholder="Flat No, Building Name, Street & Landmark..." required rows="3" style="width:100%;padding:12px;background:var(--color-bg);border:1px solid var(--color-border);color:#FFF;font-size:0.875rem;resize:none;"></textarea>
+        </div>
+
+        <!-- Payment Method Selection -->
+        <div class="form-field" style="margin-bottom:20px;">
+          <label style="display:block;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:8px;">Payment Option <span style="color:var(--color-primary);">*</span></label>
+
+          <label style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--color-bg);border:1px solid var(--color-border);cursor:pointer;margin-bottom:8px;">
+            <input type="radio" name="payment_method" value="online" checked style="accent-color:var(--color-primary);">
+            <div>
+              <strong style="color:#FFF;font-size:0.875rem;display:block;">Online Payment (UPI / GPay / PhonePe / Cards)</strong>
+              <span style="font-size:0.75rem;color:var(--color-text-secondary);">Instant payment confirmation</span>
+            </div>
+          </label>
+
+          <label style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--color-bg);border:1px solid var(--color-border);cursor:pointer;">
+            <input type="radio" name="payment_method" value="cod" style="accent-color:var(--color-primary);">
+            <div>
+              <strong style="color:#FFF;font-size:0.875rem;display:block;">Cash on Delivery (COD)</strong>
+              <span style="font-size:0.75rem;color:var(--color-text-secondary);">Pay cash upon food delivery</span>
+            </div>
+          </label>
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- Quick Form Footer -->
+    <div style="padding:18px 24px;border-top:1px solid var(--color-border);background:var(--color-surface-elevated);">
+      <button type="button" class="checkout-btn" id="QuickSubmitOrderBtn">
+        <span>Place Order Now →</span>
+      </button>
+    </div>
   </div>
 
 </div>
