@@ -9,17 +9,20 @@
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
   {%- style -%}
-    {{ settings.font_heading | font_face: font_display: 'swap' }}
-    {{ settings.font_body | font_face: font_display: 'swap' }}
-    
-    {%- assign font_heading_bold = settings.font_heading | font_modify: 'weight', 'bold' -%}
-    {%- if font_heading_bold -%}
-      {{ font_heading_bold | font_face: font_display: 'swap' }}
+    {%- if settings.font_heading != blank and settings.font_heading.family != blank -%}
+      {{ settings.font_heading | font_face: font_display: 'swap' }}
+      {%- assign font_heading_bold = settings.font_heading | font_modify: 'weight', 'bold' -%}
+      {%- if font_heading_bold -%}
+        {{ font_heading_bold | font_face: font_display: 'swap' }}
+      {%- endif -%}
     {%- endif -%}
     
-    {%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bold' -%}
-    {%- if font_body_bold -%}
-      {{ font_body_bold | font_face: font_display: 'swap' }}
+    {%- if settings.font_body != blank and settings.font_body.family != blank -%}
+      {{ settings.font_body | font_face: font_display: 'swap' }}
+      {%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bold' -%}
+      {%- if font_body_bold -%}
+        {{ font_body_bold | font_face: font_display: 'swap' }}
+      {%- endif -%}
     {%- endif -%}
   {%- endstyle -%}
 
@@ -88,8 +91,16 @@
       --logo-width: {{ settings.logo_width | default: 150 }}px;
 
       /* Dynamic Typography Font Mappings */
-      --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
-      --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+      {%- if settings.font_heading != blank and settings.font_heading.family != blank -%}
+        --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+      {%- else -%}
+        --font-heading: 'Outfit', sans-serif;
+      {%- endif -%}
+      {%- if settings.font_body != blank and settings.font_body.family != blank -%}
+        --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+      {%- else -%}
+        --font-body: 'Plus Jakarta Sans', sans-serif;
+      {%- endif -%}
 
       /* Dynamic Visual styling tokens */
       --button-style: {{ settings.button_style | default: 'rounded' }};
