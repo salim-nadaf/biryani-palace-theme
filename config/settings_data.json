@@ -73,6 +73,12 @@
         "disabled": false,
         "settings": {}
       }
-    }
+    },
+    "font_heading": "outfit_n7",
+    "font_body": "plus_jakarta_sans_n4",
+    "button_style": "rounded",
+    "card_border_style": "rounded",
+    "shadow_style": "subtle",
+    "checkout_mode": "whatsapp"
   }
 }

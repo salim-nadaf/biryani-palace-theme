@@ -63,6 +63,55 @@
   --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ─────────────────── 1.1 CUSTOMIZER STYLE OVERRIDES ─────────────────── */
+body.btn-style-pill {
+  --radius-sm: 9999px;
+  --radius-md: 9999px;
+}
+body.btn-style-rounded {
+  --radius-sm: 4px;
+  --radius-md: 8px;
+}
+body.btn-style-sharp {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+}
+
+body.card-style-pill {
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+}
+body.card-style-rounded {
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+}
+body.card-style-sharp {
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+}
+
+body.shadow-style-none {
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-gold: none;
+  --shadow-gold-hover: none;
+}
+body.shadow-style-subtle {
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.75);
+  --shadow-gold: 0 4px 18px rgba(244, 180, 26, 0.2);
+  --shadow-gold-hover: 0 8px 28px rgba(244, 180, 26, 0.35);
+}
+body.shadow-style-pronounced {
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 12px 36px rgba(0, 0, 0, 0.8);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.95);
+  --shadow-gold: 0 4px 24px rgba(244, 180, 26, 0.45);
+  --shadow-gold-hover: 0 12px 40px rgba(244, 180, 26, 0.75);
+}
+
 /* ─────────────────── 2. RESET & BASE PREVENTING OVERFLOW ─────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body {
@@ -159,7 +208,7 @@ p { color: var(--color-text-secondary); line-height: 1.65; font-size: 0.9375rem;
   justify-content: center;
   gap: var(--space-xs);
   padding: 12px 24px;
-  border-radius: 0;
+  border-radius: var(--radius-md);
   font-size: 0.875rem;
   font-weight: 800;
   font-family: var(--font-heading);
@@ -211,7 +260,7 @@ p { color: var(--color-text-secondary); line-height: 1.65; font-size: 0.9375rem;
   cursor: pointer;
   transition: all var(--transition-fast);
   min-height: 38px;
-  border-radius: 0;
+  border-radius: var(--radius-md);
   white-space: nowrap;
 }
 .card-cta-btn--add {
@@ -234,6 +283,56 @@ p { color: var(--color-text-secondary); line-height: 1.65; font-size: 0.9375rem;
   background: rgba(244, 180, 26, 0.18);
   color: var(--color-primary);
   transform: translateY(-1px);
+}
+
+/* Inline Card Quantity Counter */
+.card-cta-btn.in-cart {
+  padding: 0;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+  cursor: default;
+  overflow: hidden;
+}
+.card-cta-btn.in-cart:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+  border-color: var(--color-border);
+}
+.card-cta-counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  min-height: 36px;
+}
+.card-cta-counter button {
+  background: transparent;
+  border: none;
+  color: var(--color-primary);
+  font-size: 1.125rem;
+  font-weight: 700;
+  width: 34px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  padding: 0;
+}
+.card-cta-counter button:hover {
+  color: var(--color-text-primary);
+  background: rgba(244, 180, 26, 0.12);
+}
+.card-cta-counter .qty {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  pointer-events: none;
 }
 
 /* ─────────────────── 6. MOBILE-FIRST RESPONSIVE PRODUCT CARDS ─────────────────── */

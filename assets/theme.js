@@ -52,6 +52,7 @@
       this.progressText = document.getElementById('FreeProgressText');
 
       this.bindEvents();
+      this.refreshCart();
     },
 
     bindEvents() {
@@ -78,7 +79,7 @@
       // Global Add to Cart Delegation
       document.addEventListener('click', (e) => {
         const btn = e.target.closest('.add-to-cart-btn');
-        if (btn) {
+        if (btn && !btn.classList.contains('in-cart') && !e.target.closest('.card-cta-counter')) {
           e.preventDefault();
           const variantId = btn.dataset.variant;
           const productId = btn.dataset.productId;
@@ -86,8 +87,10 @@
         }
 
         // Cart item controls (increase/decrease/remove)
-        const controlBtn = e.target.closest('.cart-item__controls button, .cart-item__remove');
+        const controlBtn = e.target.closest('.cart-item__controls button, .cart-item__remove, .card-cta-counter button');
         if (controlBtn) {
+          e.preventDefault();
+          e.stopPropagation();
           const key = controlBtn.dataset.key;
           if (controlBtn.classList.contains('cart-item__remove')) {
             this.updateItem(key, 0);
@@ -407,6 +410,33 @@
           this.itemsEl.innerHTML = html;
         }
       }
+      this.updateInlineCardButtons(cart);
+    },
+
+    updateInlineCardButtons(cart) {
+      const addBtns = $$('.card-cta-btn--add');
+      addBtns.forEach(btn => {
+        const variantId = btn.dataset.variant;
+        if (!variantId) return;
+
+        const cartItem = cart.items ? cart.items.find(item => item.variant_id == variantId || item.id == variantId) : null;
+        if (cartItem) {
+          btn.classList.add('in-cart');
+          btn.innerHTML = `
+            <span class="card-cta-counter">
+              <button type="button" class="dec" data-key="${cartItem.key}" data-qty="${cartItem.quantity - 1}" aria-label="Decrease quantity">−</button>
+              <span class="qty">${cartItem.quantity}</span>
+              <button type="button" class="inc" data-key="${cartItem.key}" data-qty="${cartItem.quantity + 1}" aria-label="Increase quantity">+</button>
+            </span>
+          `;
+        } else {
+          btn.classList.remove('in-cart');
+          btn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            ADD
+          `;
+        }
+      });
     }
   };
 
@@ -571,6 +601,16 @@
 
     if (!toggleBtn || !dropdown) return;
 
+    // Load cached area on startup
+    const cachedArea = localStorage.getItem('selected_delivery_area');
+    if (cachedArea) {
+      if (selectedName) selectedName.textContent = cachedArea;
+      if (status) {
+        status.className = 'area-selector__status available';
+        status.innerHTML = `✓ Delivering to <strong>${cachedArea}</strong> (Saved Location)`;
+      }
+    }
+
     toggleBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       dropdown.classList.toggle('open');
@@ -590,6 +630,9 @@
 
       const area = li.dataset.area;
       if (selectedName) selectedName.textContent = area;
+
+      // Save to localStorage
+      localStorage.setItem('selected_delivery_area', area);
 
       if (status) {
         status.className = 'area-selector__status available';
@@ -618,6 +661,9 @@
         if (isAllowed || found) {
           status.className = 'area-selector__status available';
           status.innerHTML = `✓ Delivering to "${val}"! (0–5 KM: ₹39 | 5–8 KM: ₹89 | Max 8 KM)`;
+          // Save search hit to localStorage
+          localStorage.setItem('selected_delivery_area', val);
+          if (selectedName) selectedName.textContent = val;
         } else {
           status.className = 'area-selector__status unavailable';
           status.innerHTML = `✕ Sorry, we only deliver up to 8 KM (Kalyan, Dombivli, Ulhasnagar). No orders accepted beyond 8 KM.`;

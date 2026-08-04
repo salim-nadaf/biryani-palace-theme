@@ -101,6 +101,85 @@
     ]
   },
   {
+    "name": "Typography & Styling",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading Typography",
+        "default": "outfit_n7",
+        "info": "Select the font style for premium headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body Typography",
+        "default": "plus_jakarta_sans_n4",
+        "info": "Select the font style for body copy and descriptions"
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Global Button Style",
+        "options": [
+          {
+            "value": "pill",
+            "label": "Pill (Fully Rounded)"
+          },
+          {
+            "value": "rounded",
+            "label": "Rounded (Subtle Corner)"
+          },
+          {
+            "value": "sharp",
+            "label": "Flat (Sharp Edges)"
+          }
+        ],
+        "default": "rounded"
+      },
+      {
+        "type": "select",
+        "id": "card_border_style",
+        "label": "Product Card Style",
+        "options": [
+          {
+            "value": "pill",
+            "label": "Very Rounded"
+          },
+          {
+            "value": "rounded",
+            "label": "Standard Rounded"
+          },
+          {
+            "value": "sharp",
+            "label": "Square Edges"
+          }
+        ],
+        "default": "rounded"
+      },
+      {
+        "type": "select",
+        "id": "shadow_style",
+        "label": "Drop Shadows Strength",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "subtle",
+            "label": "Subtle & Elegant"
+          },
+          {
+            "value": "pronounced",
+            "label": "Pronounced & Deep"
+          }
+        ],
+        "default": "subtle"
+      }
+    ]
+  },
+  {
     "name": "Brand Info & Contact",
     "settings": [
       {
@@ -144,6 +223,23 @@
         "id": "enable_ajax_cart",
         "label": "Enable Ajax Cart Drawer",
         "default": true
+      },
+      {
+        "type": "select",
+        "id": "checkout_mode",
+        "label": "Default Checkout Mode",
+        "options": [
+          {
+            "value": "shopify",
+            "label": "Standard Shopify Checkout"
+          },
+          {
+            "value": "whatsapp",
+            "label": "Direct WhatsApp Ordering"
+          }
+        ],
+        "default": "whatsapp",
+        "info": "Select how customers complete their order when checking out"
       }
     ]
   },
@@ -178,9 +274,18 @@
         "id": "kitchen_status",
         "label": "Kitchen Operational Status",
         "options": [
-          { "value": "open", "label": "Open — Accepting Orders" },
-          { "value": "limited", "label": "Limited Stock / Busy" },
-          { "value": "closed", "label": "Closed — Pre-orders Only" }
+          {
+            "value": "open",
+            "label": "Open — Accepting Orders"
+          },
+          {
+            "value": "limited",
+            "label": "Limited Stock / Busy"
+          },
+          {
+            "value": "closed",
+            "label": "Closed — Pre-orders Only"
+          }
         ],
         "default": "open"
       },

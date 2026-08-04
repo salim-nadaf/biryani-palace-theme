@@ -8,11 +8,20 @@
 
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Premium Typography Fonts: Outfit & Plus Jakarta Sans -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  {%- style -%}
+    {{ settings.font_heading | font_face: font_display: 'swap' }}
+    {{ settings.font_body | font_face: font_display: 'swap' }}
+    
+    {%- assign font_heading_bold = settings.font_heading | font_modify: 'weight', 'bold' -%}
+    {%- if font_heading_bold -%}
+      {{ font_heading_bold | font_face: font_display: 'swap' }}
+    {%- endif -%}
+    
+    {%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bold' -%}
+    {%- if font_body_bold -%}
+      {{ font_body_bold | font_face: font_display: 'swap' }}
+    {%- endif -%}
+  {%- endstyle -%}
 
   {% if settings.favicon != blank %}
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
@@ -77,6 +86,15 @@
       --color-veg: {{ color_veg }};
       --color-nonveg: {{ color_nonveg }};
       --logo-width: {{ settings.logo_width | default: 150 }}px;
+
+      /* Dynamic Typography Font Mappings */
+      --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+      --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+
+      /* Dynamic Visual styling tokens */
+      --button-style: {{ settings.button_style | default: 'rounded' }};
+      --card-border-style: {{ settings.card_border_style | default: 'rounded' }};
+      --shadow-style: {{ settings.shadow_style | default: 'subtle' }};
     }
   </style>
 
@@ -134,7 +152,7 @@
   {% endif %}
 </head>
 
-<body class="template-{{ template.name | handle }} {% if settings.header_sticky %}has-sticky-header{% endif %}">
+<body class="template-{{ template.name | handle }} {% if settings.header_sticky %}has-sticky-header{% endif %} btn-style-{{ settings.button_style | default: 'rounded' }} card-style-{{ settings.card_border_style | default: 'rounded' }} shadow-style-{{ settings.shadow_style | default: 'subtle' }}">
 
   <a class="skip-to-content-link btn btn-primary visually-hidden" href="#MainContent">
     Skip to content
