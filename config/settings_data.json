@@ -9,6 +9,16 @@
  */
 {
   "current": {
+    "color_background": "#0B0B0C",
+    "color_surface": "#16161A",
+    "color_surface_elevated": "#1F1F24",
+    "color_primary": "#F4B41A",
+    "color_primary_dark": "#D49010",
+    "color_text_primary": "#FFFFFF",
+    "color_text_secondary": "#AAAAA2",
+    "color_border": "rgba(244,180,26,0.16)",
+    "color_veg": "#2ECC71",
+    "color_nonveg": "#E74C3C",
     "logo": "shopify://shop_images/BP_by_Niamat-removebg-preview.png",
     "logo_width": 300,
     "favicon": "shopify://shop_images/favicon.png",

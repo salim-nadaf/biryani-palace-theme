@@ -36,37 +36,37 @@
     ]
   },
   {
-    "name": "Colors",
+    "name": "Colors (60-30-10 Rule)",
     "settings": [
       {
         "type": "color",
         "id": "color_background",
-        "label": "Page Background",
-        "default": "#0E0E0E"
+        "label": "Page Background (60% Dominant Base)",
+        "default": "#0B0B0C"
       },
       {
         "type": "color",
         "id": "color_surface",
-        "label": "Card / Surface Background",
-        "default": "#161616"
+        "label": "Card / Surface Background (30% Secondary)",
+        "default": "#16161A"
       },
       {
         "type": "color",
         "id": "color_surface_elevated",
         "label": "Elevated Surface",
-        "default": "#1E1E1E"
+        "default": "#1F1F24"
       },
       {
         "type": "color",
         "id": "color_primary",
-        "label": "Saffron Gold Primary Accent",
-        "default": "#E5A93C"
+        "label": "Saffron Gold Primary Accent (10% Focal CTA)",
+        "default": "#F4B41A"
       },
       {
         "type": "color",
         "id": "color_primary_dark",
         "label": "Gold Hover / Darker Gold",
-        "default": "#C7881E"
+        "default": "#D49010"
       },
       {
         "type": "color",
@@ -78,25 +78,25 @@
         "type": "color",
         "id": "color_text_secondary",
         "label": "Text Secondary",
-        "default": "#AAAAAA"
+        "default": "#AAAAA2"
       },
       {
         "type": "color",
         "id": "color_border",
         "label": "Border Color",
-        "default": "rgba(229,169,60,0.16)"
+        "default": "rgba(244,180,26,0.16)"
       },
       {
         "type": "color",
         "id": "color_veg",
         "label": "Veg Indicator Color",
-        "default": "#4CAF50"
+        "default": "#2ECC71"
       },
       {
         "type": "color",
         "id": "color_nonveg",
         "label": "Non-Veg Indicator Color",
-        "default": "#E53935"
+        "default": "#E74C3C"
       }
     ]
   },
