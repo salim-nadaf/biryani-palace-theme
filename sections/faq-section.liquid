@@ -29,57 +29,61 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer" id="faq-ans-d1">
-            <p style="padding-top:12px;">We currently deliver across Kalyan West, Kalyan East, Dombivli, Ambernath, Badlapur, Ulhasnagar, Thane, and Bhiwandi. You can check your area in the top delivery bar.</p>
+            <p style="padding-top:12px;">We deliver up to a maximum radius of 8 KM covering Kalyan West, Kalyan East, Dombivli, and Ulhasnagar. Orders beyond 8 KM are not accepted.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d2" id="faq-btn-d2">
-            <h4>How long does preparation and delivery take?</h4>
+            <h4>What are your delivery charges & free delivery limits?</h4>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer" id="faq-ans-d2">
-            <p style="padding-top:12px;">Instant delivery items are prepared fresh and delivered within 30–60 minutes depending on your location. Family & bulk orders require a minimum 3 hours advance notice.</p>
+            <p style="padding-top:12px;">
+              &bull; <strong>0 to 5 KM:</strong> Delivery charge ₹39 (FREE on orders ₹799+)<br>
+              &bull; <strong>5 to 8 KM:</strong> Delivery charge ₹89 (FREE on orders ₹1,299+)<br>
+              &bull; <strong>Beyond 8 KM:</strong> No delivery / orders accepted.
+            </p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d3" id="faq-btn-d3">
-            <h4>Is your food 100% Halal?</h4>
+            <h4>How long does preparation and delivery take?</h4>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer" id="faq-ans-d3">
-            <p style="padding-top:12px;">Yes, absolutely. All meat is sourced exclusively from certified 100% Halal suppliers and cooked according to strict hygienic standards.</p>
+            <p style="padding-top:12px;">Instant delivery items are prepared fresh and delivered within 30–60 minutes. Family & group pre-orders require advance booking.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d4" id="faq-btn-d4">
-            <h4>What payment methods do you accept?</h4>
+            <h4>Is your food 100% Halal?</h4>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer" id="faq-ans-d4">
-            <p style="padding-top:12px;">We accept online payments via Google Pay, PhonePe, Paytm, All UPI apps, Credit Cards, Debit Cards, Net Banking, and Razorpay Secure. Cash on Delivery is available for instant orders.</p>
+            <p style="padding-top:12px;">Yes, absolutely. All meat is sourced exclusively from certified 100% Halal suppliers and cooked with utmost hygiene.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d5" id="faq-btn-d5">
-            <h4>How do family pre-orders work?</h4>
+            <h4>What payment methods do you accept?</h4>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer" id="faq-ans-d5">
-            <p style="padding-top:12px;">Submit your pre-order request form specifying your date, occasion, and portion size. Our team confirms kitchen availability within 2 hours and sends you a secure WhatsApp payment link.</p>
+            <p style="padding-top:12px;">We accept Google Pay, PhonePe, Paytm, All UPI apps, Credit Cards, Debit Cards, Net Banking, and Razorpay Secure.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-d6" id="faq-btn-d6">
-            <h4>Is there a minimum order or delivery charge?</h4>
+            <h4>How do family pre-orders work?</h4>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer" id="faq-ans-d6">
-            <p style="padding-top:12px;">Minimum order for delivery is ₹{{ settings.delivery_min_order | default: '299' }}. Delivery is FREE on all orders above ₹{{ settings.delivery_free_above | default: '499' }}.</p>
+            <p style="padding-top:12px;">Submit your request on our Family Feast page. No payment is collected upfront. Our team reviews your request and sends confirmation & payment details via WhatsApp.</p>
           </div>
         </div>
       {% endfor %}
@@ -123,13 +127,13 @@
           "type": "text",
           "id": "question",
           "label": "Question",
-          "default": "Your question goes here?"
+          "default": "Where do you deliver?"
         },
         {
           "type": "textarea",
           "id": "answer",
           "label": "Answer",
-          "default": "Detailed answer explaining the process clearly to the customer."
+          "default": "We deliver up to 8 KM max covering Kalyan West, Kalyan East, Dombivli, and Ulhasnagar."
         }
       ]
     }

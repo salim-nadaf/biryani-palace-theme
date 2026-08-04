@@ -207,17 +207,21 @@
       // Subtotal
       if (this.subtotalEl) this.subtotalEl.textContent = formatMoney(cart.total_price);
 
-      // Free progress bar
-      const thresholdCents = (config.freeItemThreshold || 999) * 100;
-      const pct = Math.min(100, Math.round((cart.total_price / thresholdCents) * 100));
+      // Free delivery progress bar (Zone 1: ₹799, Zone 2: ₹1,299)
+      const freeZone1Cents = 79900;
+      const freeZone2Cents = 129900;
+      const pct = Math.min(100, Math.round((cart.total_price / freeZone1Cents) * 100));
       if (this.progressFill) this.progressFill.style.width = `${pct}%`;
 
       if (this.progressText) {
-        if (cart.total_price >= thresholdCents) {
-          this.progressText.innerHTML = `🎉 <strong>Congratulations!</strong> You unlocked a ${config.freeItemName || 'Free Raita'}!`;
+        if (cart.total_price >= freeZone2Cents) {
+          this.progressText.innerHTML = `🎉 <strong>FREE Delivery Unlocked!</strong> (Free for all areas up to 8 KM)`;
+        } else if (cart.total_price >= freeZone1Cents) {
+          const diff2 = freeZone2Cents - cart.total_price;
+          this.progressText.innerHTML = `🎉 <strong>FREE Delivery Unlocked (0–5 KM)!</strong> Add <strong>${formatMoney(diff2)}</strong> for FREE Delivery (5–8 KM)`;
         } else {
-          const diffCents = thresholdCents - cart.total_price;
-          this.progressText.innerHTML = `Add <strong>${formatMoney(diffCents)}</strong> to get a ${config.freeItemName || 'Free Raita'}!`;
+          const diff1 = freeZone1Cents - cart.total_price;
+          this.progressText.innerHTML = `Add <strong>${formatMoney(diff1)}</strong> for <strong>FREE Delivery</strong> (0–5 KM)`;
         }
       }
 
@@ -298,30 +302,32 @@
             <div style="font-size:1.75rem;margin-right:8px;">🥗</div>
             <div class="addon-item__name">Mint & Cucumber Raita</div>
             <div class="addon-item__price">₹49</div>
-            <button class="addon-item__add" onclick="BiryaniThemeAddAddon(this, 'raita')">+ Add</button>
+            <button class="addon-item__add" onclick="BiryaniThemeAddAddon(this)">Add +</button>
+          </div>
+          <div class="addon-item">
+            <div style="font-size:1.75rem;margin-right:8px;">🍧</div>
+            <div class="addon-item__name">Shahi Gulab Jamun (2 Pcs)</div>
+            <div class="addon-item__price">₹79</div>
+            <button class="addon-item__add" onclick="BiryaniThemeAddAddon(this)">Add +</button>
           </div>
           <div class="addon-item">
             <div style="font-size:1.75rem;margin-right:8px;">🥤</div>
-            <div class="addon-item__name">Thums Up (750 ml)</div>
-            <div class="addon-item__price">₹60</div>
-            <button class="addon-item__add" onclick="BiryaniThemeAddAddon(this, 'coke')">+ Add</button>
-          </div>
-          <div class="addon-item">
-            <div style="font-size:1.75rem;margin-right:8px;">🍮</div>
-            <div class="addon-item__name">Shahi Gulab Jamun (2 pcs)</div>
-            <div class="addon-item__price">₹79</div>
-            <button class="addon-item__add" onclick="BiryaniThemeAddAddon(this, 'dessert')">+ Add</button>
+            <div class="addon-item__name">Royal Rose Sharbat</div>
+            <div class="addon-item__price">₹59</div>
+            <button class="addon-item__add" onclick="BiryaniThemeAddAddon(this)">Add +</button>
           </div>
         `;
       }
 
       this.modal.classList.add('open');
+      this.backdrop?.classList.add('open');
       this.modal.setAttribute('aria-hidden', 'false');
     },
 
     close() {
       if (!this.modal) return;
       this.modal.classList.remove('open');
+      this.backdrop?.classList.remove('open');
       this.modal.setAttribute('aria-hidden', 'true');
     }
   };
@@ -429,6 +435,8 @@
       }
     });
 
+    const allowedAreas = ['kalyan west', 'kalyan east', 'dombivli', 'ulhasnagar', 'kalyan'];
+
     list?.addEventListener('click', (e) => {
       const li = e.target.closest('li');
       if (!li) return;
@@ -438,9 +446,9 @@
 
       if (status) {
         status.className = 'area-selector__status available';
-        status.innerHTML = `✓ We deliver to <strong>${area}</strong>! Est: 30–60 min`;
+        status.innerHTML = `✓ Delivering to <strong>${area}</strong> (Up to 8 KM)!<br><span style="font-size:0.75rem;color:var(--color-primary);">0-5 KM: ₹39 (FREE > ₹799) | 5-8 KM: ₹89 (FREE > ₹1,299)</span>`;
       }
-      setTimeout(() => dropdown.classList.remove('open'), 1400);
+      setTimeout(() => dropdown.classList.remove('open'), 2200);
     });
 
     input?.addEventListener('input', () => {
@@ -459,12 +467,13 @@
       });
 
       if (status && val.length > 2) {
-        if (found) {
+        const isAllowed = allowedAreas.some(a => a.includes(val) || val.includes(a));
+        if (isAllowed || found) {
           status.className = 'area-selector__status available';
-          status.innerHTML = `✓ Delivering to areas matching "${val}"!`;
+          status.innerHTML = `✓ Delivering to "${val}"! (0–5 KM: ₹39 | 5–8 KM: ₹89 | Max 8 KM)`;
         } else {
           status.className = 'area-selector__status unavailable';
-          status.innerHTML = `✕ Sorry, we don't deliver to "${val}" yet. Try WhatsApp inquiry.`;
+          status.innerHTML = `✕ Sorry, we only deliver up to 8 KM (Kalyan, Dombivli, Ulhasnagar). No orders accepted beyond 8 KM.`;
         }
       }
     });
@@ -478,37 +487,24 @@
 
     if (toggle && nav) {
       toggle.addEventListener('click', () => {
-        const isOpen = nav.style.display === 'flex';
-        nav.style.display = isOpen ? 'none' : 'flex';
-        if (!isOpen) {
-          nav.style.position = 'absolute';
-          nav.style.top = '100%';
-          nav.style.left = '0';
-          nav.style.right = '0';
-          nav.style.background = 'var(--color-surface)';
-          nav.style.flexDirection = 'column';
-          nav.style.padding = '20px';
-          nav.style.borderBottom = '1px solid var(--color-border)';
-        }
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
     }
 
-    // Header shadow on scroll
-    window.addEventListener('scroll', () => {
-      if (header) {
-        header.classList.toggle('scrolled', window.scrollY > 40);
-      }
-    });
+    if (header) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 40) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }, { passive: true });
+    }
   }
 
-  /* ─────────────────── 7. SCROLL ANIMATIONS ─────────────────── */
+  /* ─────────────────── 7. ANIMATE ON SCROLL ─────────────────── */
   function initScrollAnimations() {
-    const elements = $$('.animate-on-scroll');
-    if (!('IntersectionObserver' in window)) {
-      elements.forEach(el => el.classList.add('visible'));
-      return;
-    }
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -518,10 +514,10 @@
       });
     }, { threshold: 0.1 });
 
-    elements.forEach(el => observer.observe(el));
+    $$('.animate-on-scroll').forEach(el => observer.observe(el));
   }
 
-  /* ─────────────────── 8. INITIALIZATION ─────────────────── */
+  /* ─────────────────── INITIALIZATION ─────────────────── */
   document.addEventListener('DOMContentLoaded', () => {
     CartManager.init();
     SmartAddons.init();

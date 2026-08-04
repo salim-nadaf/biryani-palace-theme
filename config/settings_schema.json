@@ -125,13 +125,13 @@
         "type": "text",
         "id": "delivery_areas",
         "label": "Delivery Areas (comma-separated)",
-        "default": "Kalyan West, Kalyan East, Dombivli, Ambernath, Badlapur, Ulhasnagar, Thane, Bhiwandi"
+        "default": "Kalyan West, Kalyan East, Dombivli, Ulhasnagar"
       },
       {
         "type": "number",
         "id": "free_shipping_threshold",
         "label": "Free Delivery Threshold (₹)",
-        "default": 499
+        "default": 799
       }
     ]
   },
@@ -199,7 +199,7 @@
         "type": "text",
         "id": "announcement_text",
         "label": "Announcement Bar Text",
-        "default": "🔥 Free Delivery on Orders Above ₹499 | Authentic Dum Biryani Delivered Hot"
+        "default": "🔥 Free Delivery on Orders Above ₹799 | Delivering up to 8 KM (Kalyan, Dombivli, Ulhasnagar)"
       }
     ]
   }
