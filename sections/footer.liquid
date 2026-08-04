@@ -3,29 +3,33 @@
 
     <div class="footer__grid">
 
-      <!-- Brand Column -->
-      <div class="footer__brand">
+      <!-- Brand Column (Centered) -->
+      <div class="footer__brand" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
         {% if settings.logo %}
-          <img src="{{ settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" width="140" height="auto" loading="lazy">
+          <img src="{{ settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" width="140" height="auto" loading="lazy" style="margin:0 auto 12px;">
         {% else %}
-          <div class="footer__brand-name">{{ settings.brand_name | default: shop.name }}</div>
+          <div class="footer__brand-name" style="text-align:center;">{{ settings.brand_name | default: shop.name }}</div>
         {% endif %}
-        <p class="footer__tagline">{{ settings.brand_tagline | default: 'Dum Cooked. Royal Served.' }}</p>
+
+        <!-- Tagline: Share the Joy -->
+        <p class="footer__tagline" style="text-align:center;color:var(--color-primary);font-size:1rem;font-weight:700;letter-spacing:1px;margin-top:4px;margin-bottom:16px;">
+          Share the Joy
+        </p>
 
         {% if settings.address_line != blank %}
-        <p style="font-size:0.8125rem;color:var(--color-text-secondary);margin-bottom:16px;line-height:1.6;">
+        <p style="font-size:0.8125rem;color:var(--color-text-secondary);margin-bottom:16px;line-height:1.6;text-align:center;">
           📍 {{ settings.address_line }}
         </p>
         {% endif %}
 
         {% if settings.phone_number != blank %}
-        <p style="font-size:0.875rem;margin-bottom:16px;">
+        <p style="font-size:0.875rem;margin-bottom:16px;text-align:center;">
           <a href="tel:{{ settings.phone_number | remove: ' ' }}" style="color:var(--color-primary);">📞 {{ settings.phone_number }}</a>
         </p>
         {% endif %}
 
-        <!-- Social Icons -->
-        <div class="footer__social">
+        <!-- Social Icons (Instagram & Facebook only, WhatsApp icon removed) -->
+        <div class="footer__social" style="justify-content:center;">
           {% if settings.social_instagram != blank %}
           <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -37,13 +41,6 @@
           <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-          </a>
-          {% endif %}
-          {% if settings.whatsapp_number != blank %}
-          <a href="https://wa.me/{{ settings.whatsapp_number }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
             </svg>
           </a>
           {% endif %}
@@ -120,14 +117,14 @@
     {
       "type": "checkbox",
       "id": "show_powered_by",
-      "label": "Show tagline in footer",
-      "default": true
+      "label": "Show Powered By Text",
+      "default": false
     }
   ],
   "blocks": [
     {
       "type": "link_column",
-      "name": "Links Column",
+      "name": "Link Column",
       "settings": [
         {
           "type": "text",
@@ -138,8 +135,8 @@
         {
           "type": "link_list",
           "id": "menu",
-          "label": "Navigation Menu",
-          "default": "main-menu"
+          "label": "Menu",
+          "default": "footer"
         }
       ]
     }
@@ -148,8 +145,14 @@
     {
       "name": "Footer",
       "blocks": [
-        { "type": "link_column", "settings": { "heading": "Order", "menu": "main-menu" } },
-        { "type": "link_column", "settings": { "heading": "Company", "menu": "footer" } }
+        {
+          "type": "link_column",
+          "settings": { "heading": "Navigation", "menu": "main-menu" }
+        },
+        {
+          "type": "link_column",
+          "settings": { "heading": "Legal & Policies", "menu": "footer" }
+        }
       ]
     }
   ]
