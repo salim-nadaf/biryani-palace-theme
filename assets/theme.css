@@ -14,17 +14,36 @@ html, body {
 }
 
 :root {
-  --color-bg: #0B0B0C;
-  --color-surface: #141416;
-  --color-surface-elevated: #1C1C20;
-  --color-primary: #F4B41A;
-  --color-primary-dark: #D49010;
-  --color-accent: #F4B41A;
+  /* ====================================================
+     60-30-10 COLOR HARMONY SYSTEM
+     60% Primary (Dominant Page Base & Body Background): Deep Obsidian (#0B0B0C)
+     30% Secondary (Structural Containers, Cards & Headers): Elevated Dark Surface (#16161A / #1F1F24)
+     10% Accent (Focal CTAs, Action Buttons, Badges & Prices): Royal Saffron Gold (#F4B41A)
+     ==================================================== */
+  
+  /* 60% DOMINANT (PAGE BASE) */
+  --color-dominant-60: #0B0B0C;
+  --color-bg: var(--color-dominant-60);
+
+  /* 30% SECONDARY (STRUCTURE, SURFACES & CARDS) */
+  --color-secondary-30: #16161A;
+  --color-surface: var(--color-secondary-30);
+  --color-surface-elevated: #1F1F24;
+  --color-border: rgba(244, 180, 26, 0.16);
+
+  /* 10% FOCAL ACCENT (ACTION CTAS, BADGES & PRICES) */
+  --color-accent-10: #F4B41A;
+  --color-accent-dark: #D49010;
+  --color-primary: var(--color-accent-10);
+  --color-primary-dark: var(--color-accent-dark);
+  --color-accent: var(--color-accent-10);
+
+  /* TYPOGRAPHY & DIALECTS */
   --color-text-primary: #FFFFFF;
-  --color-text-secondary: #B0B0B8;
-  --color-border: rgba(244, 180, 26, 0.18);
+  --color-text-secondary: #AAAAA2;
   --color-veg: #2ECC71;
   --color-nonveg: #E74C3C;
+  
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
   --font-size-base: 16px;
