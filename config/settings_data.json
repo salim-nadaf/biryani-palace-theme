@@ -1,1 +1,59 @@
-{"current":{"sections":{"cart-drawer":{"type":"cart-drawer","settings":{}},"header":{"type":"header","settings":{}},"footer":{"type":"footer","settings":{"show_contact":true,"contact_heading":"Get in Touch","show_powered_by":true}}},"content_for_index":[],"blocks":{"14060646107696862457":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/judgeme_core\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","disabled":false,"settings":{}},"13047258039897440615":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/cart_drawer_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","disabled":false,"settings":{"widget_type":"review-widget"}},"5091004626459974968":{"type":"shopify:\/\/apps\/moose-whatsapp\/blocks\/whatsapp\/b77db749-c44a-4265-8135-8b842af1b111","disabled":false,"settings":{}}}}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_width": 150,
+          "menu": "main-menu",
+          "show_area_checker": true,
+          "show_announcement": true,
+          "announcement_text": "🔥 Free Delivery on Orders Above ₹499 | Authentic Dum Biryani Delivered Hot",
+          "announcement_bg": "#e5a93c",
+          "announcement_color": "#0e0e0e"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "show_contact": false,
+          "contact_heading": "Get in Touch",
+          "show_powered_by": true
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      },
+      "13047258039897440615": {
+        "type": "shopify://apps/judge-me-reviews/blocks/cart_drawer_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {
+          "widget_type": "review-widget"
+        }
+      },
+      "5091004626459974968": {
+        "type": "shopify://apps/moose-whatsapp/blocks/whatsapp/b77db749-c44a-4265-8135-8b842af1b111",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  }
+}
