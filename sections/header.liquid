@@ -2,7 +2,7 @@
   <!-- Announcement Bar -->
   {% if settings.header_show_announcement %}
     <div class="announcement-bar" style="background-color: {{ settings.announcement_bg }}; color: {{ settings.announcement_text_color }};">
-      {{ settings.announcement_text }}
+      {{ settings.announcement_text | default: '🔥 Free Delivery on Orders Above ₹499 | Authentic Dum Biryani Delivered Hot' }}
     </div>
   {% endif %}
 
