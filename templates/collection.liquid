@@ -1,0 +1,127 @@
+{% comment %} Collection template {% endcomment %}
+
+{%- assign is_family = false -%}
+{%- if collection.handle == 'family-orders' -%}
+  {%- assign is_family = true -%}
+{%- endif -%}
+
+<section class="coll-page" id="CollectionPage">
+  <div class="container">
+
+    <div class="coll-page__header">
+      {%- if is_family -%}
+        <span class="coll-badge coll-badge--gold">✦ Pre-order</span>
+      {%- else -%}
+        <span class="coll-badge coll-badge--green">
+          <span class="coll-badge__dot"></span> Available Now
+        </span>
+      {%- endif -%}
+      <h1>{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <p class="coll-page__desc">{{ collection.description }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="menu-grid">
+      {%- for product in collection.products -%}
+        {%- if is_family -%}
+          <div class="product-card animate-on-scroll">
+            <a href="/pages/family-feast" class="product-card__image-wrap"
+               aria-label="{{ product.title | escape }}">
+              {%- if product.featured_image -%}
+                <img src="{{ product.featured_image | image_url: width: 480 }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  width="480" height="360" loading="lazy">
+              {%- else -%}
+                <div style="width:100%;height:100%;display:flex;align-items:center;
+                  justify-content:center;background:var(--color-surface-elevated);
+                  font-size:3rem;">🍚</div>
+              {%- endif -%}
+              <span class="product-card__tag">Pre-order</span>
+            </a>
+            <div class="product-card__body">
+              <h3 class="product-card__name">{{ product.title }}</h3>
+              {%- if product.description != blank -%}
+                <p class="product-card__desc">
+                  {{ product.description | strip_html | truncate: 90 }}
+                </p>
+              {%- endif -%}
+              <div class="product-card__footer">
+                <div class="product-card__price">
+                  <span class="currency">₹</span>
+                  {{ product.price | money_without_currency | remove: '.00' }}
+                </div>
+                <a href="/pages/family-feast" class="reserve-btn">Reserve →</a>
+              </div>
+            </div>
+          </div>
+        {%- else -%}
+          {%- render 'product-card', product: product -%}
+        {%- endif -%}
+      {%- else -%}
+        <p style="color:var(--color-text-secondary);">
+          No products found in this collection.
+        </p>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.coll-page { padding: 60px 0; background: var(--color-bg); min-height: 60vh; }
+.coll-page__header { margin-bottom: 48px; }
+.coll-page__header h1 { margin: 12px 0 8px; }
+.coll-page__desc {
+  max-width: 600px;
+  color: var(--color-text-secondary);
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 8px;
+}
+.coll-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 12px;
+}
+.coll-badge--green {
+  background: rgba(76,175,80,0.12);
+  color: #4CAF50;
+  border: 1px solid rgba(76,175,80,0.3);
+}
+.coll-badge--gold {
+  background: rgba(200,145,22,0.12);
+  color: var(--color-primary);
+  border: 1px solid rgba(200,145,22,0.3);
+}
+.coll-badge__dot {
+  width: 6px; height: 6px;
+  background: #4CAF50;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+.reserve-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: none;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+.reserve-btn:hover {
+  background: rgba(200,145,22,0.1);
+  color: var(--color-primary);
+}
+</style>
