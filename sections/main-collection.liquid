@@ -1,0 +1,77 @@
+{% comment %} Main collection section {% endcomment %}
+
+{%- assign is_family = false -%}
+{%- if collection.handle == 'family-orders' -%}
+  {%- assign is_family = true -%}
+{%- endif -%}
+
+<section class="coll-page" id="CollectionPage">
+  <div class="container">
+
+    <div class="coll-page__header">
+      {%- if is_family -%}
+        <span class="coll-badge coll-badge--gold">✦ Pre-order</span>
+      {%- else -%}
+        <span class="coll-badge coll-badge--green">
+          <span class="coll-badge__dot"></span> Available Now
+        </span>
+      {%- endif -%}
+      <h1>{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <p class="coll-page__desc">{{ collection.description }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="menu-grid">
+      {%- for product in collection.products -%}
+        {%- if is_family -%}
+          <div class="product-card animate-on-scroll">
+            <a href="/pages/family-feast" class="product-card__image-wrap"
+               aria-label="{{ product.title | escape }}">
+              {%- if product.featured_image -%}
+                <img src="{{ product.featured_image | image_url: width: 480 }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  width="480" height="360" loading="lazy">
+              {%- else -%}
+                <div style="width:100%;height:100%;display:flex;align-items:center;
+                  justify-content:center;background:var(--color-surface-elevated);
+                  font-size:3rem;">🍚</div>
+              {%- endif -%}
+              <span class="product-card__tag">Pre-order</span>
+            </a>
+            <div class="product-card__body">
+              <h3 class="product-card__name">{{ product.title }}</h3>
+              {%- if product.description != blank -%}
+                <p class="product-card__desc">
+                  {{ product.description | strip_html | truncate: 90 }}
+                </p>
+              {%- endif -%}
+              <div class="product-card__footer">
+                <div class="product-card__price">
+                  <span class="currency">₹</span>
+                  {{ product.price | money_without_currency | remove: '.00' }}
+                </div>
+                <a href="/pages/family-feast" class="reserve-btn">Reserve →</a>
+              </div>
+            </div>
+          </div>
+        {%- else -%}
+          {%- render 'product-card', product: product -%}
+        {%- endif -%}
+      {%- else -%}
+        <p style="color:var(--color-text-secondary);">
+          No products found in this collection.
+        </p>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main Collection",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

@@ -13,8 +13,6 @@
 
   {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}">
-  {% else %}
-    <meta name="description" content="Premium Dum Biryani prepared fresh and delivered across Kalyan. Order online from Biryani Palace by Niamat.">
   {% endif %}
 
   <!-- SEO: Canonical & OG -->
@@ -284,6 +282,5 @@
   </script>
    {{ 'theme.js' | asset_url | script_tag }}
 
-{% endif %}
-</head>
-<body class="{% if settings.header_sticky %}has-sticky-header{% endif %}" id="MainBody">
+</body>
+</html>
