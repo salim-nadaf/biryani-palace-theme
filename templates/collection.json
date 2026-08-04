@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "live-ordering-menu",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
