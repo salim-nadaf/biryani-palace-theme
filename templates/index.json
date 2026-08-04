@@ -1,1 +1,137 @@
-{"sections":{"hero":{"type":"hero-banner","settings":{"bg_video_url":"","eyebrow":"PREMIUM CLOUD KITCHEN — KALYAN","heading":"Freshly Prepared Premium Dum Biryani","subheading":"Slow-cooked on dum with authentic spices. Prepared fresh for families and gatherings in Kalyan.","primary_cta_text":"Order Now","primary_cta_url":"","secondary_cta_text":"Family Orders","secondary_cta_url":""}},"todays-kitchen":{"type":"todays-kitchen","settings":{"label":"Today's Kitchen","heading":"Today's Available Biryanis","subheading":"Freshly prepared dum biryani ready for instant delivery in 30–60 minutes.","collection":"","products_to_show":6}},"family-orders":{"type":"family-orders-home","settings":{"label":"Family & Group Orders","heading":"Feed the Whole Family","subheading":"Generous portions cooked fresh for family gatherings, office lunches, and special occasions."}},"why-choose-us":{"type":"why-choose-us","settings":{"label":"Our Promise","heading":"Why Families Choose Biryani Palace","subheading":"No shortcuts, no artificial flavors. Just authentic dum biryani cooked fresh for every order."}},"1785797754b942a403":{"type":"apps","settings":{}},"1785797775f47b6fbc":{"type":"apps","blocks":{"judge_me_reviews_cards_carousel_9y3eBm":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/cards_carousel\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"show_sample_reviews":true,"reviews_selection":"all","products":[],"filter_pinned":false,"filter_featured":false,"filter_custom_tags":"","star_rating":"all","show_review_media":true,"display_order":"media_first","no_image_fallback":"review_text_only","max_reviews":20,"review_length":"medium","text_size":"medium","image_ratio":"1","reviews_shown":4,"show_reviewer_name":true,"show_product_name":true,"hide_arrows_mobile":true,"arrows_position":"sides","max_width":1100,"corner_styling":"soft","header_text_color":"#000000","text_color":"#000000","card_color":"#F9F9F9","stars_color":"","arrows_color":"#000000","transition_speed":5,"header_text":"Customers are saying","show_average_rating":true,"rating_display":"default"}}},"block_order":["judge_me_reviews_cards_carousel_9y3eBm"],"settings":{}},"reviews":{"type":"customer-reviews","settings":{"label":"Real Reviews","heading":"Loved by Biryani Enthusiasts","subheading":"Here is what local food lovers and families in Kalyan say about our biryani.","overall_rating":"4.8","total_reviews_count":"120+ Verified Reviews"}},"faq":{"type":"faq-section","settings":{"label":"Got Questions?","heading":"Frequently Asked Questions","subheading":"Everything you need to know about our preparation, delivery, payments, and family orders."}},"delivery":{"type":"delivery-info","settings":{"label":"Delivery Details","heading":"Delivery & Kitchen Timings","subheading":"Freshly prepared and delivered hot right to your doorstep."}}},"order":["hero","todays-kitchen","family-orders","why-choose-us","1785797754b942a403","1785797775f47b6fbc","reviews","faq","delivery"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "bg_video_url": "",
+        "eyebrow": "Niamat ka Zaika — Ghar Tak",
+        "heading": "More Than a Meal. A Biryani Worth Gathering For.",
+        "subheading": "From quick cravings to family feasts, enjoy freshly prepared biryani delivered across Kalyan. Order instantly or schedule your family order in advance.",
+        "primary_cta_text": "Order Now",
+        "primary_cta_url": "shopify://collections/instant-delivery",
+        "secondary_cta_text": "Family Orders",
+        "secondary_cta_url": "shopify://pages/family-feast"
+      }
+    },
+    "todays-kitchen": {
+      "type": "todays-kitchen",
+      "settings": {
+        "label": "Today's Kitchen",
+        "heading": "Today's Available Biryanis",
+        "subheading": "Freshly prepared dum biryani ready for instant delivery in 30–60 minutes.",
+        "collection": "",
+        "products_to_show": 6
+      }
+    },
+    "family-orders": {
+      "type": "family-orders-home",
+      "settings": {
+        "label": "Family & Group Orders",
+        "heading": "Feed the Whole Family",
+        "subheading": "Generous portions cooked fresh for family gatherings, office lunches, and special occasions."
+      }
+    },
+    "why-choose-us": {
+      "type": "why-choose-us",
+      "settings": {
+        "label": "Our Promise",
+        "heading": "Why Families Choose Biryani Palace",
+        "subheading": "No shortcuts, no artificial flavors. Just authentic dum biryani cooked fresh for every order."
+      }
+    },
+    "1785797754b942a403": {
+      "type": "apps",
+      "settings": {}
+    },
+    "1785797775f47b6fbc": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_cards_carousel_9y3eBm": {
+          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "all",
+            "products": [],
+            "filter_pinned": false,
+            "filter_featured": false,
+            "filter_custom_tags": "",
+            "star_rating": "all",
+            "show_review_media": true,
+            "display_order": "media_first",
+            "no_image_fallback": "review_text_only",
+            "max_reviews": 20,
+            "review_length": "medium",
+            "text_size": "medium",
+            "image_ratio": "1",
+            "reviews_shown": 4,
+            "show_reviewer_name": true,
+            "show_product_name": true,
+            "hide_arrows_mobile": true,
+            "arrows_position": "sides",
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "header_text_color": "#000000",
+            "text_color": "#000000",
+            "card_color": "#f9f9f9",
+            "stars_color": "",
+            "arrows_color": "#000000",
+            "transition_speed": 5,
+            "header_text": "Customers are saying",
+            "show_average_rating": true,
+            "rating_display": "default"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_cards_carousel_9y3eBm"
+      ],
+      "settings": {}
+    },
+    "reviews": {
+      "type": "customer-reviews",
+      "settings": {
+        "label": "Real Reviews",
+        "heading": "Loved by Biryani Enthusiasts",
+        "subheading": "Here is what local food lovers and families in Kalyan say about our biryani.",
+        "overall_rating": "4.8",
+        "total_reviews_count": "120+ Verified Reviews"
+      }
+    },
+    "faq": {
+      "type": "faq-section",
+      "settings": {
+        "label": "Got Questions?",
+        "heading": "Frequently Asked Questions",
+        "subheading": "Everything you need to know about our preparation, delivery, payments, and family orders."
+      }
+    },
+    "delivery": {
+      "type": "delivery-info",
+      "settings": {
+        "label": "Delivery Details",
+        "heading": "Delivery & Kitchen Timings",
+        "subheading": "Freshly prepared and delivered hot right to your doorstep."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "todays-kitchen",
+    "family-orders",
+    "why-choose-us",
+    "1785797754b942a403",
+    "1785797775f47b6fbc",
+    "reviews",
+    "faq",
+    "delivery"
+  ]
+}
