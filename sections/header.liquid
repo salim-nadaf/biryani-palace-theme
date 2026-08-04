@@ -15,10 +15,10 @@
         {% assign header_logo_width = section.settings.logo_width | default: settings.logo_width | default: 150 %}
         {% if header_logo %}
           <img
-            src="{{ header_logo | image_url: width: 300 }}"
+            src="{{ header_logo | image_url: width: 400 }}"
             alt="{{ shop.name }}"
-            width="{{ header_logo_width }}"
-            height="auto"
+            class="header__logo-img"
+            style="--logo-width: {{ header_logo_width }}px; width: {{ header_logo_width }}px; max-width: 220px; max-height: 56px; height: auto; object-fit: contain;"
             loading="eager"
           >
         {% else %}
