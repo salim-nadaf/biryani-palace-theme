@@ -1,5 +1,5 @@
 {% comment %}
-  Product Card Snippet — Zomato / Swiggy Style Horizontal Food App Card
+  Product Card Snippet — Food Delivery App Style (Responsive Horizontal/Vertical)
 {% endcomment %}
 
 {%- assign veg_meta = product.metafields.custom.is_veg -%}
@@ -30,31 +30,58 @@
 
 <div class="product-card animate-on-scroll" id="product-card-{{ product.id }}">
 
-  <!-- Left Side: Product Body -->
+  <!-- Image & Badges Wrap -->
+  <div class="product-card__image-wrap">
+    {% if product.featured_image %}
+      <img
+        src="{{ product.featured_image | image_url: width: 500 }}"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        width="320"
+        height="220"
+        loading="lazy"
+      >
+    {% else %}
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:var(--color-surface-elevated);">🍚</div>
+    {% endif %}
+
+    {% if tag_label != blank %}
+      <div class="product-card__badges">
+        <span class="product-card__tag {% if tag_label == 'New' %}new{% endif %}">{{ tag_label }}</span>
+      </div>
+    {% elsif is_preorder %}
+      <div class="product-card__badges">
+        <span class="product-card__tag">Family Pack</span>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Body -->
   <div class="product-card__body">
 
-    <!-- Top Indicator & Badges -->
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+    <!-- Indicator -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
       <span
         class="product-card__veg-indicator {% if is_veg %}veg{% else %}non-veg{% endif %}"
         aria-label="{% if is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"
         title="{% if is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"
       ></span>
-      {% if tag_label != blank %}
-        <span class="product-card__tag {% if tag_label == 'New' %}new{% endif %}">{{ tag_label }}</span>
-      {% elsif is_preorder %}
-        <span class="product-card__tag">Family Pack</span>
+      {% if is_preorder %}
+        <span class="product-card__avail preorder" style="margin:0;">Pre-order Required</span>
+      {% elsif product.available %}
+        <span class="product-card__avail now" style="margin:0;">Available Now</span>
+      {% else %}
+        <span class="product-card__avail soldout" style="margin:0;">Sold Out Today</span>
       {% endif %}
     </div>
 
-    <!-- Name -->
+    <!-- Title -->
     <h3 class="product-card__name">
-      <a href="{% if is_preorder %}/pages/family-feast{% else %}{{ product.url }}{% endif %}" style="color:inherit;text-decoration:none;">{{ product.title }}</a>
+      <a href="{% if is_preorder %}/pages/family-feast{% else %}{{ product.url }}{% endif %}">{{ product.title }}</a>
     </h3>
 
     <!-- Description -->
     {% if product.description != blank %}
-      <p class="product-card__desc">{{ product.description | strip_html | truncate: 80 }}</p>
+      <p class="product-card__desc">{{ product.description | strip_html | truncate: 75 }}</p>
     {% endif %}
 
     <!-- Serving Info -->
@@ -78,7 +105,7 @@
       </div>
     </div>
 
-    <!-- Price & CTA -->
+    <!-- Footer: Price & Action -->
     <div class="product-card__footer">
       <div class="product-card__price">
         <span class="currency">₹</span>{{ product.price | money_without_currency | remove: '.00' }}
@@ -88,7 +115,7 @@
       </div>
 
       {% if is_preorder %}
-        <a href="/pages/family-feast" class="card-cta-btn card-cta-btn--outline" style="text-decoration:none;" id="CardPreorder-{{ product.id }}">
+        <a href="/pages/family-feast" class="card-cta-btn card-cta-btn--outline" id="CardPreorder-{{ product.id }}">
           Pre-order →
         </a>
       {% elsif product.available %}
@@ -104,27 +131,12 @@
           ADD
         </button>
       {% else %}
-        <a href="/pages/family-feast" class="card-cta-btn card-cta-btn--outline" style="text-decoration:none;" id="CardSoldout-{{ product.id }}">
+        <a href="/pages/family-feast" class="card-cta-btn card-cta-btn--outline" id="CardSoldout-{{ product.id }}">
           Pre-order →
         </a>
       {% endif %}
     </div>
 
-  </div>
-
-  <!-- Right Side: 120x120px Image Wrap -->
-  <div class="product-card__image-wrap">
-    {% if product.featured_image %}
-      <img
-        src="{{ product.featured_image | image_url: width: 400 }}"
-        alt="{{ product.featured_image.alt | default: product.title | escape }}"
-        width="120"
-        height="120"
-        loading="lazy"
-      >
-    {% else %}
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:var(--color-surface-elevated);">🍚</div>
-    {% endif %}
   </div>
 
 </div>
