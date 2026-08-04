@@ -11,20 +11,20 @@
 
       <!-- Logo / Brand -->
       <a href="/" class="header__logo" aria-label="{{ shop.name }}">
-        {% assign header_logo = section.settings.logo | default: settings.logo %}
-        {% assign header_logo_width = section.settings.logo_width | default: settings.logo_width | default: 150 %}
+        {% assign header_logo = settings.logo | default: section.settings.logo %}
+        {% assign header_logo_width = settings.logo_width | default: section.settings.logo_width | default: 180 %}
         {% if header_logo %}
           <img
-            src="{{ header_logo | image_url: width: 400 }}"
+            src="{{ header_logo | image_url: width: 600 }}"
             alt="{{ shop.name }}"
             class="header__logo-img"
-            style="--logo-width: {{ header_logo_width }}px; width: {{ header_logo_width }}px; max-width: 220px; max-height: 56px; height: auto; object-fit: contain;"
+            style="width: {{ header_logo_width }}px; max-width: 100%; height: auto; display: block;"
             loading="eager"
           >
         {% else %}
           <div class="header__logo-text">
             {{ settings.brand_name | default: shop.name }}
-            <span>{{ settings.brand_tagline | default: 'Dum Cooked. Royal Served.' }}</span>
+            <span>{{ settings.brand_tagline | default: 'Share the Joy' }}</span>
           </div>
         {% endif %}
       </a>
@@ -145,9 +145,9 @@
       "id": "logo_width",
       "label": "Logo Width (px)",
       "min": 80,
-      "max": 260,
+      "max": 350,
       "step": 5,
-      "default": 150
+      "default": 180
     },
     {
       "type": "link_list",
