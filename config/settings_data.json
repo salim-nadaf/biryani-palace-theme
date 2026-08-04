@@ -24,7 +24,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo_width": 80,
+          "logo_width": 100,
           "menu": "main-menu",
           "show_area_checker": true,
           "show_announcement": true,
