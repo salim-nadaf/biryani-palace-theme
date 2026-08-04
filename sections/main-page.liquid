@@ -1,13 +1,21 @@
-<section style="padding: 72px 0; min-height: 70vh;" id="MainPageSection" aria-label="{{ page.title }}">
-  <div class="container" style="max-width: 800px;">
+{% comment %}
+  Main Page Section — Clean, Dark Luxury Layout for Standard Shopify Pages
+{% endcomment %}
+
+<section class="page-section" id="MainPageSection" aria-label="{{ page.title }}">
+  <div class="container" style="max-width: 860px; padding: 72px 24px;">
     
-    <div style="margin-bottom: 36px; text-align: center;" class="animate-on-scroll">
+    <!-- Header -->
+    <div style="margin-bottom: 44px; text-align: center;" class="animate-on-scroll">
       <span class="section-label">Biryani Palace by Niamat</span>
-      <h1 style="margin-bottom: 16px; font-family: 'Alata', sans-serif; color: var(--color-text-primary);">{{ page.title }}</h1>
-      <div style="width: 48px; height: 2px; background: var(--color-primary); margin: 0 auto;"></div>
+      <h1 style="margin-bottom: 16px; font-family: var(--font-heading); color: var(--color-text-primary); font-size: clamp(2rem, 4vw, 3rem);">
+        {{ page.title }}
+      </h1>
+      <div style="width: 48px; height: 2px; background: var(--color-primary); margin: 0 auto 16px;"></div>
     </div>
 
-    <div class="page-content animate-on-scroll" style="color: var(--color-text-secondary); line-height: 1.8; font-family: 'Montserrat', sans-serif; font-size: 0.9375rem;">
+    <!-- Page Content Box -->
+    <div class="page-content animate-on-scroll" style="background: var(--color-surface); border: 1px solid var(--color-border); padding: 48px 40px; box-shadow: 0 16px 48px rgba(0,0,0,0.5);">
       {{ page.content }}
     </div>
 

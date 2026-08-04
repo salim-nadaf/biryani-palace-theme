@@ -1,0 +1,35 @@
+{% comment %}
+  Policy Page Section — Clean, Dark Luxury Layout for Policy & Legal Pages
+{% endcomment %}
+
+<section class="page-section" id="MainPolicySection" aria-label="{{ policy.title }}">
+  <div class="container" style="max-width: 860px; padding: 72px 24px;">
+    
+    <!-- Header -->
+    <div style="margin-bottom: 44px; text-align: center;" class="animate-on-scroll">
+      <span class="section-label">Biryani Palace by Niamat</span>
+      <h1 style="margin-bottom: 16px; font-family: var(--font-heading); color: var(--color-text-primary); font-size: clamp(2rem, 4vw, 3rem);">
+        {{ policy.title }}
+      </h1>
+      <div style="width: 48px; height: 2px; background: var(--color-primary); margin: 0 auto 16px;"></div>
+      <p style="font-size: 0.8125rem; color: var(--color-text-secondary); font-family: var(--font-body);">
+        Official Store Policy &bull; Biryani Palace by Niamat
+      </p>
+    </div>
+
+    <!-- Policy Card Box -->
+    <div class="policy-content page-content animate-on-scroll" style="background: var(--color-surface); border: 1px solid var(--color-border); padding: 48px 40px; box-shadow: 0 16px 48px rgba(0,0,0,0.5);">
+      {{ policy.body }}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Policy Content",
+  "tag": "section",
+  "class": "section-main-policy",
+  "settings": []
+}
+{% endschema %}
