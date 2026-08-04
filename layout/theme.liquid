@@ -45,22 +45,6 @@
   <!-- Theme Core CSS -->
   {{ 'theme.css' | asset_url | stylesheet_tag }}
 
-  <!-- Inline CSS custom properties from Shopify settings -->
-<style>
-  :root {
-    --color-bg: {{ settings.color_background | default: '#0B0B0C' }};
-    --color-surface: {{ settings.color_surface | default: '#16161A' }};
-    --color-surface-elevated: {{ settings.color_surface_elevated | default: '#1F1F24' }};
-    --color-primary: {{ settings.color_primary | default: '#F4B41A' }};
-    --color-primary-dark: {{ settings.color_primary_dark | default: '#D49010' }};
-    --color-text-primary: {{ settings.color_text_primary | default: '#FFFFFF' }};
-    --color-text-secondary: {{ settings.color_text_secondary | default: '#AAAAA2' }};
-    --color-border: {{ settings.color_border | default: 'rgba(244,180,26,0.16)' }};
-    --color-veg: {{ settings.color_veg | default: '#2ECC71' }};
-    --color-nonveg: {{ settings.color_nonveg | default: '#E74C3C' }};
-  }
-</style>
-
   <!-- Restaurant + Local Business Schema -->
   <script type="application/ld+json">
   {
