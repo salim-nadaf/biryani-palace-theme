@@ -9,6 +9,9 @@
  */
 {
   "current": {
+    "logo": "shopify://shop_images/BP_by_Niamat-removebg-preview.png",
+    "logo_width": 100,
+    "favicon": "shopify://shop_images/favicon.png",
     "contact_phone": "+919167682582",
     "free_shipping_threshold": 799,
     "whatsapp_number": "919167682582",
