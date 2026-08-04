@@ -1,31 +1,64 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
       "type": "hero-banner",
+      "blocks": {
+        "eyebrow_block": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Niamat ka Zaika — Ghar Tak"
+          }
+        },
+        "kitchen_status_block": {
+          "type": "kitchen_status",
+          "settings": {}
+        },
+        "heading_block": {
+          "type": "heading",
+          "settings": {
+            "heading": "More Than a Meal. A Biryani Worth Gathering For."
+          }
+        },
+        "subheading_block": {
+          "type": "subheading",
+          "settings": {
+            "text": "From quick cravings to family feasts, enjoy freshly prepared biryani delivered across Kalyan. Order instantly or schedule your family order in advance."
+          }
+        },
+        "buttons_block": {
+          "type": "buttons",
+          "settings": {
+            "primary_cta_text": "Order Instant Delivery",
+            "primary_cta_url": "shopify://collections/instant-delivery",
+            "secondary_cta_text": "Pre-order Family Feast",
+            "secondary_cta_url": "shopify://pages/family-feast"
+          }
+        },
+        "trust_badges_block": {
+          "type": "trust_badges",
+          "settings": {
+            "badge1_title": "30–60 Min",
+            "badge1_sub": "Delivery Time",
+            "badge2_title": "100% Halal",
+            "badge2_sub": "Fresh Ingredients",
+            "badge3_title": "Kalyan & Nearby",
+            "badge3_sub": "Delivery Range"
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow_block",
+        "kitchen_status_block",
+        "heading_block",
+        "subheading_block",
+        "buttons_block",
+        "trust_badges_block"
+      ],
       "settings": {
         "bg_video_url": "https://cdn.shopify.com/videos/c/o/v/d9d77b9d67f2417b8243214b4f77fd47.mp4",
-        "eyebrow": "Niamat ka Zaika — Ghar Tak",
-        "heading": "More Than a Meal. A Biryani Worth Gathering For.",
-        "subheading": "From quick cravings to family feasts, enjoy freshly prepared biryani delivered across Kalyan. Order instantly or schedule your family order in advance.",
-        "primary_cta_text": "Order Now",
-        "primary_cta_url": "shopify://collections/instant-delivery",
-        "secondary_cta_text": "Family Orders",
-        "secondary_cta_url": "shopify://pages/family-feast",
-        "badge1_title": "30–60 Min",
-        "badge1_sub": "Delivery Time",
-        "badge2_title": "100% Halal",
-        "badge2_sub": "Fresh Ingredients",
-        "badge3_title": "Kalyan & Nearby",
-        "badge3_sub": "Delivery Range"
+        "overlay_opacity": 80,
+        "desktop_height": 750,
+        "text_alignment": "left"
       }
     },
     "todays-kitchen": {
@@ -40,17 +73,113 @@
     },
     "family-orders": {
       "type": "family-orders-home",
+      "blocks": {
+        "card_1kg": {
+          "type": "size_card",
+          "settings": {
+            "size_title": "1 KG Dum Biryani",
+            "serves_info": "Serves 4–5 People",
+            "price_text": "₹899",
+            "price_sub": "onwards",
+            "note": "Includes 2 Complimentary Raitas & Salan",
+            "is_featured": false,
+            "button_text": "Pre-order 1 KG",
+            "button_url": "shopify://pages/family-feast"
+          }
+        },
+        "card_2kg": {
+          "type": "size_card",
+          "settings": {
+            "size_title": "2 KG Dum Biryani",
+            "serves_info": "Serves 8–10 People",
+            "price_text": "₹1,699",
+            "price_sub": "onwards",
+            "note": "Includes Free Dessert + Raita & Salan",
+            "is_featured": true,
+            "button_text": "Pre-order 2 KG",
+            "button_url": "shopify://pages/family-feast"
+          }
+        },
+        "card_3kg": {
+          "type": "size_card",
+          "settings": {
+            "size_title": "3 KG Dum Biryani",
+            "serves_info": "Serves 12–15 People",
+            "price_text": "₹2,499",
+            "price_sub": "onwards",
+            "note": "Includes Starter + Dessert + Raita",
+            "is_featured": false,
+            "button_text": "Pre-order 3 KG",
+            "button_url": "shopify://pages/family-feast"
+          }
+        },
+        "card_bulk": {
+          "type": "size_card",
+          "settings": {
+            "size_title": "5 KG+ Bulk Orders",
+            "serves_info": "Serves 20+ People",
+            "price_text": "Custom Quote",
+            "price_sub": "",
+            "note": "Weddings, Parties & Corporate Lunches",
+            "is_featured": false,
+            "button_text": "Pre-order Bulk",
+            "button_url": "shopify://pages/family-feast"
+          }
+        }
+      },
+      "block_order": [
+        "card_1kg",
+        "card_2kg",
+        "card_3kg",
+        "card_bulk"
+      ],
       "settings": {
         "label": "Family & Group Orders",
         "heading": "Feed the Whole Family",
         "subheading": "Generous portions cooked fresh for family gatherings, office lunches, and special occasions.",
         "notice_text": "Advance Notice Required — Every family meal is slow-cooked on dum specifically for your order.",
         "main_cta_text": "Reserve Your Family Feast",
-        "main_cta_url": ""
+        "main_cta_url": "shopify://pages/family-feast"
       }
     },
     "why-choose-us": {
       "type": "why-choose-us",
+      "blocks": {
+        "pillar_1": {
+          "type": "trust_pillar",
+          "settings": {
+            "title": "Freshly Prepared",
+            "text": "Every order is cooked fresh after you order. Never pre-made, stored, or re-heated."
+          }
+        },
+        "pillar_2": {
+          "type": "trust_pillar",
+          "settings": {
+            "title": "Premium Spices & Rice",
+            "text": "Authentic long-grain basmati rice and hand-ground spices for rich aroma and natural flavor."
+          }
+        },
+        "pillar_3": {
+          "type": "trust_pillar",
+          "settings": {
+            "title": "100% Halal Certified",
+            "text": "Sourced exclusively from certified suppliers. Prepared with utmost hygiene and care."
+          }
+        },
+        "pillar_4": {
+          "type": "trust_pillar",
+          "settings": {
+            "title": "Crafted for Families",
+            "text": "Generous portion sizes and balanced spice levels that everyone in the family will enjoy."
+          }
+        }
+      },
+      "block_order": [
+        "pillar_1",
+        "pillar_2",
+        "pillar_3",
+        "pillar_4"
+      ],
       "settings": {
         "label": "Our Promise",
         "heading": "Why Families Choose Biryani Palace",
@@ -59,53 +188,21 @@
         "payment_label": "100% Secure Payments:"
       }
     },
-    "1785797754b942a403": {
-      "type": "apps",
-      "settings": {}
+    "reviews": {
+      "type": "customer-reviews",
+      "settings": {
+        "label": "Real Customer Experiences",
+        "heading": "Loved by Biryani Enthusiasts Across Kalyan",
+        "subheading": "Here is what our customers say about our authentic dum biryanis."
+      }
     },
-    "1785797775f47b6fbc": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_cards_carousel_9y3eBm": {
-          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "show_sample_reviews": true,
-            "reviews_selection": "all",
-            "products": [],
-            "filter_pinned": false,
-            "filter_featured": true,
-            "filter_custom_tags": "",
-            "star_rating": "all",
-            "show_review_media": true,
-            "display_order": "media_first",
-            "no_image_fallback": "review_text_only",
-            "max_reviews": 20,
-            "review_length": "medium",
-            "text_size": "medium",
-            "image_ratio": "1",
-            "reviews_shown": 4,
-            "show_reviewer_name": true,
-            "show_product_name": true,
-            "hide_arrows_mobile": true,
-            "arrows_position": "sides",
-            "max_width": 1100,
-            "corner_styling": "extra_round",
-            "header_text_color": "#C89116",
-            "text_color": "#000000",
-            "card_color": "#f9f9f9",
-            "stars_color": "#C89116",
-            "arrows_color": "#000000",
-            "transition_speed": 5,
-            "header_text": "Google Reviews",
-            "show_average_rating": true,
-            "rating_display": "default"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_cards_carousel_9y3eBm"
-      ],
-      "settings": {}
+    "delivery-info": {
+      "type": "delivery-info",
+      "settings": {
+        "label": "Delivery Details",
+        "heading": "Delivery Rates & Coverage (Up to 8 KM)",
+        "subheading": "Freshly prepared dum biryani delivered hot. Maximum delivery radius up to 8 KM."
+      }
     },
     "faq": {
       "type": "faq-section",
@@ -114,14 +211,6 @@
         "heading": "Frequently Asked Questions",
         "subheading": "Everything you need to know about our preparation, delivery, payments, and family orders."
       }
-    },
-    "delivery": {
-      "type": "delivery-info",
-      "settings": {
-        "label": "Delivery Details",
-        "heading": "Delivery & Kitchen Timings",
-        "subheading": "Freshly prepared and delivered hot right to your doorstep."
-      }
     }
   },
   "order": [
@@ -129,9 +218,8 @@
     "todays-kitchen",
     "family-orders",
     "why-choose-us",
-    "1785797754b942a403",
-    "1785797775f47b6fbc",
-    "faq",
-    "delivery"
+    "reviews",
+    "delivery-info",
+    "faq"
   ]
 }
