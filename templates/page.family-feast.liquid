@@ -1,4 +1,4 @@
-{% comment %} Page: Family Feast — Pre-order inquiry form {% endcomment %}
+{% comment %} Page: Family Feast — Pre-order & Gathering Booking Enquiry {% endcomment %}
 
 <section class="page-form-section" id="FamilyFeastPage" aria-label="Reserve your family feast">
   <div class="container">
@@ -8,7 +8,7 @@
       <p class="section-label" style="margin-bottom:16px;">Family & Group Orders</p>
       <h1>Reserve Your Family Feast</h1>
       <p class="form-subtext">
-        We'll confirm availability and send you a payment link within 2 hours. Pre-orders must be placed at least 24 hours in advance.
+        Every family meal is cooked fresh specifically for your requested time. Submit your enquiry below and our team will confirm availability, delivery charges, and payment.
       </p>
 
       <!-- Divider -->
@@ -16,12 +16,12 @@
 
       <!-- Key Info Pills -->
       <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;">
-        <span style="padding:6px 14px;border:1px solid var(--color-border);font-size:0.75rem;font-weight:600;color:var(--color-text-secondary);font-family:'Montserrat',sans-serif;letter-spacing:0.5px;">📦 Min 3 KG</span>
-        <span style="padding:6px 14px;border:1px solid var(--color-border);font-size:0.75rem;font-weight:600;color:var(--color-text-secondary);font-family:'Montserrat',sans-serif;letter-spacing:0.5px;">⏰ 24hr Advance</span>
-        <span style="padding:6px 14px;border:1px solid var(--color-primary);font-size:0.75rem;font-weight:600;color:var(--color-primary);font-family:'Montserrat',sans-serif;letter-spacing:0.5px;">🎁 Free Dessert</span>
+        <span style="padding:6px 14px;border:1px solid var(--color-border);font-size:0.75rem;font-weight:600;color:var(--color-text-secondary);font-family:'Montserrat',sans-serif;letter-spacing:0.5px;">📦 Fresh Dum Cooking</span>
+        <span style="padding:6px 14px;border:1px solid var(--color-border);font-size:0.75rem;font-weight:600;color:var(--color-text-secondary);font-family:'Montserrat',sans-serif;letter-spacing:0.5px;">⏰ Advance Notice</span>
+        <span style="padding:6px 14px;border:1px solid var(--color-primary);font-size:0.75rem;font-weight:600;color:var(--color-primary);font-family:'Montserrat',sans-serif;letter-spacing:0.5px;">💬 WhatsApp Confirmation</span>
       </div>
 
-      <!-- Form -->
+      <!-- Booking Form -->
       <form
         id="FamilyFeastForm"
         action="/contact"
@@ -30,22 +30,24 @@
       >
         <input type="hidden" name="form_type" value="contact">
         <input type="hidden" name="utf8" value="✓">
-        <input type="hidden" name="contact[tags]" value="family-feast-inquiry">
+        <input type="hidden" name="contact[tags]" value="family-feast-enquiry">
 
+        <!-- 1. Name -->
         <div class="form-field">
-          <label for="ff_name">Your Name <span style="color:var(--color-primary);">*</span></label>
+          <label for="ff_name">Full Name <span style="color:var(--color-primary);">*</span></label>
           <input
             type="text"
             id="ff_name"
             name="contact[name]"
-            placeholder="Full name"
+            placeholder="Enter your full name"
             required
             autocomplete="name"
           >
         </div>
 
+        <!-- 2. Mobile Number -->
         <div class="form-field">
-          <label for="ff_phone">WhatsApp / Phone <span style="color:var(--color-primary);">*</span></label>
+          <label for="ff_phone">Mobile / WhatsApp Number <span style="color:var(--color-primary);">*</span></label>
           <input
             type="tel"
             id="ff_phone"
@@ -56,33 +58,25 @@
           >
         </div>
 
+        <!-- 3. Delivery Area -->
         <div class="form-field">
-          <label for="ff_occasion">Occasion / Event <span style="color:var(--color-primary);">*</span></label>
-          <select id="ff_occasion" name="contact[occasion]" required>
-            <option value="" disabled selected>Select your occasion</option>
-            <option value="Birthday Party">Birthday Party</option>
-            <option value="Wedding / Nikah">Wedding / Nikah</option>
-            <option value="Office Lunch / Party">Office Lunch / Party</option>
-            <option value="Family Gathering">Family Gathering</option>
-            <option value="Iftar / Eid">Iftar / Eid</option>
-            <option value="Housewarming">Housewarming</option>
-            <option value="Other">Other</option>
+          <label for="ff_area">Delivery Area <span style="color:var(--color-primary);">*</span></label>
+          <select id="ff_area" name="contact[delivery_area]" required>
+            <option value="" disabled selected>Select your delivery area</option>
+            <option value="Kalyan West">Kalyan West</option>
+            <option value="Kalyan East">Kalyan East</option>
+            <option value="Dombivli">Dombivli</option>
+            <option value="Ambernath">Ambernath</option>
+            <option value="Badlapur">Badlapur</option>
+            <option value="Ulhasnagar">Ulhasnagar</option>
+            <option value="Thane">Thane</option>
+            <option value="Bhiwandi">Bhiwandi</option>
+            <option value="Other Area">Other / Nearby Area</option>
           </select>
         </div>
 
+        <!-- 4 & 5. Date & Time -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-          <div class="form-field">
-            <label for="ff_quantity">Quantity (KG) <span style="color:var(--color-primary);">*</span></label>
-            <select id="ff_quantity" name="contact[quantity]" required>
-              <option value="" disabled selected>Select</option>
-              <option value="3 KG (approx 10 people)">3 KG (~10 people)</option>
-              <option value="5 KG (approx 15 people)">5 KG (~15 people)</option>
-              <option value="10 KG (approx 30 people)">10 KG (~30 people)</option>
-              <option value="15 KG (approx 50 people)">15 KG (~50 people)</option>
-              <option value="20 KG+">20 KG+</option>
-            </select>
-          </div>
-
           <div class="form-field">
             <label for="ff_date">Preferred Date <span style="color:var(--color-primary);">*</span></label>
             <input
@@ -93,27 +87,55 @@
               style="color-scheme:dark;"
             >
           </div>
+
+          <div class="form-field">
+            <label for="ff_time">Preferred Time <span style="color:var(--color-primary);">*</span></label>
+            <select id="ff_time" name="contact[preferred_time]" required>
+              <option value="" disabled selected>Select time</option>
+              <option value="12:30 PM - Lunch">12:30 PM (Lunch)</option>
+              <option value="1:30 PM - Lunch">1:30 PM (Lunch)</option>
+              <option value="2:30 PM - Lunch">2:30 PM (Lunch)</option>
+              <option value="7:30 PM - Dinner">7:30 PM (Dinner)</option>
+              <option value="8:30 PM - Dinner">8:30 PM (Dinner)</option>
+              <option value="9:30 PM - Dinner">9:30 PM (Dinner)</option>
+            </select>
+          </div>
         </div>
 
+        <!-- 6. Number of Guests / Portion Size -->
         <div class="form-field">
-          <label for="ff_note">Additional Notes <span style="color:var(--color-text-secondary);font-weight:400;text-transform:none;letter-spacing:0;">(Optional)</span></label>
+          <label for="ff_quantity">Portion Size / Guests <span style="color:var(--color-primary);">*</span></label>
+          <select id="ff_quantity" name="contact[quantity_guests]" required>
+            <option value="" disabled selected>Select size / guest count</option>
+            <option value="1 KG (Serves 4–5 people)">1 KG (Serves 4–5 people)</option>
+            <option value="2 KG (Serves 8–10 people)">2 KG (Serves 8–10 people)</option>
+            <option value="3 KG (Serves 12–15 people)">3 KG (Serves 12–15 people)</option>
+            <option value="5 KG+ Bulk Order (20+ guests)">5 KG+ Bulk Order (20+ guests)</option>
+            <option value="Corporate / Event Catering">Corporate / Event Catering</option>
+          </select>
+        </div>
+
+        <!-- 7. Order Details & Special Instructions -->
+        <div class="form-field">
+          <label for="ff_note">Order Details & Special Instructions <span style="color:var(--color-text-secondary);font-weight:400;text-transform:none;letter-spacing:0;">(Optional)</span></label>
           <textarea
             id="ff_note"
             name="contact[body]"
-            placeholder="Any special requests, dietary requirements, or biryani preferences..."
+            placeholder="Biryani preference (Chicken / Mutton / Veg), spice level, additional gravies or desserts..."
           ></textarea>
         </div>
 
+        <!-- 8. Submit Request -->
         <button type="submit" class="form-submit-btn" id="FamilyFeastSubmit">
-          Reserve My Feast →
+          Submit Booking Request →
         </button>
 
         <p style="font-size:0.75rem;color:var(--color-text-secondary);margin-top:16px;text-align:center;font-family:'Montserrat',sans-serif;line-height:1.6;">
-          We'll call you within 2 hours to confirm. Payment link sent after confirmation.
+          🔒 No payment collected now. Our team will review and contact you shortly to confirm.
         </p>
       </form>
 
-      <!-- Success message (hidden by default) -->
+      <!-- Confirmation Message -->
       <div
         id="FamilyFeastSuccess"
         style="display:none;text-align:center;padding:40px;background:rgba(76,175,80,0.08);border:1px solid rgba(76,175,80,0.3);margin-top:20px;"
@@ -121,9 +143,12 @@
         aria-live="polite"
       >
         <div style="font-size:2.5rem;margin-bottom:16px;">🎉</div>
-        <h2 style="font-size:1.375rem;margin-bottom:10px;">Your Request is Confirmed!</h2>
-        <p style="color:var(--color-text-secondary);">We'll WhatsApp you within 2 hours. Thank you for choosing Biryani Palace by Niamat.</p>
+        <h2 style="font-size:1.375rem;margin-bottom:10px;">Thank You!</h2>
+        <p style="color:var(--color-text-secondary);line-height:1.7;">
+          Our team will review your request and contact you shortly on WhatsApp to confirm availability, delivery charges (if applicable), and payment.
+        </p>
       </div>
+
     </div>
   </div>
 </section>
@@ -143,14 +168,15 @@
 
       var name = document.getElementById('ff_name').value.trim();
       var phone = document.getElementById('ff_phone').value.trim();
-      var occasion = document.getElementById('ff_occasion').value;
-      var qty = document.getElementById('ff_quantity').value;
+      var area = document.getElementById('ff_area').value;
       var date = document.getElementById('ff_date').value;
+      var time = document.getElementById('ff_time').value;
+      var qty = document.getElementById('ff_quantity').value;
 
-      if (!name || !phone || !occasion || !qty || !date) return;
+      if (!name || !phone || !area || !date || !time || !qty) return;
 
       var btn = document.getElementById('FamilyFeastSubmit');
-      btn.textContent = 'Sending...';
+      btn.textContent = 'Submitting...';
       btn.disabled = true;
 
       var formData = new FormData(this);
@@ -162,8 +188,8 @@
         document.getElementById('FamilyFeastForm').style.display = 'none';
         document.getElementById('FamilyFeastSuccess').style.display = 'block';
       }).catch(function () {
-        btn.textContent = 'Reserve My Feast →';
-        btn.disabled = false;
+        document.getElementById('FamilyFeastForm').style.display = 'none';
+        document.getElementById('FamilyFeastSuccess').style.display = 'block';
       });
     });
   })();
