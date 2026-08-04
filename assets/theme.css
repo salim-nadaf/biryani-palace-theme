@@ -134,11 +134,12 @@ p { color: var(--color-text-secondary); line-height: 1.75; font-size: 0.9375rem;
 }
 .has-sticky-header .site-header { position: sticky; top: 0; }
 .site-header.scrolled { box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-.header__inner { display: flex; align-items: center; justify-content: space-between; min-height: 80px; padding: 12px 0; gap: 24px; }
+.header__inner { display: flex; align-items: center; justify-content: space-between; height: 84px; gap: 24px; }
 
-.header__logo { display: flex; align-items: center; text-decoration: none; }
+.header__logo { display: flex; align-items: center; text-decoration: none; height: 100%; }
 .header__logo-img, .header__logo img {
-  height: auto;
+  max-height: 72px;
+  width: auto;
   max-width: 100%;
   object-fit: contain;
   display: block;

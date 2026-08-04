@@ -11,14 +11,20 @@
 
       <!-- Logo / Brand -->
       <a href="/" class="header__logo" aria-label="{{ shop.name }}">
-        {% assign header_logo = settings.logo | default: section.settings.logo %}
-        {% assign header_logo_width = settings.logo_width | default: section.settings.logo_width | default: 180 %}
+        {% assign header_logo = section.settings.logo %}
+        {% if header_logo == blank %}
+          {% assign header_logo = settings.logo %}
+        {% endif %}
+
+        {% assign header_logo_height = section.settings.logo_max_height | default: settings.logo_max_height | default: 75 %}
+        {% assign header_logo_width = section.settings.logo_width | default: settings.logo_width | default: 150 %}
+
         {% if header_logo %}
           <img
             src="{{ header_logo | image_url: width: 600 }}"
             alt="{{ shop.name }}"
             class="header__logo-img"
-            style="width: {{ header_logo_width }}px; max-width: 100%; height: auto; display: block;"
+            style="max-height: {{ header_logo_height }}px; max-width: {{ header_logo_width }}px; width: auto; height: auto; object-fit: contain; display: block;"
             loading="eager"
           >
         {% else %}
@@ -142,12 +148,22 @@
     },
     {
       "type": "range",
-      "id": "logo_width",
-      "label": "Logo Width (px)",
-      "min": 80,
-      "max": 350,
+      "id": "logo_max_height",
+      "label": "Logo Max Height (px)",
+      "min": 40,
+      "max": 140,
       "step": 5,
-      "default": 180
+      "default": 75,
+      "info": "Prevents tall square crest logos from making header huge"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo Max Width (px)",
+      "min": 60,
+      "max": 300,
+      "step": 5,
+      "default": 150
     },
     {
       "type": "link_list",

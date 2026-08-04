@@ -10,12 +10,22 @@
       },
       {
         "type": "range",
-        "id": "logo_width",
-        "label": "Custom Logo Width (px)",
-        "min": 80,
-        "max": 350,
+        "id": "logo_max_height",
+        "label": "Logo Max Height (px)",
+        "min": 40,
+        "max": 140,
         "step": 5,
-        "default": 180
+        "default": 75,
+        "info": "Prevents tall/square crest logos from expanding header"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Custom Logo Max Width (px)",
+        "min": 60,
+        "max": 300,
+        "step": 5,
+        "default": 150
       },
       {
         "type": "image_picker",
