@@ -26,15 +26,16 @@
           Share the Joy
         </p>
 
+        {% assign display_phone = settings.phone_number | default: settings.contact_phone %}
         {% if settings.address_line != blank %}
         <p style="font-size:0.8125rem;color:var(--color-text-secondary);margin-bottom:16px;line-height:1.6;text-align:center;">
           📍 {{ settings.address_line }}
         </p>
         {% endif %}
 
-        {% if settings.phone_number != blank %}
+        {% if display_phone != blank %}
         <p style="font-size:0.875rem;margin-bottom:16px;text-align:center;">
-          <a href="tel:{{ settings.phone_number | remove: ' ' }}" style="color:var(--color-primary);">📞 {{ settings.phone_number }}</a>
+          <a href="tel:{{ display_phone | remove: ' ' }}" style="color:var(--color-primary);">📞 {{ display_phone }}</a>
         </p>
         {% endif %}
 

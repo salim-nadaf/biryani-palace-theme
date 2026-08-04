@@ -117,9 +117,15 @@
       },
       {
         "type": "text",
-        "id": "contact_phone",
+        "id": "phone_number",
         "label": "Contact Phone Number",
         "default": "+91 98765 43210"
+      },
+      {
+        "type": "text",
+        "id": "address_line",
+        "label": "Restaurant Address",
+        "default": "Kalyan, Maharashtra 421301"
       },
       {
         "type": "text",
@@ -132,6 +138,12 @@
         "id": "free_shipping_threshold",
         "label": "Free Delivery Threshold (₹)",
         "default": 799
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_ajax_cart",
+        "label": "Enable Ajax Cart Drawer",
+        "default": true
       }
     ]
   },

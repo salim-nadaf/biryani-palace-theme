@@ -265,7 +265,8 @@
           setTimeout(() => {
             buttonEl.classList.remove('added');
             buttonEl.disabled = false;
-            buttonEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M12 5v14M5 12h14"/></svg> Order Now';
+            const label = buttonEl.dataset.label || 'Add';
+            buttonEl.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M12 5v14M5 12h14"/></svg> ${label}`;
           }, 2000);
         }
 
@@ -371,7 +372,7 @@
             <div class="cart-drawer__empty">
               <div class="cart-drawer__empty-icon">🍚</div>
               <h3>Your order is empty</h3>
-              <p style="font-size:0.875rem;color:var(--color-text-secondary);font-family:'Montserrat',sans-serif;">Add some freshly prepared biryani to get started!</p>
+              <p style="font-size:0.875rem;color:var(--color-text-secondary);font-family:var(--font-body);">Add some freshly prepared biryani to get started!</p>
               <a href="/pages/menu" class="btn btn-primary btn-sm" style="margin-top:12px;">Browse Restaurant Menu</a>
             </div>
           `;
@@ -472,10 +473,12 @@
   };
 
   window.BiryaniThemeAddAddon = function (btn) {
-    btn.textContent = '✓ Added';
+    btn.textContent = '✓ Noted';
     btn.style.background = 'var(--color-veg)';
+    btn.style.borderColor = 'var(--color-veg)';
+    btn.style.color = '#fff';
     btn.disabled = true;
-    showToast('Add-on added to your order');
+    showToast('Add sides from the menu — cart add-ons coming soon');
   };
 
   /* ─────────────────── 3. FAQ ACCORDION ─────────────────── */
@@ -524,10 +527,15 @@
         let matchesFilter = true;
         if (activeFilter === 'chicken') matchesFilter = text.includes('chicken');
         else if (activeFilter === 'mutton') matchesFilter = text.includes('mutton');
-        else if (activeFilter === 'veg') matchesFilter = isVeg;
-        else if (activeFilter === 'available') matchesFilter = card.querySelector('.now') !== null;
-        else if (activeFilter === 'family') matchesFilter = text.includes('family') || text.includes('kg');
+        else if (activeFilter === 'veg') matchesFilter = isVeg || category.includes('veg');
+        else if (activeFilter === 'classic') matchesFilter = category.includes('classic') || text.includes('classic');
+        else if (activeFilter === 'premium') matchesFilter = category.includes('premium') || text.includes('premium') || text.includes('royal');
+        else if (activeFilter === 'starters') matchesFilter = category.includes('starter') || text.includes('starter') || text.includes('raita') || text.includes('kebab');
+        else if (activeFilter === 'desserts') matchesFilter = category.includes('dessert') || category.includes('drink') || text.includes('dessert') || text.includes('gulab') || text.includes('sharbat') || text.includes('drink');
+        else if (activeFilter === 'available') matchesFilter = category.includes('available') || card.querySelector('.now') !== null;
+        else if (activeFilter === 'family') matchesFilter = category.includes('family') || text.includes('family') || text.includes('kg');
         else if (activeFilter === 'bestseller') matchesFilter = text.includes('best seller') || category.includes('bestseller');
+        else if (activeFilter !== 'all') matchesFilter = category.includes(activeFilter) || text.includes(activeFilter);
 
         let matchesSearch = query === '' || text.includes(query);
 

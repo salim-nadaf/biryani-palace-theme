@@ -22,7 +22,8 @@
     "logo": "shopify://shop_images/BP_by_Niamat-removebg-preview.png",
     "logo_width": 300,
     "favicon": "shopify://shop_images/favicon.png",
-    "contact_phone": "+919167682582",
+    "phone_number": "+919167682582",
+    "address_line": "Kalyan, Maharashtra 421301",
     "free_shipping_threshold": 799,
     "whatsapp_number": "919167682582",
     "announcement_text": "🔥 Free Delivery on Orders Above ₹799 | Authentic Dum Biryani Delivered Hot",
@@ -40,8 +41,8 @@
           "show_area_checker": true,
           "show_announcement": true,
           "announcement_text": "🔥 Free Delivery on Orders Above ₹799 | Niamat Biryani Delivered Hot",
-          "announcement_bg": "#e5a93c",
-          "announcement_color": "#0e0e0e"
+          "announcement_bg": "#F4B41A",
+          "announcement_color": "#0B0B0C"
         }
       },
       "footer": {

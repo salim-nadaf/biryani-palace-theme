@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="theme-color" content="{{ settings.color_background | default: '#0E0E0E' }}">
+  <meta name="theme-color" content="{{ settings.color_background | default: '#0B0B0C' }}">
 
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
@@ -45,6 +45,41 @@
   <!-- Theme Core CSS -->
   {{ 'theme.css' | asset_url | stylesheet_tag }}
 
+  {%- liquid
+    assign phone = settings.phone_number | default: settings.contact_phone
+    assign address = settings.address_line
+    assign color_bg = settings.color_background | default: '#0B0B0C'
+    assign color_surface = settings.color_surface | default: '#16161A'
+    assign color_elevated = settings.color_surface_elevated | default: '#1F1F24'
+    assign color_primary = settings.color_primary | default: '#F4B41A'
+    assign color_primary_dark = settings.color_primary_dark | default: '#D49010'
+    assign color_text = settings.color_text_primary | default: '#FFFFFF'
+    assign color_text_sec = settings.color_text_secondary | default: '#AAAAA2'
+    assign color_border = settings.color_border | default: 'rgba(244,180,26,0.16)'
+    assign color_veg = settings.color_veg | default: '#2ECC71'
+    assign color_nonveg = settings.color_nonveg | default: '#E74C3C'
+  -%}
+  <style id="theme-color-vars">
+    :root {
+      --color-bg: {{ color_bg }};
+      --color-dominant-60: {{ color_bg }};
+      --color-surface: {{ color_surface }};
+      --color-surface-elevated: {{ color_elevated }};
+      --color-secondary-30: {{ color_surface }};
+      --color-border: {{ color_border }};
+      --color-primary: {{ color_primary }};
+      --color-primary-dark: {{ color_primary_dark }};
+      --color-accent: {{ color_primary }};
+      --color-accent-10: {{ color_primary }};
+      --color-accent-dark: {{ color_primary_dark }};
+      --color-text-primary: {{ color_text }};
+      --color-text-secondary: {{ color_text_sec }};
+      --color-veg: {{ color_veg }};
+      --color-nonveg: {{ color_nonveg }};
+      --logo-width: {{ settings.logo_width | default: 150 }}px;
+    }
+  </style>
+
   <!-- Restaurant + Local Business Schema -->
   <script type="application/ld+json">
   {
@@ -53,7 +88,7 @@
     "name": {{ settings.brand_name | default: shop.name | json }},
     "description": "Premium Dum Biryani prepared fresh and delivered across Kalyan. Freshly prepared, 100% Halal.",
     "url": {{ shop.url | json }},
-    "telephone": {{ settings.phone_number | json }},
+    "telephone": {{ phone | json }},
     "servesCuisine": ["Indian", "Biryani", "Mughlai"],
     "priceRange": "₹₹",
     "currenciesAccepted": "INR",
@@ -61,7 +96,7 @@
     "hasMenu": "{{ shop.url }}/pages/menu",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": {{ settings.address_line | json }},
+      "streetAddress": {{ address | json }},
       "addressLocality": "Kalyan",
       "addressRegion": "Maharashtra",
       "postalCode": "421301",
@@ -209,12 +244,12 @@
   <!-- Theme JavaScript config -->
   <script>
     window.BiryaniTheme = {
-      cartEnabled: {{ settings.enable_ajax_cart | json }},
-      freeItemThreshold: {{ settings.free_item_threshold }},
-      freeItemName: {{ settings.free_item_name | json }},
-      deliveryAreas: {{ settings.delivery_areas | split: ',' | json }},
-      deliveryMinOrder: {{ settings.delivery_min_order | json }},
-      deliveryFreeAbove: {{ settings.delivery_free_above | json }},
+      cartEnabled: {{ settings.enable_ajax_cart | default: true | json }},
+      freeItemThreshold: {{ settings.free_item_threshold | default: 0 | json }},
+      freeItemName: {{ settings.free_item_name | default: '' | json }},
+      deliveryAreas: {{ settings.delivery_areas | default: 'Kalyan West, Kalyan East, Dombivli, Ulhasnagar' | split: ',' | json }},
+      deliveryMinOrder: {{ settings.delivery_min_order | default: 0 | json }},
+      deliveryFreeAbove: {{ settings.delivery_free_above | default: settings.free_shipping_threshold | default: 799 | json }},
       shopCurrency: {{ cart.currency.symbol | json }},
       cartItemCount: {{ cart.item_count }},
       cartTotal: {{ cart.total_price }},

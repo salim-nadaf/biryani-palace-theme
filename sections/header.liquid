@@ -1,7 +1,7 @@
 <header class="site-header" id="SiteHeader" role="banner">
   <!-- Announcement Bar -->
   {% if section.settings.show_announcement or settings.header_show_announcement %}
-    <div class="announcement-bar" style="background-color: {{ section.settings.announcement_bg | default: settings.announcement_bg | default: '#E5A93C' }}; color: {{ section.settings.announcement_color | default: settings.announcement_text_color | default: '#0E0E0E' }};">
+    <div class="announcement-bar" style="background-color: {{ section.settings.announcement_bg | default: settings.color_primary | default: '#F4B41A' }}; color: {{ section.settings.announcement_color | default: '#0B0B0C' }};">
       {{ section.settings.announcement_text | default: settings.announcement_text | default: '🔥 Free Delivery on Orders Above ₹499 | Authentic Dum Biryani Delivered Hot' }}
     </div>
   {% endif %}
@@ -197,13 +197,13 @@
       "type": "color",
       "id": "announcement_bg",
       "label": "Announcement Background",
-      "default": "#E5A93C"
+      "default": "#F4B41A"
     },
     {
       "type": "color",
       "id": "announcement_color",
       "label": "Announcement Text Color",
-      "default": "#0E0E0E"
+      "default": "#0B0B0C"
     }
   ]
 }
