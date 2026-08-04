@@ -12,7 +12,7 @@
   <!-- Free item progress bar -->
   <div class="cart-free-progress" id="CartFreeProgress">
     <div class="cart-free-progress__text" id="FreeProgressText">
-      Add <strong>₹{{ settings.free_item_threshold | default: 999 }}</strong> to get a free <strong>{{ settings.free_item_name | default: 'Free Raita' }}</strong>!
+      Add <strong>₹799</strong> for <strong>FREE Delivery</strong> (0–5 KM)
     </div>
     <div class="progress-bar">
       <div class="progress-bar__fill" id="FreeProgressFill" style="width: 0%;"></div>
@@ -87,7 +87,7 @@
     {% endif %}
   </div>
 
-  <!-- Special Instructions & Coupon -->
+  <!-- Special Instructions -->
   {% if cart.item_count > 0 %}
     <div style="padding:12px 20px;border-top:1px solid var(--color-border);background:var(--color-surface);" id="CartDrawerExtras">
       <details style="font-size:0.8125rem;font-family:'Montserrat',sans-serif;color:var(--color-text-secondary);">
@@ -111,10 +111,12 @@
     </div>
 
     <div class="cart-delivery-note" id="CartDeliveryNote">
-      {% if cart.total_price >= 49900 %}
-        <span class="cart-delivery-note free">✓ You qualify for FREE Delivery!</span>
+      {% if cart.total_price >= 129900 %}
+        <span class="cart-delivery-note free">✓ You qualify for FREE Delivery for all areas up to 8 KM!</span>
+      {% elsif cart.total_price >= 79900 %}
+        <span class="cart-delivery-note free">✓ You qualify for FREE Delivery (0–5 KM)!</span>
       {% else %}
-        Free delivery on orders above ₹{{ settings.delivery_free_above | default: '499' }}
+        Free delivery on orders above ₹799 (0–5 KM) & ₹1,299 (5–8 KM)
       {% endif %}
     </div>
 

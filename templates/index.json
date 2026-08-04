@@ -57,7 +57,7 @@
       "settings": {
         "bg_video_url": "https://cdn.shopify.com/videos/c/o/v/d9d77b9d67f2417b8243214b4f77fd47.mp4",
         "overlay_opacity": 80,
-        "desktop_height": 750,
+        "desktop_height": 480,
         "text_alignment": "left"
       }
     },

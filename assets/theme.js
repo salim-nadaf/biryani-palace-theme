@@ -225,6 +225,17 @@
         }
       }
 
+      const deliveryNoteEl = document.getElementById('CartDeliveryNote');
+      if (deliveryNoteEl) {
+        if (cart.total_price >= freeZone2Cents) {
+          deliveryNoteEl.innerHTML = `<span class="cart-delivery-note free">✓ You qualify for FREE Delivery for all areas up to 8 KM!</span>`;
+        } else if (cart.total_price >= freeZone1Cents) {
+          deliveryNoteEl.innerHTML = `<span class="cart-delivery-note free">✓ You qualify for FREE Delivery (0–5 KM)!</span>`;
+        } else {
+          deliveryNoteEl.innerHTML = `Free delivery on orders above ₹799 (0–5 KM) & ₹1,299 (5–8 KM)`;
+        }
+      }
+
       // Re-render item list if container exists
       if (this.itemsEl && cart.items) {
         if (cart.item_count === 0) {
