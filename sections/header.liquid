@@ -1,8 +1,8 @@
 <header class="site-header" id="SiteHeader" role="banner">
   <!-- Announcement Bar -->
-  {% if settings.header_show_announcement %}
-    <div class="announcement-bar" style="background-color: {{ settings.announcement_bg }}; color: {{ settings.announcement_text_color }};">
-      {{ settings.announcement_text | default: '🔥 Free Delivery on Orders Above ₹499 | Authentic Dum Biryani Delivered Hot' }}
+  {% if section.settings.show_announcement or settings.header_show_announcement %}
+    <div class="announcement-bar" style="background-color: {{ section.settings.announcement_bg | default: settings.announcement_bg | default: '#E5A93C' }}; color: {{ section.settings.announcement_color | default: settings.announcement_text_color | default: '#0E0E0E' }};">
+      {{ section.settings.announcement_text | default: settings.announcement_text | default: '🔥 Free Delivery on Orders Above ₹499 | Authentic Dum Biryani Delivered Hot' }}
     </div>
   {% endif %}
 
@@ -11,11 +11,13 @@
 
       <!-- Logo / Brand -->
       <a href="/" class="header__logo" aria-label="{{ shop.name }}">
-        {% if settings.logo %}
+        {% assign header_logo = section.settings.logo | default: settings.logo %}
+        {% assign header_logo_width = section.settings.logo_width | default: settings.logo_width | default: 150 %}
+        {% if header_logo %}
           <img
-            src="{{ settings.logo | image_url: width: 300 }}"
+            src="{{ header_logo | image_url: width: 300 }}"
             alt="{{ shop.name }}"
-            width="{{ settings.logo_width }}"
+            width="{{ header_logo_width }}"
             height="auto"
             loading="eager"
           >
@@ -27,7 +29,7 @@
         {% endif %}
       </a>
 
-      <!-- Restaurant Dynamic Navigation (Driven from Shopify Content / Navigation) -->
+      <!-- Restaurant Dynamic Navigation -->
       {% assign menu_handle = section.settings.menu | default: 'main-menu' %}
       {% assign nav_menu = linklists[menu_handle] %}
 
@@ -60,7 +62,7 @@
       <div class="header__actions">
 
         <!-- Area Checker -->
-        {% if settings.show_area_checker %}
+        {% if section.settings.show_area_checker or settings.show_area_checker %}
           <div class="area-selector" id="AreaSelector">
             <button
               class="area-selector__toggle"
@@ -134,10 +136,58 @@
   "name": "Header",
   "settings": [
     {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Custom Header Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo Width (px)",
+      "min": 80,
+      "max": 260,
+      "step": 5,
+      "default": 150
+    },
+    {
       "type": "link_list",
       "id": "menu",
       "label": "Navigation Menu",
       "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_area_checker",
+      "label": "Show Area Checker in Header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Announcement Bar Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "🔥 Free Delivery on Orders Above ₹499 | Authentic Dum Biryani Delivered Hot"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bg",
+      "label": "Announcement Background",
+      "default": "#E5A93C"
+    },
+    {
+      "type": "color",
+      "id": "announcement_color",
+      "label": "Announcement Text Color",
+      "default": "#0E0E0E"
     }
   ]
 }

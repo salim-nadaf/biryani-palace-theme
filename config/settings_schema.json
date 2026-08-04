@@ -6,131 +6,132 @@
         "type": "color",
         "id": "color_background",
         "label": "Page Background",
-        "default": "#111111"
+        "default": "#0E0E0E"
       },
       {
         "type": "color",
         "id": "color_surface",
-        "label": "Card / Surface",
-        "default": "#1a1a1a"
+        "label": "Card / Surface Background",
+        "default": "#161616"
       },
       {
         "type": "color",
         "id": "color_surface_elevated",
         "label": "Elevated Surface",
-        "default": "#222222"
+        "default": "#1E1E1E"
       },
       {
         "type": "color",
         "id": "color_primary",
-        "label": "Gold Accent (Primary)",
-        "default": "#C89116"
+        "label": "Saffron Gold Primary Accent",
+        "default": "#E5A93C"
       },
       {
         "type": "color",
         "id": "color_primary_dark",
-        "label": "Gold Dark (Hover)",
-        "default": "#A67A10"
-      },
-      {
-        "type": "color",
-        "id": "color_accent",
-        "label": "Accent",
-        "default": "#C89116"
+        "label": "Gold Hover / Darker Gold",
+        "default": "#C7881E"
       },
       {
         "type": "color",
         "id": "color_text_primary",
         "label": "Text Primary",
-        "default": "#ffffff"
+        "default": "#FFFFFF"
       },
       {
         "type": "color",
         "id": "color_text_secondary",
         "label": "Text Secondary",
-        "default": "#aaaaaa"
+        "default": "#AAAAAA"
       },
       {
         "type": "color",
         "id": "color_border",
-        "label": "Border",
-        "default": "#2a2a2a"
+        "label": "Border Color",
+        "default": "rgba(229,169,60,0.16)"
       },
       {
         "type": "color",
         "id": "color_veg",
-        "label": "Veg Indicator",
+        "label": "Veg Indicator Color",
         "default": "#4CAF50"
       },
       {
         "type": "color",
         "id": "color_nonveg",
-        "label": "Non-Veg Indicator",
+        "label": "Non-Veg Indicator Color",
         "default": "#E53935"
       }
     ]
   },
   {
-    "name": "Typography",
+    "name": "Brand Info & Contact",
     "settings": [
       {
-        "type": "range",
-        "id": "font_size_base",
-        "label": "Base Font Size (px)",
-        "min": 14,
-        "max": 20,
-        "step": 1,
-        "default": 16
+        "type": "text",
+        "id": "brand_name",
+        "label": "Brand Name",
+        "default": "Biryani Palace by Niamat"
+      },
+      {
+        "type": "text",
+        "id": "brand_tagline",
+        "label": "Brand Tagline",
+        "default": "Dum Cooked. Royal Served."
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Contact Phone Number",
+        "default": "+91 98765 43210"
+      },
+      {
+        "type": "text",
+        "id": "delivery_areas",
+        "label": "Delivery Areas (comma-separated)",
+        "default": "Kalyan West, Kalyan East, Dombivli, Ambernath, Badlapur, Ulhasnagar, Thane, Bhiwandi"
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free Delivery Threshold (₹)",
+        "default": 499
       }
     ]
   },
   {
-    "name": "Logo",
-    "settings": [
-      {
-        "type": "range",
-        "id": "logo_width",
-        "label": "Logo Width (px)",
-        "min": 80,
-        "max": 300,
-        "step": 10,
-        "default": 140
-      }
-    ]
-  },
-  {
-    "name": "WhatsApp",
+    "name": "WhatsApp Support",
     "settings": [
       {
         "type": "checkbox",
         "id": "enable_whatsapp_order",
-        "label": "Show WhatsApp Button",
+        "label": "Show Floating WhatsApp Button",
         "default": true
       },
       {
         "type": "text",
         "id": "whatsapp_number",
-        "label": "WhatsApp Number (with country code)",
-        "default": "919999999999"
+        "label": "WhatsApp Phone Number (with country code, e.g. 919876543210)",
+        "default": "919876543210"
       },
       {
         "type": "text",
         "id": "whatsapp_order_msg",
         "label": "WhatsApp Pre-filled Message",
-        "default": "Hi! I'd like to place an order."
+        "default": "Hi! I would like to place an order with Biryani Palace."
       }
     ]
   },
   {
-    "name": "Kitchen",
+    "name": "Kitchen Status & Timing",
     "settings": [
       {
         "type": "select",
         "id": "kitchen_status",
-        "label": "Kitchen Status",
+        "label": "Kitchen Operational Status",
         "options": [
           { "value": "open", "label": "Open — Accepting Orders" },
-          { "value": "limited", "label": "Limited Stock" },
+          { "value": "limited", "label": "Limited Stock / Busy" },
           { "value": "closed", "label": "Closed — Pre-orders Only" }
         ],
         "default": "open"
@@ -138,25 +139,31 @@
       {
         "type": "text",
         "id": "kitchen_prep_time",
-        "label": "Prep Time Display",
+        "label": "Average Prep/Delivery Time (minutes)",
         "default": "30–60"
       }
     ]
   },
   {
-    "name": "Header",
+    "name": "Header & Announcement",
     "settings": [
       {
         "type": "checkbox",
         "id": "header_sticky",
-        "label": "Sticky Header",
+        "label": "Enable Sticky Header",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "header_show_announcement",
+        "label": "Show Announcement Bar",
         "default": true
       },
       {
         "type": "text",
         "id": "announcement_text",
         "label": "Announcement Bar Text",
-        "default": "Free delivery on orders above ₹499 · Delivering within 8 km"
+        "default": "🔥 Free Delivery on Orders Above ₹499 | Authentic Dum Biryani Delivered Hot"
       }
     ]
   }

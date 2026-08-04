@@ -8,72 +8,93 @@
     </div>
 
     <!-- Notice Box -->
+    {% if section.settings.notice_text != blank %}
     <div class="family-notice">
-      <div class="family-notice__icon">⏰</div>
+      <div class="family-notice__icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
       <div class="family-notice__text">
-        <strong>Minimum 3 Hours Advance Notice Required</strong> — Every family meal is slow-cooked on dum specifically for your order. We confirm availability and send a payment link before preparation starts.
+        {{ section.settings.notice_text }}
       </div>
     </div>
+    {% endif %}
 
     <!-- Sizes Grid -->
     <div class="family-sizes-grid">
 
-      <!-- 1 KG -->
-      <div class="family-size-card">
-        <span class="family-size-card__emoji">🍲</span>
-        <h3 class="family-size-card__size">1 KG Dum Biryani</h3>
-        <div class="family-size-card__serves">Serves 4–5 People</div>
-        <div class="family-size-card__price">₹899 <span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;">onwards</span></div>
-        <p class="family-size-card__note">Includes 2 Complimentary Raitas & Salan</p>
-        <div class="family-size-card__cta">
-          <a href="/pages/family-feast" class="btn btn-outline btn-full btn-sm" id="FamilyOrder1Kg">Pre-order 1 KG</a>
+      {% for block in section.blocks %}
+        {% if block.type == 'size_card' %}
+          <div class="family-size-card {% if block.settings.is_featured %}featured{% endif %}" {{ block.shopify_attributes }}>
+            <h3 class="family-size-card__size">{{ block.settings.size_title }}</h3>
+            <div class="family-size-card__serves">{{ block.settings.serves_info }}</div>
+            <div class="family-size-card__price">
+              {{ block.settings.price_text }}
+              {% if block.settings.price_sub != blank %}<span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;margin-left:4px;">{{ block.settings.price_sub }}</span>{% endif %}
+            </div>
+            <p class="family-size-card__note">{{ block.settings.note }}</p>
+            <div class="family-size-card__cta">
+              <a
+                href="{{ block.settings.button_url | default: '/pages/family-feast' }}"
+                class="btn {% if block.settings.is_featured %}btn-primary{% else %}btn-outline{% endif %} btn-full btn-sm"
+              >
+                {{ block.settings.button_text | default: 'Pre-order' }}
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      {% else %}
+        <!-- Default fallback size cards -->
+        <div class="family-size-card">
+          <h3 class="family-size-card__size">1 KG Dum Biryani</h3>
+          <div class="family-size-card__serves">Serves 4–5 People</div>
+          <div class="family-size-card__price">₹899 <span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;">onwards</span></div>
+          <p class="family-size-card__note">Includes 2 Complimentary Raitas & Salan</p>
+          <div class="family-size-card__cta">
+            <a href="/pages/family-feast" class="btn btn-outline btn-full btn-sm">Pre-order 1 KG</a>
+          </div>
         </div>
-      </div>
 
-      <!-- 2 KG -->
-      <div class="family-size-card featured">
-        <span class="family-size-card__emoji">👑</span>
-        <h3 class="family-size-card__size">2 KG Dum Biryani</h3>
-        <div class="family-size-card__serves">Serves 8–10 People</div>
-        <div class="family-size-card__price">₹1,699 <span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;">onwards</span></div>
-        <p class="family-size-card__note">Includes Free Dessert + Raita & Salan</p>
-        <div class="family-size-card__cta">
-          <a href="/pages/family-feast" class="btn btn-primary btn-full btn-sm" id="FamilyOrder2Kg">Pre-order 2 KG</a>
+        <div class="family-size-card featured">
+          <h3 class="family-size-card__size">2 KG Dum Biryani</h3>
+          <div class="family-size-card__serves">Serves 8–10 People</div>
+          <div class="family-size-card__price">₹1,699 <span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;">onwards</span></div>
+          <p class="family-size-card__note">Includes Free Dessert + Raita & Salan</p>
+          <div class="family-size-card__cta">
+            <a href="/pages/family-feast" class="btn btn-primary btn-full btn-sm">Pre-order 2 KG</a>
+          </div>
         </div>
-      </div>
 
-      <!-- 3 KG -->
-      <div class="family-size-card">
-        <span class="family-size-card__emoji">🏰</span>
-        <h3 class="family-size-card__size">3 KG Dum Biryani</h3>
-        <div class="family-size-card__serves">Serves 12–15 People</div>
-        <div class="family-size-card__price">₹2,499 <span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;">onwards</span></div>
-        <p class="family-size-card__note">Includes Starter + Dessert + Raita</p>
-        <div class="family-size-card__cta">
-          <a href="/pages/family-feast" class="btn btn-outline btn-full btn-sm" id="FamilyOrder3Kg">Pre-order 3 KG</a>
+        <div class="family-size-card">
+          <h3 class="family-size-card__size">3 KG Dum Biryani</h3>
+          <div class="family-size-card__serves">Serves 12–15 People</div>
+          <div class="family-size-card__price">₹2,499 <span style="font-size:0.75rem;color:var(--color-text-secondary);font-weight:400;">onwards</span></div>
+          <p class="family-size-card__note">Includes Starter + Dessert + Raita</p>
+          <div class="family-size-card__cta">
+            <a href="/pages/family-feast" class="btn btn-outline btn-full btn-sm">Pre-order 3 KG</a>
+          </div>
         </div>
-      </div>
 
-      <!-- Bulk / Catering -->
-      <div class="family-size-card">
-        <span class="family-size-card__emoji">🎉</span>
-        <h3 class="family-size-card__size">5 KG+ Bulk Orders</h3>
-        <div class="family-size-card__serves">Serves 20+ People</div>
-        <div class="family-size-card__price">Custom Quote</div>
-        <p class="family-size-card__note">Weddings, Parties & Corporate Lunches</p>
-        <div class="family-size-card__cta">
-          <a href="https://wa.me/{{ settings.whatsapp_number }}?text=Hi,%20I%20would%20like%20a%20custom%20quote%20for%20a%20bulk%20biryani%20order." class="btn btn-outline btn-full btn-sm" target="_blank" rel="noopener" id="FamilyOrderBulk">WhatsApp Inquiry</a>
+        <div class="family-size-card">
+          <h3 class="family-size-card__size">5 KG+ Bulk Orders</h3>
+          <div class="family-size-card__serves">Serves 20+ People</div>
+          <div class="family-size-card__price">Custom Quote</div>
+          <p class="family-size-card__note">Weddings, Parties & Corporate Lunches</p>
+          <div class="family-size-card__cta">
+            <a href="/pages/family-feast" class="btn btn-outline btn-full btn-sm">Pre-order Bulk</a>
+          </div>
         </div>
-      </div>
+      {% endfor %}
 
     </div>
 
     <!-- Bottom link -->
+    {% if section.settings.main_cta_text != blank %}
     <div style="text-align:center;">
-      <a href="/pages/family-feast" class="btn btn-primary btn-lg" id="FamilyFeastMainCta">
-        Reserve Your Family Feast →
+      <a href="{{ section.settings.main_cta_url | default: '/pages/family-feast' }}" class="btn btn-primary btn-lg" id="FamilyFeastMainCta">
+        {{ section.settings.main_cta_text }} →
       </a>
     </div>
+    {% endif %}
 
   </div>
 </section>
@@ -101,11 +122,122 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "Generous portions cooked fresh for family gatherings, office lunches, and special occasions."
+    },
+    {
+      "type": "textarea",
+      "id": "notice_text",
+      "label": "Advance Notice Banner Text",
+      "default": "Advance Notice Required — Every family meal is slow-cooked on dum specifically for your order."
+    },
+    {
+      "type": "text",
+      "id": "main_cta_text",
+      "label": "Bottom CTA Button Text",
+      "default": "Reserve Your Family Feast"
+    },
+    {
+      "type": "url",
+      "id": "main_cta_url",
+      "label": "Bottom CTA Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "size_card",
+      "name": "Portion / Size Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "size_title",
+          "label": "Portion Size Title",
+          "default": "2 KG Dum Biryani"
+        },
+        {
+          "type": "text",
+          "id": "serves_info",
+          "label": "Serves Count",
+          "default": "Serves 8–10 People"
+        },
+        {
+          "type": "text",
+          "id": "price_text",
+          "label": "Price Text",
+          "default": "₹1,699"
+        },
+        {
+          "type": "text",
+          "id": "price_sub",
+          "label": "Price Subtext",
+          "default": "onwards"
+        },
+        {
+          "type": "textarea",
+          "id": "note",
+          "label": "Included Extras Note",
+          "default": "Includes Free Dessert + Raita & Salan"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_featured",
+          "label": "Highlight as Most Popular",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Pre-order"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button Link"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Family Orders Home"
+      "name": "Family Orders Home",
+      "blocks": [
+        {
+          "type": "size_card",
+          "settings": {
+            "size_title": "1 KG Dum Biryani",
+            "serves_info": "Serves 4–5 People",
+            "price_text": "₹899",
+            "note": "Includes 2 Complimentary Raitas & Salan"
+          }
+        },
+        {
+          "type": "size_card",
+          "settings": {
+            "size_title": "2 KG Dum Biryani",
+            "serves_info": "Serves 8–10 People",
+            "price_text": "₹1,699",
+            "note": "Includes Free Dessert + Raita & Salan",
+            "is_featured": true
+          }
+        },
+        {
+          "type": "size_card",
+          "settings": {
+            "size_title": "3 KG Dum Biryani",
+            "serves_info": "Serves 12–15 People",
+            "price_text": "₹2,499",
+            "note": "Includes Starter + Dessert + Raita"
+          }
+        },
+        {
+          "type": "size_card",
+          "settings": {
+            "size_title": "5 KG+ Bulk Orders",
+            "serves_info": "Serves 20+ People",
+            "price_text": "Custom Quote",
+            "note": "Weddings, Parties & Corporate Lunches"
+          }
+        }
+      ]
     }
   ]
 }
