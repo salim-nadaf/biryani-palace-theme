@@ -1,5 +1,31 @@
 [
   {
+    "name": "Logo & Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Store Logo",
+        "info": "Upload custom brand logo (used in header and footer)"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Custom Logo Width (px)",
+        "min": 60,
+        "max": 300,
+        "step": 10,
+        "default": 150
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon Image",
+        "info": "Upload square icon image (PNG/ICO) for browser tab display"
+      }
+    ]
+  },
+  {
     "name": "Colors",
     "settings": [
       {
@@ -77,7 +103,7 @@
         "type": "text",
         "id": "brand_tagline",
         "label": "Brand Tagline",
-        "default": "Dum Cooked. Royal Served."
+        "default": "Share the Joy"
       },
       {
         "type": "text",
