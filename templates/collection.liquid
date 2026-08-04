@@ -1,5 +1,6 @@
 {% comment %} Collection template - shows all products in a collection {% endcomment %}
 
+{% paginate collection.products by 24 %}
 <section style="padding:60px 0;" id="CollectionPage">
   <div class="container">
     <h1 style="margin-bottom:8px;">{{ collection.title }}</h1>
@@ -23,3 +24,4 @@
     {% endif %}
   </div>
 </section>
+{% endpaginate %}
