@@ -82,18 +82,6 @@
         "products_to_show": 3
       }
     },
-    "1785843059d0a501ad": {
-      "type": "apps",
-      "settings": {}
-    },
-    "17858431362c55480e": {
-      "type": "apps",
-      "settings": {}
-    },
-    "1785843170f5b196c5": {
-      "type": "apps",
-      "settings": {}
-    },
     "1785843196ef33cbb5": {
       "type": "apps",
       "blocks": {
@@ -121,11 +109,11 @@
             "arrows_position": "sides",
             "max_width": 1100,
             "corner_styling": "extra_round",
-            "header_text_color": "#F5F5F5",
+            "header_text_color": "#f5f5f5",
             "text_color": "#000000",
-            "card_color": "#F9F9F9",
-            "stars_color": "#C89116",
-            "arrows_color": "#C89116",
+            "card_color": "#f9f9f9",
+            "stars_color": "#c89116",
+            "arrows_color": "#c89116",
             "transition_speed": 5,
             "header_text": "Loved by Biryani Enthusiasts Across Kalyan",
             "show_average_rating": true,
@@ -247,9 +235,6 @@
   "order": [
     "hero",
     "todays-kitchen",
-    "1785843059d0a501ad",
-    "17858431362c55480e",
-    "1785843170f5b196c5",
     "1785843196ef33cbb5",
     "family-orders",
     "why-choose-us",
