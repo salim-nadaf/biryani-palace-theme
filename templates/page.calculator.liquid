@@ -1,0 +1,272 @@
+{% comment %} Page: Biryani Quantity Calculator {% endcomment %}
+
+<section class="page-form-section" id="BiryaniCalculatorPage" aria-label="Biryani quantity calculator">
+  <div class="container">
+    <div class="page-form-inner animate-on-scroll" style="max-width: 800px; margin: 0 auto;">
+
+      <!-- Header -->
+      <div style="text-align: center; margin-bottom: var(--space-xl);">
+        <div style="display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: var(--radius-full); background: rgba(244,180,26,0.08); border: 1px solid var(--color-border); margin-bottom: 16px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/><line x1="12" y1="9" x2="12" y2="17"/></svg>
+        </div>
+        <p class="section-label" style="margin-bottom: 12px; display: inline-block;">Feast Planning</p>
+        <h1 style="font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 12px;">Biryani Quantity Calculator</h1>
+        <p class="form-subtext" style="margin: 0 auto; max-width: 540px;">
+          Planning a gathering or family feast? Calculate the perfect quantity of basmati rice and slow-cooked meat needed for your guests in seconds.
+        </p>
+      </div>
+
+      <!-- Trust Badges -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: var(--space-xl);">
+        <span style="padding: 6px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; color: var(--color-text-secondary); font-family: var(--font-body);">✓ 10% Safety Buffer included</span>
+        <span style="padding: 6px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; color: var(--color-text-secondary); font-family: var(--font-body);">✓ Avoids food wastage</span>
+        <span style="padding: 6px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; color: var(--color-text-secondary); font-family: var(--font-body);">✓ Perfect for bulk orders</span>
+      </div>
+
+      <!-- Main Calculator Card -->
+      <div class="calculator-card" style="background: linear-gradient(160deg, var(--color-surface-elevated) 0%, var(--color-surface) 100%); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: clamp(1.5rem, 4vw, 2.5rem); box-shadow: var(--shadow-lg);">
+        <div style="display: grid; grid-template-columns: 1fr; md:grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 2.5rem);" class="calc-grid">
+          
+          <!-- Column 1: Input Fields -->
+          <div class="calc-inputs" style="display: flex; flex-direction: column; gap: 20px;">
+            <h3 style="font-family: var(--font-heading); font-size: 1.125rem; font-weight: 800; border-bottom: 1px solid var(--color-border); padding-bottom: 8px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Gathering Details
+            </h3>
+
+            <!-- 1. Number of Guests -->
+            <div class="form-field">
+              <label for="calc_guests" style="font-family: var(--font-body); font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary); display: block; margin-bottom: 8px;">Number of Guests <span style="color:var(--color-primary);">*</span></label>
+              <input
+                type="number"
+                id="calc_guests"
+                placeholder="e.g. 25"
+                min="1"
+                max="10000"
+                required
+                style="width:100%; height:46px; background:var(--color-bg); border:1px solid var(--color-border); color:var(--color-text-primary); padding:10px 14px; font-size:0.9375rem; border-radius:var(--radius-md); transition:all var(--transition-fast);"
+              >
+              <div id="calc_guests_error" style="color:var(--color-nonveg); font-size:0.75rem; margin-top:4px; display:none;">Please enter a valid guest count (1–10,000).</div>
+            </div>
+
+            <!-- 2. Appetite Level -->
+            <div class="form-field">
+              <label for="calc_appetite" style="font-family: var(--font-body); font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary); display: block; margin-bottom: 8px;">Eating Capacity / Appetite <span style="color:var(--color-primary);">*</span></label>
+              <select id="calc_appetite" required style="width:100%; height:46px; background:var(--color-bg); border:1px solid var(--color-border); color:var(--color-text-primary); padding:10px 14px; font-size:0.9375rem; border-radius:var(--radius-md); transition:all var(--transition-fast); cursor:pointer;">
+                <option value="" disabled selected>Select appetite level</option>
+                <option value="light">Light Appetite (Serves 8 people per KG)</option>
+                <option value="normal" selected>Normal Appetite (Serves 7 people per KG)</option>
+                <option value="heavy">Heavy Appetite (Serves 6 people per KG)</option>
+              </select>
+            </div>
+
+            <!-- 3. Event Type -->
+            <div class="form-field">
+              <label for="calc_event" style="font-family: var(--font-body); font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary); display: block; margin-bottom: 8px;">Event Type <span style="color:var(--color-primary);">*</span></label>
+              <select id="calc_event" required style="width:100%; height:46px; background:var(--color-bg); border:1px solid var(--color-border); color:var(--color-text-primary); padding:10px 14px; font-size:0.9375rem; border-radius:var(--radius-md); transition:all var(--transition-fast); cursor:pointer;">
+                <option value="" disabled selected>Select event type</option>
+                <option value="Family Gathering" selected>Family Gathering</option>
+                <option value="Party / Celebration">Party / Celebration</option>
+                <option value="Office Event">Office Event</option>
+                <option value="Wedding / Reception">Wedding / Reception</option>
+                <option value="Other Bulk Inquiry">Other Inquiry</option>
+              </select>
+            </div>
+
+            <!-- Action buttons -->
+            <div style="display:flex; gap:12px; margin-top:8px;">
+              <button type="button" id="CalcCalculateBtn" class="btn btn-primary" style="flex:1; min-height:44px;">Calculate</button>
+              <button type="button" id="CalcResetBtn" class="btn btn-outline" style="flex-shrink:0; width:50px; min-height:44px; padding:0; display:flex; align-items:center; justify-content:center;" aria-label="Reset forms">⟲</button>
+            </div>
+          </div>
+
+          <!-- Column 2: Results Display -->
+          <div class="calc-results" style="display:flex; flex-direction:column; justify-content:space-between; border-top: 1px dashed var(--color-border); padding-top: 20px; md:border-top:none; md:border-left:1px dashed var(--color-border); md:padding-top:0; md:padding-left:24px;">
+            <div id="CalcEmptyResult" style="text-align:center; padding:40px 20px; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:12px;">
+              <div style="font-size:2.5rem; opacity:0.35;">🍲</div>
+              <h4 style="font-family:var(--font-heading); font-size:1.125rem; font-weight:700;">Estimation Awaiting</h4>
+              <p style="font-size:0.875rem; color:var(--color-text-secondary); max-width:240px; margin:0 auto; line-height:1.5;">Enter guest counts and calculate to show raw basmati & meat requirements.</p>
+            </div>
+
+            <div id="CalcResultsCard" style="display:none; flex-direction:column; gap:20px; height:100%;">
+              <div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.125rem; font-weight: 800; border-bottom: 1px solid var(--color-border); padding-bottom: 8px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  Suggested Order
+                </h3>
+                <p style="font-size: 0.75rem; color:var(--color-text-secondary);">Calculated with a 10% portion safety buffer</p>
+              </div>
+
+              <!-- Huge Quantity Result -->
+              <div style="background: rgba(244,180,26,0.04); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 16px 20px; text-align: center;">
+                <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--color-primary); font-weight: 800; margin-bottom: 4px;">Recommended Order</div>
+                <div style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 900; color: var(--color-text-primary); line-height: 1.1;"><span id="ResultSuggestedQty">0.0</span> <span style="font-size:1.5rem; font-weight:800; color:var(--color-primary);">KG</span></div>
+                <div style="font-size: 0.8125rem; color: var(--color-text-secondary); margin-top: 4px;">Authentic Slow-Cooked Dum Biryani</div>
+              </div>
+
+              <!-- Portion Breakdown -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div style="background:var(--color-surface-elevated); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:10px 14px; text-align:center;">
+                  <div style="font-size: 0.6875rem; text-transform: uppercase; color: var(--color-text-secondary);">Serves</div>
+                  <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--color-text-primary);" id="ResultServingCount">0 Guests</div>
+                </div>
+                <div style="background:var(--color-surface-elevated); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:10px 14px; text-align:center;">
+                  <div style="font-size: 0.6875rem; text-transform: uppercase; color: var(--color-text-secondary);">Ratio Estimate</div>
+                  <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--color-text-primary);" id="ResultServingRatio">1:7 KG</div>
+                </div>
+              </div>
+
+              <!-- Cost Lookup (Optional) -->
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <label for="calc_price_per_kg" style="font-family: var(--font-body); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary);">Price Per KG (Optional for Costing)</label>
+                <div style="position:relative;">
+                  <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:0.875rem; color:var(--color-text-secondary);">₹</span>
+                  <input
+                    type="number"
+                    id="calc_price_per_kg"
+                    placeholder="Enter estimated price per KG (e.g. 1000)"
+                    style="width:100%; height:38px; background:var(--color-bg); border:1px solid var(--color-border); color:var(--color-text-primary); padding:8px 12px 8px 24px; font-size:0.875rem; border-radius:var(--radius-md);"
+                  >
+                </div>
+                <div id="ResultCostRow" style="display:none; justify-content:space-between; align-items:center; background:rgba(76,175,80,0.06); border:1px solid rgba(76,175,80,0.18); border-radius:var(--radius-md); padding:10px 14px; font-size:0.875rem;">
+                  <span style="color:var(--color-text-secondary);">Estimated Cost:</span>
+                  <strong style="color:#2ECC71; font-family:var(--font-heading); font-size:1.125rem;" id="ResultCostVal">₹0</strong>
+                </div>
+              </div>
+
+              <!-- Booking CTA -->
+              <button type="button" id="CalcWhatsAppBtn" class="btn btn-primary" style="width:100%; min-height:46px; margin-top:auto; font-size:0.875rem; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.003 5.324 5.328 0 12.008 0c3.233.001 6.271 1.261 8.557 3.549 2.286 2.287 3.541 5.328 3.54 8.559-.004 6.681-5.33 12.008-12.007 12.008-1.99-.001-3.951-.49-5.688-1.425L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.451 5.485 0 9.947-4.46 9.951-9.947.002-2.658-1.034-5.158-2.92-7.045C16.529 1.775 14.032.74 11.378.74c-5.486 0-9.949 4.46-9.953 9.947-.001 1.905.518 3.766 1.503 5.419L1.93 22.187l6.236-1.636c1.68.887 3.125 1.343 4.481 1.343zm11.362-7.653c-.307-.154-1.817-.897-2.097-.998-.28-.101-.485-.152-.69.154-.203.305-.79.998-.97 1.201-.177.203-.356.229-.663.076-.307-.152-1.297-.478-2.47-1.524-.913-.815-1.53-1.822-1.708-2.128-.178-.306-.019-.471.134-.622.137-.137.307-.356.462-.533.153-.178.204-.305.306-.508.102-.204.051-.381-.026-.534-.076-.152-.69-1.662-.946-2.278-.249-.597-.502-.516-.69-.526-.178-.01-.382-.01-.586-.01s-.535.076-.816.381c-.28.305-1.07 1.042-1.07 2.541s1.095 2.949 1.248 3.153c.153.204 2.155 3.292 5.221 4.617.729.315 1.298.503 1.742.644.731.233 1.396.2 1.922.122.586-.086 1.817-.743 2.072-1.46.255-.718.255-1.332.178-1.46-.076-.127-.28-.203-.586-.356z"/></svg>
+                Inquire on WhatsApp
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Calculations Engine Script -->
+<script>
+  (function() {
+    var guestsInput = document.getElementById('calc_guests');
+    var appetiteInput = document.getElementById('calc_appetite');
+    var eventInput = document.getElementById('calc_event');
+    var priceInput = document.getElementById('calc_price_per_kg');
+    
+    var calcBtn = document.getElementById('CalcCalculateBtn');
+    var resetBtn = document.getElementById('CalcResetBtn');
+    var whatsappBtn = document.getElementById('CalcWhatsAppBtn');
+    
+    var emptyCard = document.getElementById('CalcEmptyResult');
+    var resultsCard = document.getElementById('CalcResultsCard');
+    var guestsError = document.getElementById('calc_guests_error');
+    
+    var resultSuggestedQty = document.getElementById('ResultSuggestedQty');
+    var resultServingCount = document.getElementById('ResultServingCount');
+    var resultServingRatio = document.getElementById('ResultServingRatio');
+    
+    var costRow = document.getElementById('ResultCostRow');
+    var costVal = document.getElementById('ResultCostVal');
+    
+    var currentSuggestedQty = 0;
+    
+    function roundUpToHalfKg(kg) {
+      return Math.ceil(kg / 0.5) * 0.5;
+    }
+    
+    function calculate() {
+      var guestVal = parseInt(guestsInput.value, 10);
+      if (isNaN(guestVal) || guestVal < 1 || guestVal > 10000) {
+        guestsError.style.display = 'block';
+        guestsInput.style.borderColor = 'var(--color-nonveg)';
+        return;
+      }
+      
+      guestsError.style.display = 'none';
+      guestsInput.style.borderColor = 'var(--color-border)';
+      
+      var appetite = appetiteInput.value || 'normal';
+      var servesPerKg = 7;
+      if (appetite === 'light') servesPerKg = 8;
+      if (appetite === 'heavy') servesPerKg = 6;
+      
+      var baseKg = guestVal / servesPerKg;
+      var bufferKg = baseKg * 1.1; // 10% safety buffer
+      var suggested = roundUpToHalfKg(bufferKg);
+      currentSuggestedQty = suggested;
+      
+      // Update displays
+      resultSuggestedQty.textContent = suggested.toFixed(1).replace('.0', '');
+      resultServingCount.textContent = guestVal + ' Guests';
+      resultServingRatio.textContent = '1:' + servesPerKg + ' KG';
+      
+      emptyCard.style.display = 'none';
+      resultsCard.style.display = 'flex';
+      
+      calculateCost();
+    }
+    
+    function calculateCost() {
+      var priceVal = parseFloat(priceInput.value);
+      if (!isNaN(priceVal) && priceVal > 0 && currentSuggestedQty > 0) {
+        var cost = currentSuggestedQty * priceVal;
+        costVal.textContent = '₹' + Math.round(cost).toLocaleString('en-IN');
+        costRow.style.display = 'flex';
+      } else {
+        costRow.style.display = 'none';
+      }
+    }
+    
+    function reset() {
+      guestsInput.value = '';
+      appetiteInput.value = 'normal';
+      eventInput.value = 'Family Gathering';
+      priceInput.value = '';
+      currentSuggestedQty = 0;
+      
+      guestsError.style.display = 'none';
+      guestsInput.style.borderColor = 'var(--color-border)';
+      
+      emptyCard.style.display = 'flex';
+      resultsCard.style.display = 'none';
+    }
+    
+    function sendWhatsApp() {
+      if (currentSuggestedQty <= 0) return;
+      
+      var guests = guestsInput.value;
+      var event = eventInput.value;
+      var appetiteText = appetiteInput.options[appetiteInput.selectedIndex].text.split(' ')[0];
+      var qtyText = currentSuggestedQty.toFixed(1).replace('.0', '') + ' KG';
+      
+      var whatsappNum = '{{ settings.whatsapp_number | default: "919167682582" }}';
+      
+      var costText = '';
+      var priceVal = parseFloat(priceInput.value);
+      if (!isNaN(priceVal) && priceVal > 0) {
+        var cost = currentSuggestedQty * priceVal;
+        costText = 'Estimated Cost: ₹' + Math.round(cost).toLocaleString('en-IN') + ' (@ ₹' + priceVal + '/KG)\n';
+      }
+      
+      var message = 'Hi, I used the Biryani Quantity Calculator on your website.\n\n' +
+                    'Event Type: ' + event + '\n' +
+                    'Number of Guests: ' + guests + '\n' +
+                    'Appetite Level: ' + appetiteText + '\n' +
+                    'Suggested Quantity: ' + qtyText + '\n' +
+                    costText +
+                    'Please share confirmation and ordering details.';
+                    
+      var url = 'https://wa.me/' + whatsappNum + '?text=' + encodeURIComponent(message);
+      window.open(url, '_blank');
+    }
+    
+    calcBtn.addEventListener('click', calculate);
+    resetBtn.addEventListener('click', reset);
+    priceInput.addEventListener('input', calculateCost);
+    whatsappBtn.addEventListener('click', sendWhatsApp);
+  })();
+</script>

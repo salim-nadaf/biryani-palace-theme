@@ -35,6 +35,10 @@
     {% if product.featured_image %}
       <img
         src="{{ product.featured_image | image_url: width: 500 }}"
+        srcset="{{ product.featured_image | image_url: width: 300 }} 300w,
+                {{ product.featured_image | image_url: width: 500 }} 500w,
+                {{ product.featured_image | image_url: width: 800 }} 800w"
+        sizes="(max-width: 600px) 300px, 500px"
         alt="{{ product.featured_image.alt | default: product.title | escape }}"
         width="320"
         height="220"

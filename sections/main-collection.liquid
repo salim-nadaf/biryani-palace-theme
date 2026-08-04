@@ -1,5 +1,17 @@
 {% comment %} Main collection section {% endcomment %}
 
+{% comment %} Gate check — redirect to start-your-order if no session data {% endcomment %}
+<script>
+  (function() {
+    if (window.location.pathname.includes('/collections/instant-delivery')) {
+      var name = sessionStorage.getItem('bp_customer_name');
+      if (!name) {
+        window.location.href = '/pages/start-your-order';
+      }
+    }
+  })();
+</script>
+
 {%- assign is_family = false -%}
 {%- if collection.handle == 'family-orders' -%}
   {%- assign is_family = true -%}
@@ -72,6 +84,7 @@
 {
   "name": "Main Collection",
   "tag": "section",
+  "class": "section-main-collection",
   "settings": []
 }
 {% endschema %}

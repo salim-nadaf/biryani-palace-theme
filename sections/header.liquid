@@ -135,6 +135,20 @@
       </div>
     </div>
   </div>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-menu-drawer" id="MobileMenuDrawer" aria-hidden="true" role="dialog" aria-label="Navigation Menu">
+    <div class="mobile-menu-drawer__overlay" id="MobileMenuOverlay"></div>
+    <nav class="mobile-menu-drawer__panel">
+      <button class="mobile-menu-drawer__close" id="MobileMenuClose" aria-label="Close menu">✕</button>
+      {% assign menu_handle = section.settings.menu | default: 'main-menu' %}
+      <ul>
+        {% for link in linklists[menu_handle].links %}
+          <li><a href="{{ link.url }}" class="{% if link.active %}active{% endif %}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
 </header>
 
 {% schema %}

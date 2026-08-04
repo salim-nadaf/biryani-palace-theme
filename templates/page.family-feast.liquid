@@ -75,11 +75,13 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
           <div class="form-field">
             <label for="ff_date">Preferred Date <span style="color:var(--color-primary);">*</span></label>
+            {% assign tomorrow = 'now' | date: '%s' | plus: 86400 | date: '%Y-%m-%d' %}
             <input
               type="date"
               id="ff_date"
               name="contact[preferred_date]"
               required
+              min="{{ tomorrow }}"
               style="color-scheme:dark;"
             >
           </div>

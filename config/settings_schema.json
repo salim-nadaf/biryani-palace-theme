@@ -32,6 +32,12 @@
         "id": "favicon",
         "label": "Favicon Image",
         "info": "Upload square icon image (PNG/ICO) for browser tab display"
+      },
+      {
+        "type": "image_picker",
+        "id": "og_image",
+        "label": "Social Sharing (OpenGraph) Image",
+        "info": "Upload custom social sharing card image (1200x630px recommended)"
       }
     ]
   },
@@ -205,6 +211,12 @@
         "id": "address_line",
         "label": "Restaurant Address",
         "default": "Kalyan, Maharashtra 421301"
+      },
+      {
+        "type": "text",
+        "id": "kitchen_hours",
+        "label": "Kitchen Operational Hours",
+        "default": "12:00 PM – 10:30 PM (Daily)"
       },
       {
         "type": "text",

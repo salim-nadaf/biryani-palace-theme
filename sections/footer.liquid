@@ -80,8 +80,8 @@
         <h4>{{ section.settings.contact_heading | default: 'Get in Touch' }}</h4>
         <ul class="footer__links">
           <li><a href="tel:{{ settings.contact_phone | remove: ' ' }}">📞 {{ settings.contact_phone | default: '+91 98765 43210' }}</a></li>
-          <li><span>📍 Kalyan West, Maharashtra</span></li>
-          <li><span>⏰ 12:00 PM – 10:30 PM (Daily)</span></li>
+          <li><span>📍 {{ settings.address_line | default: 'Kalyan West, Maharashtra' }}</span></li>
+          <li><span>⏰ {{ settings.kitchen_hours | default: '12:00 PM – 10:30 PM (Daily)' }}</span></li>
         </ul>
       </div>
       {% endif %}

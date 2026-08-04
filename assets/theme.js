@@ -675,15 +675,42 @@
   /* ─────────────────── 6. MOBILE MENU & STICKY HEADER ─────────────────── */
   function initMobileMenu() {
     const toggle = document.getElementById('MobileMenuToggle');
-    const nav = document.getElementById('HeaderNav');
+    const drawer = document.getElementById('MobileMenuDrawer');
+    const closeBtn = document.getElementById('MobileMenuClose');
+    const overlay = document.getElementById('MobileMenuOverlay');
     const header = document.getElementById('SiteHeader');
 
-    if (toggle && nav) {
-      toggle.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    const openDrawer = () => {
+      if (drawer) {
+        drawer.classList.add('open');
+        drawer.setAttribute('aria-hidden', 'false');
+        toggle?.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    const closeDrawer = () => {
+      if (drawer) {
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        toggle?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    };
+
+    if (toggle && drawer) {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (drawer.classList.contains('open')) {
+          closeDrawer();
+        } else {
+          openDrawer();
+        }
       });
     }
+
+    closeBtn?.addEventListener('click', closeDrawer);
+    overlay?.addEventListener('click', closeDrawer);
 
     if (header) {
       window.addEventListener('scroll', () => {
