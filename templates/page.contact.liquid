@@ -1,0 +1,57 @@
+{% comment %}
+  Contact Page Template
+{% endcomment %}
+
+<section class="page-form-section" id="ContactPageTemplate" aria-label="Contact Us">
+  <div class="container">
+    <div class="page-form-inner animate-on-scroll">
+      
+      <span class="section-label">Get in Touch</span>
+      <h1 style="margin-bottom: 12px;">Contact Us</h1>
+      <p class="form-subtext">Have a question about your order, delivery area, or family catering? Send us a message below.</p>
+      
+      <div style="width:48px;height:2px;background:var(--color-primary);margin-bottom:32px;"></div>
+
+      <form action="/contact" method="post" id="ContactForm" novalidate>
+        <input type="hidden" name="form_type" value="contact">
+        <input type="hidden" name="utf8" value="✓">
+
+        <div class="form-field">
+          <label for="ContactFormName">Full Name <span style="color:var(--color-primary);">*</span></label>
+          <input type="text" id="ContactFormName" name="contact[name]" placeholder="Your name" required autocomplete="name">
+        </div>
+
+        <div class="form-field">
+          <label for="ContactFormPhone">Phone Number <span style="color:var(--color-primary);">*</span></label>
+          <input type="tel" id="ContactFormPhone" name="contact[phone]" placeholder="+91 98765 43210" required autocomplete="tel">
+        </div>
+
+        <div class="form-field">
+          <label for="ContactFormEmail">Email Address <span style="color:var(--color-text-secondary);font-weight:400;text-transform:none;">(Optional)</span></label>
+          <input type="email" id="ContactFormEmail" name="contact[email]" placeholder="you@example.com" autocomplete="email">
+        </div>
+
+        <div class="form-field">
+          <label for="ContactFormMessage">Message <span style="color:var(--color-primary);">*</span></label>
+          <textarea id="ContactFormMessage" name="contact[body]" placeholder="How can we help you?" required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit-btn" id="ContactFormSubmit">
+          Send Message →
+        </button>
+      </form>
+
+      {% if settings.phone_number != blank or settings.address_line != blank %}
+        <div style="margin-top:40px;padding-top:24px;border-top:1px solid var(--color-border);text-align:center;">
+          {% if settings.address_line != blank %}
+            <p style="font-size:0.875rem;color:var(--color-text-secondary);margin-bottom:8px;font-family:'Montserrat',sans-serif;">📍 {{ settings.address_line }}</p>
+          {% endif %}
+          {% if settings.phone_number != blank %}
+            <p style="font-size:0.875rem;font-family:'Montserrat',sans-serif;">📞 <a href="tel:{{ settings.phone_number | remove: ' ' }}" style="color:var(--color-primary);">{{ settings.phone_number }}</a></p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
