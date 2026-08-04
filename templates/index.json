@@ -19,7 +19,13 @@
         "primary_cta_text": "Order Now",
         "primary_cta_url": "shopify://collections/instant-delivery",
         "secondary_cta_text": "Family Orders",
-        "secondary_cta_url": "shopify://pages/family-feast"
+        "secondary_cta_url": "shopify://pages/family-feast",
+        "badge1_title": "30–60 Min",
+        "badge1_sub": "Delivery Time",
+        "badge2_title": "100% Halal",
+        "badge2_sub": "Fresh Ingredients",
+        "badge3_title": "Kalyan & Nearby",
+        "badge3_sub": "Delivery Range"
       }
     },
     "todays-kitchen": {
@@ -37,7 +43,10 @@
       "settings": {
         "label": "Family & Group Orders",
         "heading": "Feed the Whole Family",
-        "subheading": "Generous portions cooked fresh for family gatherings, office lunches, and special occasions."
+        "subheading": "Generous portions cooked fresh for family gatherings, office lunches, and special occasions.",
+        "notice_text": "Advance Notice Required — Every family meal is slow-cooked on dum specifically for your order.",
+        "main_cta_text": "Reserve Your Family Feast",
+        "main_cta_url": ""
       }
     },
     "why-choose-us": {
@@ -45,7 +54,9 @@
       "settings": {
         "label": "Our Promise",
         "heading": "Why Families Choose Biryani Palace",
-        "subheading": "No shortcuts, no artificial flavors. Just authentic dum biryani cooked fresh for every order."
+        "subheading": "No shortcuts, no artificial flavors. Just authentic dum biryani cooked fresh for every order.",
+        "show_payment_strip": true,
+        "payment_label": "100% Secure Payments:"
       }
     },
     "1785797754b942a403": {
@@ -62,7 +73,7 @@
             "reviews_selection": "all",
             "products": [],
             "filter_pinned": false,
-            "filter_featured": false,
+            "filter_featured": true,
             "filter_custom_tags": "",
             "star_rating": "all",
             "show_review_media": true,
@@ -72,20 +83,20 @@
             "review_length": "medium",
             "text_size": "medium",
             "image_ratio": "1",
-            "reviews_shown": 4,
+            "reviews_shown": 5,
             "show_reviewer_name": true,
             "show_product_name": true,
             "hide_arrows_mobile": true,
             "arrows_position": "sides",
             "max_width": 1100,
-            "corner_styling": "soft",
-            "header_text_color": "#000000",
+            "corner_styling": "extra_round",
+            "header_text_color": "#C89116",
             "text_color": "#000000",
             "card_color": "#f9f9f9",
-            "stars_color": "",
+            "stars_color": "#C89116",
             "arrows_color": "#000000",
             "transition_speed": 5,
-            "header_text": "Customers are saying",
+            "header_text": "Google Reviews",
             "show_average_rating": true,
             "rating_display": "default"
           }
