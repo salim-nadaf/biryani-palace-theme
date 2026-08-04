@@ -27,15 +27,32 @@
         {% endif %}
       </a>
 
-      <!-- Restaurant Navigation -->
+      <!-- Restaurant Dynamic Navigation (Driven from Shopify Content / Navigation) -->
+      {% assign menu_handle = section.settings.menu | default: 'main-menu' %}
+      {% assign nav_menu = linklists[menu_handle] %}
+
       <nav aria-label="Main Navigation">
         <ul class="header__nav" id="HeaderNav">
-          <li><a href="/" class="{% if template == 'index' %}active{% endif %}">Home</a></li>
-          <li><a href="/pages/menu" class="{% if request.path contains '/menu' %}active{% endif %}">Menu</a></li>
-          <li><a href="/collections/instant-delivery" class="nav-cta {% if request.path contains 'instant-delivery' %}active{% endif %}">Instant Delivery</a></li>
-          <li><a href="/pages/family-feast" class="nav-cta {% if request.path contains 'family-feast' %}active{% endif %}">Family Orders</a></li>
-          <li><a href="/pages/our-story" class="{% if request.path contains 'our-story' or request.path contains 'about' %}active{% endif %}">About</a></li>
-          <li><a href="/pages/contact" class="{% if request.path contains '/contact' %}active{% endif %}">Contact</a></li>
+          {% if nav_menu.links.size > 0 %}
+            {% for link in nav_menu.links %}
+              {% assign link_title_lc = link.title | downcase %}
+              <li>
+                <a
+                  href="{{ link.url }}"
+                  class="{% if link.active %}active{% endif %} {% if link_title_lc contains 'instant' or link_title_lc contains 'family' %}nav-cta{% endif %}"
+                >
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          {% else %}
+            <li><a href="/" class="{% if template == 'index' %}active{% endif %}">Home</a></li>
+            <li><a href="/pages/menu">Menu</a></li>
+            <li><a href="/collections/instant-delivery" class="nav-cta">Instant Delivery</a></li>
+            <li><a href="/pages/family-feast" class="nav-cta">Family Orders</a></li>
+            <li><a href="/pages/our-story">Our Story</a></li>
+            <li><a href="/pages/contact">Contact</a></li>
+          {% endif %}
         </ul>
       </nav>
 
@@ -115,6 +132,13 @@
 {% schema %}
 {
   "name": "Header",
-  "settings": []
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    }
+  ]
 }
 {% endschema %}
