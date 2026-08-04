@@ -98,6 +98,10 @@
         }
       });
 
+      // Mobile Triggers
+      document.getElementById('MobileCartBarTrigger')?.addEventListener('click', () => this.open());
+      document.getElementById('AppBottomCartBtn')?.addEventListener('click', () => this.open());
+
       // Special notes save
       document.getElementById('CartSpecialNotes')?.addEventListener('change', function () {
         fetch('/cart/update.js', {
@@ -113,6 +117,7 @@
       this.showCartItems();
       this.drawer.classList.add('open');
       this.overlay?.classList.add('open');
+      document.body.classList.add('cart-open');
       document.body.style.overflow = 'hidden';
       this.drawer.setAttribute('aria-hidden', 'false');
     },
@@ -121,6 +126,7 @@
       if (!this.drawer) return;
       this.drawer.classList.remove('open');
       this.overlay?.classList.remove('open');
+      document.body.classList.remove('cart-open');
       document.body.style.overflow = '';
       this.drawer.setAttribute('aria-hidden', 'true');
     },
@@ -315,6 +321,19 @@
 
       const quickSubtotalDisplay = document.getElementById('QuickFormSubtotalDisplay');
       if (quickSubtotalDisplay) quickSubtotalDisplay.textContent = formatMoney(cart.total_price);
+
+      // Mobile Floating Bar & App Nav Badges
+      const mobileFloatingBar = document.getElementById('MobileFloatingCartBar');
+      const mobileCartCountPill = document.getElementById('MobileCartCountPill');
+      const mobileCartTotalPill = document.getElementById('MobileCartTotalPill');
+      const appNavCartBadge = document.getElementById('AppNavCartBadge');
+
+      if (mobileFloatingBar) {
+        mobileFloatingBar.classList.toggle('active', cart.item_count > 0);
+      }
+      if (mobileCartCountPill) mobileCartCountPill.textContent = `${cart.item_count} ITEMS`;
+      if (mobileCartTotalPill) mobileCartTotalPill.textContent = formatMoney(cart.total_price);
+      if (appNavCartBadge) appNavCartBadge.textContent = cart.item_count;
 
       // Free delivery progress bar (Zone 1: ₹799, Zone 2: ₹1,299)
       const freeZone1Cents = 79900;

@@ -1,50 +1,48 @@
 <!doctype html>
-<html lang="en">
+<html class="no-js" lang="{{ request.locale.iso_code }}">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="theme-color" content="{{ settings.color_background }}">
+  <meta name="theme-color" content="{{ settings.color_background | default: '#0E0E0E' }}">
 
-  <title>
-    {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}
-    {% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}
-    {% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
-  </title>
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  {% if page_description %}
-    <meta name="description" content="{{ page_description | escape }}">
-  {% endif %}
+  <!-- Premium Typography Fonts: Outfit & Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Favicon -->
   {% if settings.favicon != blank %}
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
   {% endif %}
 
-  <!-- SEO: Canonical & OG -->
-  <link rel="canonical" href="{{ canonical_url }}">
+  <!-- Title & Meta Description -->
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% else %}
+    <meta name="description" content="Biryani Palace by Niamat — Authentic slow-cooked dum biryani prepared fresh and delivered across Kalyan West, Kalyan East, Dombivli, and Ulhasnagar. Order instant delivery or pre-order family feasts.">
+  {% endif %}
+
+  <!-- OpenGraph / Social Meta Tags -->
   <meta property="og:site_name" content="{{ shop.name }}">
   <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:title" content="{{ page_title | escape }}">
-  <meta property="og:type" content="{% if template == 'product' %}product{% else %}website{% endif %}">
-  {% if page_image %}
-    <meta property="og:image" content="{{ page_image | image_url: width: 1200 }}">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="{{ page_image | image_url: width: 1200 }}">
-  {% endif %}
-  {% if page_description %}
-    <meta property="og:description" content="{{ page_description | escape }}">
-  {% endif %}
+  <meta property="og:type" content="restaurant">
+  <meta property="og:description" content="{{ page_description | default: shop.description | escape }}">
 
-  <!-- Preconnect for performance -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Alata&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Shopify required tags -->
   {{ content_for_header }}
 
-  <!-- Theme stylesheet -->
+  <!-- Theme Core CSS -->
   {{ 'theme.css' | asset_url | stylesheet_tag }}
 
   <!-- Inline CSS custom properties from Shopify settings -->
@@ -55,17 +53,13 @@
     --color-surface-elevated: {{ settings.color_surface_elevated }};
     --color-primary: {{ settings.color_primary }};
     --color-primary-dark: {{ settings.color_primary_dark }};
-    --color-accent: {{ settings.color_accent }};
     --color-text-primary: {{ settings.color_text_primary }};
     --color-text-secondary: {{ settings.color_text_secondary }};
     --color-border: {{ settings.color_border }};
     --color-veg: {{ settings.color_veg }};
     --color-nonveg: {{ settings.color_nonveg }};
-    --font-size-base: {{ settings.font_size_base }}px;
-    --logo-width: {{ settings.logo_width }}px;
   }
 </style>
-
 
   <!-- Restaurant + Local Business Schema -->
   <script type="application/ld+json">
@@ -88,113 +82,46 @@
       "addressRegion": "Maharashtra",
       "postalCode": "421301",
       "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "19.2403",
-      "longitude": "73.1305"
-    },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-        "opens": "{{ settings.kitchen_opens | default: '12:00' }}",
-        "closes": "{{ settings.kitchen_closes | default: '22:30' }}"
-      }
-    ],
-    "sameAs": [
-      {{ settings.social_instagram | json }},
-      {{ settings.social_facebook | json }}
-    ]
+    }
   }
   </script>
 
-  {% if template == 'index' %}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Where do you deliver?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": {{ settings.delivery_areas | default: 'Kalyan West, Kalyan East, Dombivli, Ambernath' | json }}
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How long does delivery take?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Instant delivery orders are typically ready in 30–60 minutes. Family pre-orders require a minimum 3 hours advance notice."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is your biryani Halal?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, all our products are 100% Halal certified."
-        }
-      }
-    ]
-  }
-  </script>
-  {% endif %}
-
-  <!-- Meta Pixel (Facebook/Instagram Ads) -->
+  <!-- Meta Pixel Code -->
   {% if settings.facebook_pixel_id != blank %}
   <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '{{ settings.facebook_pixel_id }}');
     fbq('track', 'PageView');
-    {% if template == 'product' %}
-    fbq('track', 'ViewContent', {
-      content_name: {{ product.title | json }},
-      content_ids: [{{ product.id | json }}],
-      content_type: 'product',
-      value: {{ product.price | times: 0.01 }},
-      currency: 'INR'
-    });
-    {% endif %}
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ settings.facebook_pixel_id }}&ev=PageView&noscript=1"/></noscript>
   {% endif %}
 
-  <!-- Google Analytics 4 -->
+  <!-- GA4 Measurement Code -->
   {% if settings.ga4_measurement_id != blank %}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.ga4_measurement_id }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '{{ settings.ga4_measurement_id }}', {
-      page_title: {{ page_title | json }},
-      page_location: window.location.href
-    });
-    {% if template == 'product' %}
-    gtag('event', 'view_item', {
-      currency: 'INR',
-      value: {{ product.price | times: 0.01 }},
-      items: [{ item_id: {{ product.id | json }}, item_name: {{ product.title | json }}, price: {{ product.price | times: 0.01 }} }]
-    });
-    {% endif %}
+    gtag('config', '{{ settings.ga4_measurement_id }}');
   </script>
   {% endif %}
 </head>
 
-<body class="{% if settings.header_sticky %}has-sticky-header{% endif %}" id="MainBody">
+<body class="template-{{ template.name | handle }} {% if settings.header_sticky %}has-sticky-header{% endif %}">
 
-  <!-- Skip to content link for accessibility -->
-  <a class="skip-to-content" href="#MainContent">Skip to content</a>
+  <a class="skip-to-content-link btn btn-primary visually-hidden" href="#MainContent">
+    Skip to content
+  </a>
 
-  <!-- Cart drawer overlay -->
+  <!-- Dark Backdrop Overlay for Cart & Modals -->
   <div class="cart-overlay" id="CartOverlay" aria-hidden="true"></div>
 
   <!-- Cart drawer -->
@@ -211,26 +138,61 @@
   <!-- Footer -->
   {% section 'footer' %}
 
+  <!-- Floating WhatsApp Button -->
+  {% if settings.enable_whatsapp_order %}
+    <a
+      href="https://wa.me/{{ settings.whatsapp_number }}?text={{ settings.whatsapp_order_msg | url_encode }}"
+      class="whatsapp-fab"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Order on WhatsApp"
+      id="WhatsAppFabBtn"
+    >
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+      <span>Support</span>
+    </a>
+  {% endif %}
 
-  <!-- Mobile Sticky Order Bar (shows only on mobile) -->
-  <div class="sticky-order-bar" id="StickyOrderBar" aria-label="Quick order options">
-    <a
-      href="{{ settings.instant_delivery_url | default: '/pages/start-your-order' }}"
-      class="sticky-order-bar__btn sticky-order-bar__instant"
-      id="StickyInstantBtn"
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      Order Now
-    </a>
-    <a
-      href="{{ settings.family_orders_url | default: '/pages/family-feast' }}"
-      class="sticky-order-bar__btn sticky-order-bar__family"
-      id="StickyFamilyBtn"
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Family Orders
-    </a>
+  <!-- Mobile App Floating Cart Bar (App-like Zomato/Behrouz Cart Bar) -->
+  <div class="mobile-floating-cart-bar {% if cart.item_count > 0 %}active{% endif %}" id="MobileFloatingCartBar">
+    <div class="m-cart-info">
+      <span class="m-cart-count" id="MobileCartCountPill">{{ cart.item_count }} ITEMS</span>
+      <span class="m-cart-total" id="MobileCartTotalPill">₹{{ cart.total_price | money_without_currency | remove: '.00' }}</span>
+    </div>
+    <button class="m-cart-btn" id="MobileCartBarTrigger">
+      <span>View Order</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
   </div>
+
+  <!-- Mobile App Bottom Navigation Bar -->
+  <nav class="app-bottom-nav" aria-label="Mobile Navigation">
+    <a href="/" class="app-nav-item {% if template == 'index' %}active{% endif %}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="/pages/menu" class="app-nav-item {% if page.handle == 'menu' %}active{% endif %}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>Menu</span>
+    </a>
+    <a href="/collections/instant-delivery" class="app-nav-item highlight {% if collection.handle == 'instant-delivery' %}active{% endif %}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span>Instant</span>
+    </a>
+    <a href="/pages/family-feast" class="app-nav-item {% if page.handle == 'family-feast' %}active{% endif %}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>Family</span>
+    </a>
+    <button type="button" class="app-nav-item" id="AppBottomCartBtn">
+      <div style="position:relative;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="app-nav-badge" id="AppNavCartBadge">{{ cart.item_count }}</span>
+      </div>
+      <span>Cart</span>
+    </button>
+  </nav>
 
   <!-- Smart Add-on Modal -->
   <div class="addon-modal" id="AddonModal" role="dialog" aria-modal="true" aria-label="Complete your meal" aria-hidden="true">

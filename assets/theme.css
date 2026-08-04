@@ -497,16 +497,69 @@ p { color: var(--color-text-secondary); line-height: 1.75; font-size: 0.9375rem;
 .delivery-info-card__value { font-size: 0.9375rem; color: var(--color-text-primary); font-weight: 600; line-height: 1.6; }
 .delivery-info-card__sub { font-size: 0.75rem; color: var(--color-text-secondary); margin-top: 6px; }
 
-/* ─────────────────── 17. CART DRAWER ─────────────────── */
-.cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 300; opacity: 0; visibility: hidden; transition: all 0.3s; }
+/* ─────────────────── 17. CART DRAWER & APP OVERLAY ─────────────────── */
+.cart-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+  z-index: 9990; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+}
 .cart-overlay.open { opacity: 1; visibility: visible; }
+
 .cart-drawer {
-  position: fixed; top: 0; right: 0; width: 100%; max-width: 420px; height: 100dvh;
-  background: var(--color-surface); border-left: 1px solid var(--color-border); z-index: 400;
-  display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
-  box-shadow: -16px 0 60px rgba(0,0,0,0.8);
+  position: fixed; top: 0; right: 0; width: 100%; max-width: 440px; height: 100dvh;
+  background: var(--color-surface); border-left: 1px solid var(--color-border);
+  z-index: 9999; display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -20px 0 60px rgba(0,0,0,0.95);
 }
 .cart-drawer.open { transform: translateX(0); }
+
+/* Hide mobile bottom bars when cart drawer is open */
+body.cart-open .app-bottom-nav,
+body.cart-open .mobile-floating-cart-bar,
+body.cart-open .whatsapp-fab,
+body.cart-open .sticky-order-bar {
+  display: none !important;
+}
+
+/* ─────────────────── FOOD APP MOBILE BOTTOM NAVIGATION ─────────────────── */
+.app-bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 900;
+  background: rgba(14,14,14,0.96); backdrop-filter: blur(20px);
+  border-top: 1px solid var(--color-border); display: none;
+  align-items: center; justify-content: space-around; padding: 6px 0; height: 60px;
+}
+@media (max-width: 768px) { .app-bottom-nav { display: flex; } }
+
+.app-nav-item {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; color: var(--color-text-secondary); text-decoration: none; font-size: 0.6875rem;
+  font-weight: 600; font-family: var(--font-body); background: none; border: none; cursor: pointer; flex: 1;
+}
+.app-nav-item svg { width: 20px; height: 20px; color: currentColor; }
+.app-nav-item.active { color: var(--color-primary); font-weight: 700; }
+.app-nav-item.highlight svg { color: var(--color-primary); }
+.app-nav-badge {
+  position: absolute; top: -6px; right: -8px; background: var(--color-primary);
+  color: #0E0E0E; font-size: 0.625rem; font-weight: 800; padding: 1px 5px; border-radius: 10px; min-width: 16px; text-align: center;
+}
+
+/* ─────────────────── FOOD APP FLOATING CART BAR ─────────────────── */
+.mobile-floating-cart-bar {
+  position: fixed; bottom: 68px; left: 16px; right: 16px; z-index: 890;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: #0E0E0E; padding: 10px 16px; display: none; align-items: center; justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(229,169,60,0.4); transition: all 0.3s ease;
+}
+@media (max-width: 768px) {
+  .mobile-floating-cart-bar.active { display: flex; }
+}
+.m-cart-info { display: flex; flex-direction: column; gap: 2px; }
+.m-cart-count { font-size: 0.6875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85; }
+.m-cart-total { font-size: 1.125rem; font-weight: 900; font-family: var(--font-heading); }
+.m-cart-btn {
+  display: flex; align-items: center; gap: 6px; background: #0E0E0E; color: var(--color-primary);
+  border: none; padding: 8px 14px; font-size: 0.8125rem; font-weight: 800; cursor: pointer;
+}
 .cart-drawer__header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--color-border); }
 .cart-drawer__title { font-size: 1.125rem; font-family: var(--font-heading); }
 .cart-drawer__close {
