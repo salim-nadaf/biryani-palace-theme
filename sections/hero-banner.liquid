@@ -14,7 +14,7 @@
   <!-- Background Image / Video -->
   <div class="hero__bg">
     {% if section.settings.bg_video_url != blank %}
-      <video autoplay loop muted playsinline poster="{{ section.settings.hero_image | image_url: width: 1920 }}">
+      <video autoplay loop muted playsinline{% if section.settings.hero_image %} poster="{{ section.settings.hero_image | image_url: width: 1920 }}"{% endif %}>
         <source src="{{ section.settings.bg_video_url }}" type="video/mp4">
       </video>
     {% elsif section.settings.hero_image %}
