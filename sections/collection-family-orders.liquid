@@ -1,3 +1,4 @@
+{% paginate collection.products by 24 %}
 <section id="FamilyOrdersCollection" aria-label="Family Orders Menu">
   <div class="container">
     <div class="collection-header animate-on-scroll">
@@ -112,6 +113,7 @@
     {% endif %}
   </div>
 </section>
+{% endpaginate %}
 
 {% schema %}
 {
