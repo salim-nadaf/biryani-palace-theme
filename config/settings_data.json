@@ -24,6 +24,7 @@
       "header": {
         "type": "header",
         "settings": {
+          "logo_max_height": 80,
           "logo_width": 100,
           "menu": "main-menu",
           "show_area_checker": true,
@@ -38,7 +39,7 @@
         "settings": {
           "show_contact": false,
           "contact_heading": "Get in Touch",
-          "show_powered_by": true
+          "show_powered_by": false
         }
       }
     },
