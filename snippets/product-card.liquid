@@ -1,6 +1,5 @@
 {% comment %}
-  Product Card Snippet — Restaurant Style
-  Distinguishes Instant Delivery ("Order Now") vs Family Feast Pre-orders ("Pre-order" -> /pages/family-feast).
+  Product Card Snippet — Zomato / Swiggy Style Horizontal Food App Card
 {% endcomment %}
 
 {%- assign veg_meta = product.metafields.custom.is_veg -%}
@@ -31,51 +30,34 @@
 
 <div class="product-card animate-on-scroll" id="product-card-{{ product.id }}">
 
-  <!-- Image & Badges -->
-  <div class="product-card__image-wrap">
-    {% if product.featured_image %}
-      <img
-        src="{{ product.featured_image | image_url: width: 600 }}"
-        srcset="{{ product.featured_image | image_url: width: 360 }} 360w, {{ product.featured_image | image_url: width: 600 }} 600w"
-        sizes="(max-width: 768px) 100vw, 380px"
-        alt="{{ product.featured_image.alt | default: product.title | escape }}"
-        width="600"
-        height="450"
-        loading="lazy"
-      >
-    {% else %}
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--color-surface-elevated);">🍚</div>
-    {% endif %}
-
-    {% if tag_label != blank %}
-      <div class="product-card__badges">
-        <span class="product-card__tag {% if tag_label == 'New' %}new{% endif %}">{{ tag_label }}</span>
-      </div>
-    {% elsif is_preorder %}
-      <div class="product-card__badges">
-        <span class="product-card__tag">Family Pack</span>
-      </div>
-    {% endif %}
-
-    <span
-      class="product-card__veg-indicator {% if is_veg %}veg{% else %}non-veg{% endif %}"
-      aria-label="{% if is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"
-      title="{% if is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"
-    ></span>
-  </div>
-
-  <!-- Body -->
+  <!-- Left Side: Product Body -->
   <div class="product-card__body">
 
+    <!-- Top Indicator & Badges -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+      <span
+        class="product-card__veg-indicator {% if is_veg %}veg{% else %}non-veg{% endif %}"
+        aria-label="{% if is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"
+        title="{% if is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"
+      ></span>
+      {% if tag_label != blank %}
+        <span class="product-card__tag {% if tag_label == 'New' %}new{% endif %}">{{ tag_label }}</span>
+      {% elsif is_preorder %}
+        <span class="product-card__tag">Family Pack</span>
+      {% endif %}
+    </div>
+
+    <!-- Name -->
     <h3 class="product-card__name">
       <a href="{% if is_preorder %}/pages/family-feast{% else %}{{ product.url }}{% endif %}" style="color:inherit;text-decoration:none;">{{ product.title }}</a>
     </h3>
 
+    <!-- Description -->
     {% if product.description != blank %}
-      <p class="product-card__desc">{{ product.description | strip_html | truncate: 90 }}</p>
+      <p class="product-card__desc">{{ product.description | strip_html | truncate: 80 }}</p>
     {% endif %}
 
-    <!-- Serving Info & Prep Time Strip -->
+    <!-- Serving Info -->
     <div class="product-card__serving-prep">
       <div class="product-card__info-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
@@ -92,22 +74,11 @@
       </div>
       <div class="product-card__info-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        <span>{% if is_preorder %}Advance Booking{% else %}{{ settings.kitchen_prep_time | default: '30–60' }} min{% endif %}</span>
+        <span>{% if is_preorder %}Pre-order{% else %}{{ settings.kitchen_prep_time | default: '30–60' }} min{% endif %}</span>
       </div>
     </div>
 
-    <!-- Availability Status -->
-    <div style="margin-bottom:12px;">
-      {% if is_preorder %}
-        <span class="product-card__avail preorder">Pre-order Required</span>
-      {% elsif product.available %}
-        <span class="product-card__avail now">Available Now</span>
-      {% else %}
-        <span class="product-card__avail soldout">Sold Out Today</span>
-      {% endif %}
-    </div>
-
-    <!-- Footer: Price & Single Primary CTA -->
+    <!-- Price & CTA -->
     <div class="product-card__footer">
       <div class="product-card__price">
         <span class="currency">₹</span>{{ product.price | money_without_currency | remove: '.00' }}
@@ -117,28 +88,43 @@
       </div>
 
       {% if is_preorder %}
-        <a href="/pages/family-feast" class="reserve-btn" style="text-decoration:none;" id="CardPreorder-{{ product.id }}">
+        <a href="/pages/family-feast" class="card-cta-btn card-cta-btn--outline" style="text-decoration:none;" id="CardPreorder-{{ product.id }}">
           Pre-order →
         </a>
       {% elsif product.available %}
         {%- assign variant = product.first_available_variant -%}
         <button
-          class="add-to-cart-btn"
+          class="card-cta-btn card-cta-btn--add add-to-cart-btn"
           data-variant="{{ variant.id }}"
           data-product-id="{{ product.id }}"
           id="CardAdd-{{ product.id }}"
           aria-label="Order {{ product.title | escape }}"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          Order Now
+          ADD
         </button>
       {% else %}
-        <a href="/pages/family-feast" class="reserve-btn" style="text-decoration:none;" id="CardSoldout-{{ product.id }}">
+        <a href="/pages/family-feast" class="card-cta-btn card-cta-btn--outline" style="text-decoration:none;" id="CardSoldout-{{ product.id }}">
           Pre-order →
         </a>
       {% endif %}
     </div>
 
+  </div>
+
+  <!-- Right Side: 120x120px Image Wrap -->
+  <div class="product-card__image-wrap">
+    {% if product.featured_image %}
+      <img
+        src="{{ product.featured_image | image_url: width: 400 }}"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        width="120"
+        height="120"
+        loading="lazy"
+      >
+    {% else %}
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:var(--color-surface-elevated);">🍚</div>
+    {% endif %}
   </div>
 
 </div>
