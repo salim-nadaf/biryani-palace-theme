@@ -42,7 +42,7 @@
             "primary_cta_text": "Order Instant Delivery",
             "primary_cta_url": "shopify://collections/instant-delivery",
             "secondary_cta_text": "Pre-order Family Feast",
-            "secondary_cta_url": "shopify://pages/family-feast"
+            "secondary_cta_url": "shopify://pages/family-orders"
           }
         },
         "trust_badges_block": {
@@ -139,7 +139,7 @@
             "note": "Includes Free Raitas",
             "is_featured": false,
             "button_text": "Pre-order 1 KG",
-            "button_url": "shopify://pages/family-feast"
+            "button_url": "shopify://pages/family-orders"
           }
         },
         "card_2kg": {
@@ -152,7 +152,7 @@
             "note": "Includes Free Raita",
             "is_featured": true,
             "button_text": "Pre-order 2 KG",
-            "button_url": "shopify://pages/family-feast"
+            "button_url": "shopify://pages/family-orders"
           }
         }
       },
@@ -166,7 +166,7 @@
         "subheading": "Generous portions cooked fresh for family gatherings, office lunches, and special occasions.",
         "notice_text": "Advance Notice Required — Every family meal is slow-cooked on dum specifically for your order.",
         "main_cta_text": "Reserve Your Family Feast",
-        "main_cta_url": "shopify://pages/family-feast"
+        "main_cta_url": "shopify://pages/family-orders"
       }
     },
     "why-choose-us": {
